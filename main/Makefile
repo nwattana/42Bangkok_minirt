@@ -16,12 +16,14 @@ ifeq ("$(shell uname)","Linux")
 	MLX_FLAGS= -lXext -lX11 -lm
 	MLX_NAME=minilibx-linux
 	MLX_ZIP=$(MLX_NAME).tgz
+	MLX_TARGET=$(MLX_NAME)
 endif
 # mac
 ifeq ("$(shell uname)","Darwin")
-	MLX_FLAGS= -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS=-framework OpenGL -framework AppKit
 	MLX_NAME=minilibx-opengl
 	MLX_ZIP=$(MLX_NAME).tgz
+	MLX_TARGET=minilibx_opengl_20191021
 endif
 MLX_APATH=$(MLX_DIR)/libmlx.a
 
@@ -38,7 +40,7 @@ $(NAME): mlxx $(OBJS) $(MLX)
 mlxx:
 	-@rm -rf $(MLX_DIR) 2> /dev/null
 	-@cd ziped && tar -xpf $(MLX_ZIP) -C ../ 2> /dev/null
-	-@mv $(MLX_NAME) mlx 2> /dev/null
+	-@mv $(MLX_TARGET) mlx 2> /dev/null
 	-@make -C mlx > /dev/null 2> /dev/null
 
 clean:
