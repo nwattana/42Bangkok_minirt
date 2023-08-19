@@ -67,7 +67,7 @@ OBJS_B    = ${SRCS_B:.c=.o}
 $(NAME): ${OBJS}
 	ar rcs ${NAME} ${OBJS}
 
-bonus: ${OBJS_B}
+bonus: all ${OBJS_B}
 	ar rcs ${NAME} ${OBJS_B}
 
 norminette:
