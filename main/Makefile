@@ -7,6 +7,7 @@ ORBJ_DIR=objs
 # ----------- SOURCES ----------
 # TODO srcs = all .c in srcs folder
 SRCS=srcs/main.c
+SRCS2=srcs/test_main_test_mlx_lunch.c
 OBJS=$(SRCS:.c=.o)
 
 # ----------- MINILIBX ----------

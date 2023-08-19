@@ -1,6 +1,5 @@
-#ifndef MINIRT_STRUCTURE_H
-# define MINIRT_STRUCTURE_H
-
+#ifndef MINIRT_STRUCT_H
+# define MINIRT_STRUCT_H
 
 typedef struct s_vector
 {
