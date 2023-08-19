@@ -1,4 +1,4 @@
-#include "../mlx/mlx.h"
+#include "../inc/minirt.h"
 #include <wait.h>
 // include sleep
 #include <unistd.h>
