@@ -46,6 +46,8 @@ int	main(void)
 	void	*mlx_win;
 	t_data	img;
     t_vars  vars;
+	char str[100]="Hello world!";
+
 
     vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx , 1920, 1080, "Hello world!");

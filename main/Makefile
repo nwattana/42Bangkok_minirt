@@ -27,14 +27,17 @@ ifeq ("$(shell uname)","Darwin")
 endif
 MLX_APATH=$(MLX_DIR)/libmlx.a
 
+# ----------- Libft ----------
+LIBFT_ARC=./lib/libft.a
+
 # TODO move .o to obj folder
 %.o: %.c
 	gcc -c $< -o $@ $(MLX_FLAGS)
 
 all: $(NAME)
 
-$(NAME): mlxx $(OBJS) $(MLX) 
-	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS)
+$(NAME): mlxx libft $(OBJS) $(MLX) 
+	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
 # Build minilibx
 mlxx:
@@ -43,13 +46,19 @@ mlxx:
 	-@mv $(MLX_TARGET) mlx 2> /dev/null
 	-@make -C mlx > /dev/null 2> /dev/null
 
+libft:
+	@make -C lib bonus  > /dev/null
+
+
 clean:
-	rm -f $(OBJS)
+	-@rm -f $(OBJS) 
+	-@[ -d "mlx" ] && cd mlx && make clean > /dev/null && echo "Clean MLX OBJ" || echo "mlx not found"
 
 fclean: clean
-	rm -rf $(MLX_DIR)
-	rm -rf $(NAME)
+	-@rm -rf $(MLX_DIR) 
+	-@rm -rf $(NAME)  
+	-@make -C lib fclean  > /dev/null 2> /dev/null
 
 re: fclean all
 
-.PHONY: all clean fclean re mlxx
+.PHONY: all clean fclean re mlxx libft

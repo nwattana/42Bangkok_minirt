@@ -62,7 +62,7 @@ OBJS	= ${SRCS:.c=.o}
 OBJS_B    = ${SRCS_B:.c=.o}
 
 %.o: %.c
-	gcc ${FLAGS} -c $< -o $@
+	-@gcc ${FLAGS} -c $< -o $@
 	
 $(NAME): ${OBJS}
 	ar rcs ${NAME} ${OBJS}
@@ -76,10 +76,10 @@ norminette:
 all: ${NAME}
 
 clean:
-	rm -f ${OBJS} ${OBJS_B}
+	-@rm -f ${OBJS} ${OBJS_B}
 
 fclean: clean
-	rm -f ${NAME}
+	-@rm -f ${NAME}
 
 re: fclean all
 
