@@ -35,9 +35,21 @@ typedef struct    s_mlx_confix
 
 typedef struct s_input
 {
-    t_list *obj;
-    int    obj_count;
-}            t_input;
+	t_list			*obj;
+	int				obj_count;
+	char			*fileinput;
+	t_vector		*vector;
+	t_color			*color;
+	t_resolution	*res;
+	t_ambient		*a;
+	t_camera		*c;
+	t_light			*l;
+	t_sphere		*sp;
+	t_plane			*pl;
+	t_square		*sq;
+	t_cylinder		*cy;
+}	t_input;
+
 
 // VECTOR
 int vector_init(t_vector *a, double x, double y, double z);
