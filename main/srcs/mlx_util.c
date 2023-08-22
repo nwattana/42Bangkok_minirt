@@ -33,8 +33,6 @@ int    mlx_my_close(int key, t_mlx_confix *vars)
         mlx_destroy_image(vars->mlx, vars->img.img);
     if (vars->is_initwin)
         mlx_destroy_window(vars->mlx, vars->win);
-    if (vars->is_initmlx)
-        mlx_destroy_display(vars->mlx);
     return (0);
 }
 
