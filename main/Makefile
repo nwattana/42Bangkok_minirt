@@ -7,7 +7,10 @@ ORBJ_DIR=objs
 # ----------- SOURCES ----------
 # TODO srcs = all .c in srcs folder
 SRCS=main_C/main.c \
-	srcs/mlx_util.c 
+	main_C/read_input.c \
+	main_C/set_data.c \
+	main_C/error.c
+	srcs/mlx_util.c
 SRCS2=srcs/test_main_test_mlx_lunch.c
 OBJS=$(SRCS:.c=.o)
 
@@ -38,7 +41,7 @@ LIBFT_ARC=./lib/libft.a
 
 all: $(NAME)
 
-$(NAME): mlxx libft $(OBJS) $(MLX) 
+$(NAME): mlxx libft $(OBJS) $(MLX)
 	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
 # Build minilibx
@@ -53,12 +56,12 @@ libft:
 
 
 clean:
-	-@rm -f $(OBJS) 
+	-@rm -f $(OBJS)
 	-@[ -d "mlx" ] && cd mlx && make clean > /dev/null && echo "Clean MLX OBJ" || echo "mlx not found"
 
 fclean: clean
-	-@rm -rf $(MLX_DIR) 
-	-@rm -rf $(NAME)  
+	-@rm -rf $(MLX_DIR)
+	-@rm -rf $(NAME)
 	-@make -C lib fclean  > /dev/null 2> /dev/null
 
 re: fclean all

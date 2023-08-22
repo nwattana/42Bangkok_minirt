@@ -39,6 +39,6 @@ void    generate_line(char **line, t_gnl *buff);
 void    clear_buff(t_gnl **buff);
 void    free_buff(t_gnl *buff);
 int		get_newline(t_gnl *buff);
-size_t  ft_strlen(const char *s);
+size_t  gnl_strlen(const char *s);
 t_gnl  *get_last(t_gnl *buff);
 #endif

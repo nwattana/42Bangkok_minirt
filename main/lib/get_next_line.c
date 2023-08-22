@@ -104,7 +104,7 @@ void    clear_buff(t_gnl **buff)
         i++;
     if (last->content && last->content[i] == '\n')
         i++;
-    clear->content = malloc(sizeof(char) * ((ft_strlen(last->content) - i) + 1));
+    clear->content = malloc(sizeof(char) * ((gnl_strlen(last->content) - i) + 1));
     if (!(clear->content))
         return;
     j = 0;
