@@ -45,7 +45,7 @@ int	check_fextension(char *file)
 	if (len < 3)
 		return (0);
 	str = file + (len - 3);
-	if (!ft_strncmp(".rt", str, 3))
+	if (!ft_strncmp(".rt", str, 4))
 		return (0);
 	return (1);
 }

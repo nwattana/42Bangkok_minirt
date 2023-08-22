@@ -9,7 +9,7 @@ ORBJ_DIR=objs
 SRCS=main_C/main.c \
 	main_C/read_input.c \
 	main_C/set_data.c \
-	main_C/error.c
+	main_C/error.c \
 	srcs/mlx_util.c
 SRCS2=srcs/test_main_test_mlx_lunch.c
 OBJS=$(SRCS:.c=.o)

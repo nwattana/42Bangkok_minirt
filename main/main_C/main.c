@@ -39,8 +39,8 @@ int	main(int argc, char **argv)
     // mlx_my_init(&vars);
 
 
+    
     // mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
-    mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
     // mlx_my_loop(&vars);
 
 
