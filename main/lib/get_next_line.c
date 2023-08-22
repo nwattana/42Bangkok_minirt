@@ -16,7 +16,7 @@ char	*get_next_line(int fd)
     static t_gnl   *buff;
     char            *line;
 
-	if ((fd < 0 && fd > 999) || read(fd, '\0', 0) < 0 || BUFFER_SIZE <= 0)
+	if ((fd < 0 && fd > 999) || read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
     line = NULL;
     read_file(fd, &buff);

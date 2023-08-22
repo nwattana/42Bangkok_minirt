@@ -26,15 +26,18 @@ int main(void)
     printf("cylinder: %f %f %f %f %f %f %f %f %d %d %d\n", cylinder.origin.x, cylinder.origin.y, cylinder.origin.z, cylinder.orientation.x, cylinder.orientation.y, cylinder.orientation.z, cylinder.diameter, cylinder.height, cylinder.color.red, cylinder.color.green, cylinder.color.blue);    
 
 
-    
+    int fd;
+    char *temp;
+    fd = open("simple.rt", O_RDONLY);
+    temp = get_next_line(fd);
 
-    t_mlx_confix vars;
+    // t_mlx_confix vars;
 
-    mlx_my_init(&vars);
+    // mlx_my_init(&vars);
 
 
-    mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
-    mlx_my_loop(&vars);
+    // mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
+    // mlx_my_loop(&vars);
 
 
 
