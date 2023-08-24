@@ -64,4 +64,8 @@ void    mlx_my_init(t_mlx_confix *vars);
 int     mlx_my_close(int key, t_mlx_confix *vars);
 void    mlx_my_loop(t_mlx_confix *vars);
 
+
+void	error_file(char *msg);
+static void	*get_input(char **data, char *file);
+void	read_input(t_input *data, char *file);
 #endif

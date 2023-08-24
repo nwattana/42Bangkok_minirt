@@ -11,7 +11,7 @@ int	main(int argc, char **argv)
 {
     t_color a_bicolor = {255, 255, 255};
     t_ambient ambient = {0.2, 255, 255, 255};
-    t_camera camera = {{-50.0, 0, 20}, {0, 0, 1}, 70};
+    t_camera camera = {{0, 0, 0}, {0, 0, 1}, 90};
     t_light light = {{-40, 50, 0}, 0.6, 10, 0, 255};
     t_sphere sphere = {{0, 0, 20.6}, 12.6, 10, 0, 255};
     t_plane plane = {{0, 0, -10}, {0, 1.0, 0}, 0, 0, 255};
@@ -26,12 +26,12 @@ int	main(int argc, char **argv)
     printf("plane: %f %f %f %f %f %f %d %d %d\n", plane.origin.x, plane.origin.y, plane.origin.z, plane.orientation.x, plane.orientation.y, plane.orientation.z, plane.color.red, plane.color.green, plane.color.blue);
     printf("cylinder: %f %f %f %f %f %f %f %f %d %d %d\n", cylinder.origin.x, cylinder.origin.y, cylinder.origin.z, cylinder.orientation.x, cylinder.orientation.y, cylinder.orientation.z, cylinder.diameter, cylinder.height, cylinder.color.red, cylinder.color.green, cylinder.color.blue);
 
-    if (argc != 2)
-		error_file("Error\n");
-	if (argc == 2)
-	{
-		read_input(&data, argv[1]);
-	}
+    // if (argc != 2)
+	// 	error_file("Error\n");
+	// if (argc == 2)
+	// {
+	// 	read_input(&data, argv[1]);
+	// }
 
 
     // t_mlx_confix vars;
