@@ -13,17 +13,6 @@ void	mlx_my_putpixel(t_img *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-/// @brief init mlx window and image
-void    mlx_my_init(t_mlx_confix *vars)
-{
-    vars->mlx = mlx_init();
-    vars->is_initmlx = 1;
-    vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, PROGRAM_NAME);
-    vars->is_initwin = 1;
-    vars->img.img = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-    vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bpp, &vars->img.width, &vars->img.endian);
-    vars->is_init_img = 1;
-}
 
 /// @brief function handle close window
 int    mlx_my_close(int key, t_mlx_confix *vars)
@@ -33,7 +22,7 @@ int    mlx_my_close(int key, t_mlx_confix *vars)
         mlx_destroy_image(vars->mlx, vars->img.img);
     if (vars->is_initwin)
         mlx_destroy_window(vars->mlx, vars->win);
-    return (0);
+	exit(0);
 }
 
 /// @brief function handle loop
@@ -45,4 +34,23 @@ void mlx_my_loop(t_mlx_confix *vars)
     mlx_hook(vars->win, 17, 0, mlx_my_close, vars);
 
     mlx_loop(vars->mlx);
+}
+
+void ppixel(t_mlx_confix *vars, int x, int y, int color)
+{
+    t_monitor m;
+
+    m = vars->monitor;
+    // x < min
+    if (x < m.m_min_x || x > m.m_max_x || y < m.m_min_y || y > m.m_max_y)
+    {
+        printf("min x %d\n", m.m_min_x);
+        printf("max x %d\n", m.m_max_x);
+        printf("min y %d\n", m.m_min_y);
+        printf("max y %d\n", m.m_max_y);
+        printf("x = %d, y = %d\n", x, y);
+        terror("Error over monitor size put");
+        return ;
+    }
+    mlx_my_putpixel(&vars->img, x + m.m_x_o, m.m_y_o - y, color);
 }

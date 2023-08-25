@@ -11,8 +11,9 @@
 #include <string.h>
 #include <math.h>
 
+// 
 #define PROGRAM_NAME "miniRT"
-#define WINDOW_WIDTH 800
+#define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 600
 
 typedef struct	s_img {
@@ -23,11 +24,23 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
+/// @brief collection of monitor qol
+typedef struct s_monitor
+{
+	int		m_x_o;
+	int		m_y_o;
+	int		m_min_x;
+	int		m_max_x;
+	int		m_min_y;
+	int		m_max_y;
+}	t_monitor;
+
 typedef struct    s_mlx_confix
 {
     void	*mlx;
     void	*win;
     t_img	img;
+	t_monitor monitor;
     int     is_initmlx;
     int     is_init_img;
     int     is_initwin;
@@ -60,12 +73,18 @@ t_vector* vector_minus(t_vector *res, t_vector *a, t_vector *b);
 
 // MLX
 void    mlx_my_putpixel(t_img *data, int x, int y, int color);
-void    mlx_my_init(t_mlx_confix *vars);
 int     mlx_my_close(int key, t_mlx_confix *vars);
 void    mlx_my_loop(t_mlx_confix *vars);
+void	ppixel(t_mlx_confix *vars, int x, int y, int color);
 
+// Init
+void    init_monitor(t_monitor *monitor);
+void    init_my_mlx(t_mlx_confix *vars);
 
 void	error_file(char *msg);
 static void	*get_input(char **data, char *file);
 void	read_input(t_input *data, char *file);
+
+void terror(char *str);
+
 #endif

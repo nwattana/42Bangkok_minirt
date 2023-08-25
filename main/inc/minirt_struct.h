@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt_struct.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/24 21:01:36 by nwattana          #+#    #+#             */
+/*   Updated: 2023/08/24 23:11:30 by nwattana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_STRUCT_H
 # define MINIRT_STRUCT_H
 
@@ -35,8 +47,6 @@ typedef struct s_color
 }	t_color;
 
 /// @brief t_resolution is a struct that contains the resolution {width, height}.
-/// @param width is an int that contains the width.
-/// @param height is an int that contains the height.
 typedef struct s_resolution
 {
     int	width;
