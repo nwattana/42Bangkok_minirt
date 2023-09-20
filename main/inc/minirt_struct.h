@@ -14,9 +14,6 @@
 # define MINIRT_STRUCT_H
 
 /// @brief t_coordinates is a struct that contains the coordinates {x, y, z}.
-/// @param x is a double that contains the x coordinate.
-/// @param y is a double that contains the y coordinate.
-/// @param z is a double that contains the z coordinate.
 typedef struct s_coordinates
 {
     double	x;
@@ -131,5 +128,25 @@ typedef struct s_cylinder
     double	height;
     t_color	color;
 }	t_cylinder;
+
+/// @brief t_ray is a struct that contains the ray's origin and direction.
+typedef struct s_ray
+{
+    t_vector    origin;
+    t_vector    direction;
+
+}       t_ray;
+
+typedef struct s_monitor_coord
+{
+    double	x;
+    double	y;
+}	t_monitor_coord;
+
+typedef struct s_metric44
+{
+    double  c[16];
+    int     size;
+}           t_metric44;
 
 #endif
