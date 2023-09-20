@@ -13,7 +13,6 @@ SRCS=main_C/main.c \
 	srcs/mlx_util.c\
 	srcs/init_var.c\
 	srcs/vector_basic.c\
-	srcs/ray_util.c\
 	srcs/rgb_util.c
 
 SRCS2=srcs/test_main_test_mlx_lunch.c

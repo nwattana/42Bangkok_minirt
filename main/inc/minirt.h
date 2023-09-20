@@ -84,7 +84,6 @@ double  vector_len(t_vector *vector);
 t_vector *vector_normalize(t_vector *res, t_vector *from);
 
 // RAY
-void init_ray(t_ray *ray, t_vector *origin, t_vector *direction);
 void    coor_screen_to_cam(t_monitor_coord *cam, t_monitor *monitor, double x, double y, double fov);
 // MLX
 void    mlx_my_putpixel(t_img *data, int x, int y, int color);
