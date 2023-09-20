@@ -9,7 +9,7 @@ typedef struct s_vector {
 	float		x;
 	float		y;
 	float		z;
-	u_int8_t	is_init;
+	int			is_init;
 
 	float		(*pf_size)(t_vector *);
 	float		(*pf_squre)(t_vector *);

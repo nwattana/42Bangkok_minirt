@@ -1,9 +1,14 @@
-#include  "vector_obj.h"
+#include  "./vector_obj.h"
+#include <math.h>
 
 /// @brief return size of vector 
 float pf_size(t_vector *self)
 {
-	return sqrt(self->pf_squre(self));
+	double res;
+
+	res = (double)self->pf_squre(self);
+	res = (float)sqrt(res);
+	return (res);
 }
 
 /// @brief return size's squre of each axis

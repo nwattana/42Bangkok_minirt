@@ -1,9 +1,9 @@
 
-SRC = test_class_ptr.c main.c
+SRC = main.c test_class_ptr.c 
 
 
 all:
-	@cc $(SRC)
+	cc $(SRC)
 
 res: all
 	@./a.out
