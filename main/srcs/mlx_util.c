@@ -18,22 +18,32 @@ void	mlx_my_putpixel(t_img *data, int x, int y, int color)
 int    mlx_my_close(int key, t_mlx_confix *vars)
 {
     (void)key;
+    printf("from (fn) mlx_my_close\n");
     if (vars->is_init_img)
         mlx_destroy_image(vars->mlx, vars->img.img);
     if (vars->is_initwin)
         mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
+    exit(0);
+}
+
+int	key_hook(int keycode, t_prog *vars)
+{
+	printf("Hello from key_hook! %d\n", keycode);
+    if (keycode == 65307)
+        mlx_my_close(65307, &vars->mlx);
 }
 
 /// @brief function handle loop
-void mlx_my_loop(t_mlx_confix *vars)
+void mlx_my_loop(t_prog *prog)
 {
+    mlx_key_hook(prog->mlx.win, key_hook, prog);
     // TODO Bug When exist
-    mlx_hook(vars->win, 2, 0, mlx_my_close, vars);
+    mlx_hook(prog->mlx.win, 2, 0, mlx_my_close, &prog->mlx);
     // X red
-    mlx_hook(vars->win, 17, 0, mlx_my_close, vars);
-
-    mlx_loop(vars->mlx);
+    mlx_hook(prog->mlx.win, 17, 0, mlx_my_close, &prog->mlx);
+    //
+    mlx_loop(prog->mlx.mlx);
+    printf("Here");
 }
 
 void ppixel(t_mlx_confix *vars, int x, int y, int color)
@@ -42,7 +52,7 @@ void ppixel(t_mlx_confix *vars, int x, int y, int color)
 
     m = vars->monitor;
     // x < min
-    if (x < m.m_min_x || x > m.m_max_x || y < m.m_min_y || y > m.m_max_y)
+    if (x < m.m_min_x || x > m.m_max_x || y < m.m_min_y|| y > m.m_max_y)
     {
         printf("min x %d\n", m.m_min_x);
         printf("max x %d\n", m.m_max_x);
