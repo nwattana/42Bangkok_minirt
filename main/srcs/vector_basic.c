@@ -63,7 +63,7 @@ t_vector* vector_plus(t_vector *res, t_vector *a, t_vector *b)
     return (res);
 }
 
-/// @brief minus vector a and vector b and assign to vector res
+/// @brief minus vector a and vector b and assign to vector res (res = a - b)
 /// @param res result vector
 /// @param a 
 /// @param b 
@@ -75,6 +75,26 @@ t_vector *vector_minus(t_vector *res, t_vector *a, t_vector *b)
     res->x = a->x - b->x;
     res->y = a->y - b->y;
     res->z = a->z - b->z;
+
+    return (res);
+}
+
+double  vector_len(t_vector *vector)
+{
+    return (sqrt(vector->x * vector->x + vector->y * vector->y + vector->z * vector->z));
+}
+
+
+t_vector *vector_normalize(t_vector *res, t_vector *from)
+{
+    double length;
+
+    if (from == NULL)
+        return (res);
+    length = vector_len(from);
+    res->x = from->x / length;
+    res->y = from->y / length;
+    res->z = from->z / length;
 
     return (res);
 }

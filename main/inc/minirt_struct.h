@@ -1,10 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt_struct.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/24 21:01:36 by nwattana          #+#    #+#             */
+/*   Updated: 2023/08/24 23:11:30 by nwattana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_STRUCT_H
 # define MINIRT_STRUCT_H
 
 /// @brief t_coordinates is a struct that contains the coordinates {x, y, z}.
-/// @param x is a double that contains the x coordinate.
-/// @param y is a double that contains the y coordinate.
-/// @param z is a double that contains the z coordinate.
 typedef struct s_coordinates
 {
     double	x;
@@ -35,8 +44,6 @@ typedef struct s_color
 }	t_color;
 
 /// @brief t_resolution is a struct that contains the resolution {width, height}.
-/// @param width is an int that contains the width.
-/// @param height is an int that contains the height.
 typedef struct s_resolution
 {
     int	width;
@@ -121,5 +128,49 @@ typedef struct s_cylinder
     double	height;
     t_color	color;
 }	t_cylinder;
+
+/// @brief t_ray is a struct that contains the ray's origin and direction.
+typedef struct s_ray
+{
+    t_vector    origin;
+    t_vector    direction;
+
+}       t_ray;
+
+typedef struct s_monitor_coord
+{
+    double	x;
+    double	y;
+}	t_monitor_coord;
+
+typedef struct s_metric44
+{
+    double  c[16];
+    int     size;
+}           t_metric44;
+
+/// @brief 
+/// @param position position of camera
+/// @param look_at direction that the camera look
+/// @param up_vector direction of up vector
+/// @param cam_len len from camera to canvas usually 1
+/// @param horizontal width
+/// @param aspect_retio width : height หาจาก fov
+typedef struct s_cam
+{
+    // TODO set and edit all below value find the way
+    t_vector    position;
+    t_vector    look_at;
+    t_vector    up_vector;
+    double      cam_len;
+    double      set_horizontal;
+    double      aspect_retio;
+
+    t_vector    alignament_vector;
+    t_vector    proj_screen_u;
+    t_vector    proj_screen_v;
+    t_vector    proj_screen_centre;
+
+}   t_cam;
 
 #endif

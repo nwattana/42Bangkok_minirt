@@ -10,7 +10,11 @@ SRCS=main_C/main.c \
 	main_C/read_input.c \
 	main_C/set_data.c \
 	main_C/error.c \
-	srcs/mlx_util.c
+	srcs/mlx_util.c\
+	srcs/init_var.c\
+	srcs/vector_basic.c\
+	srcs/rgb_util.c
+
 SRCS2=srcs/test_main_test_mlx_lunch.c
 OBJS=$(SRCS:.c=.o)
 
@@ -33,15 +37,15 @@ endif
 MLX_APATH=$(MLX_DIR)/libmlx.a
 
 # ----------- Libft ----------
-LIBFT_ARC=./lib/libft.a
+LIBFT_ARC=./lib/libft.a -g
 
-# TODO move .o to obj folder
+# TODO move .o to obj folders
 %.o: %.c
-	gcc -c $< -o $@ $(MLX_FLAGS)
+	gcc -c $< -o $@ $(MLX_FLAGS) -g
 
 all: $(NAME)
 
-$(NAME): mlxx libft $(OBJS) $(MLX)
+$(NAME): libft $(OBJS) $(MLX)
 	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
 # Build minilibx
@@ -54,13 +58,10 @@ mlxx:
 libft:
 	@make -C lib bonus  > /dev/null
 
-
 clean:
 	-@rm -f $(OBJS)
-	-@[ -d "mlx" ] && cd mlx && make clean > /dev/null && echo "Clean MLX OBJ" || echo "mlx not found"
 
 fclean: clean
-	-@rm -rf $(MLX_DIR)
 	-@rm -rf $(NAME)
 	-@make -C lib fclean  > /dev/null 2> /dev/null
 
