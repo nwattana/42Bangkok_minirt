@@ -47,8 +47,7 @@ SRCS	= ft_isalpha.c \
 	  ft_striteri.c \
 	  ft_strmapi.c \
 	  get_next_line.c \
-	  get_next_line_utils_bonus.c \
-	  ft_strtod.c
+	  get_next_line_utils_bonus.c
 
 SRCS_B	= ft_lstnew.c \
 	  ft_lstadd_front.c \
@@ -65,7 +64,7 @@ OBJS	= ${SRCS:.c=.o}
 OBJS_B    = ${SRCS_B:.c=.o}
 
 %.o: %.c
-	-@gcc ${FLAGS} -c $< -o $@ -g
+	-@gcc ${FLAGS} -c $< -o $@
 	
 $(NAME): ${OBJS}
 	ar rcs ${NAME} ${OBJS}

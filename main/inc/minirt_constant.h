@@ -1,8 +1,0 @@
-#ifndef MINIRT_CONSTANT_H
-#define MINIRT_CONSTANT_H
-
-#define PROGRAM_NAME "miniRT"
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800
-
-#endif
