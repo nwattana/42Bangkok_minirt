@@ -149,4 +149,28 @@ typedef struct s_metric44
     int     size;
 }           t_metric44;
 
+/// @brief 
+/// @param position position of camera
+/// @param look_at direction that the camera look
+/// @param up_vector direction of up vector
+/// @param cam_len len from camera to canvas usually 1
+/// @param horizontal width
+/// @param aspect_retio width : height หาจาก fov
+typedef struct s_cam
+{
+    // TODO set and edit all below value find the way
+    t_vector    position;
+    t_vector    look_at;
+    t_vector    up_vector;
+    double      cam_len;
+    double      set_horizontal;
+    double      aspect_retio;
+
+    t_vector    alignament_vector;
+    t_vector    proj_screen_u;
+    t_vector    proj_screen_v;
+    t_vector    proj_screen_centre;
+
+}   t_cam;
+
 #endif

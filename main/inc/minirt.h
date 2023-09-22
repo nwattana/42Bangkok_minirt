@@ -6,6 +6,7 @@
 #include "../mlx/mlx.h"
 #include "./minirt_struct.h"
 #include "./minirt_constant.h"
+#include "input.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -98,7 +99,6 @@ void    init_my_mlx(t_mlx_confix *vars);
 void	error_file(char *msg);
 static void	*get_input(char **data, char *file);
 void	read_input(t_input *data, char *file);
-
 void terror(char *str);
 
 // DEBUG
