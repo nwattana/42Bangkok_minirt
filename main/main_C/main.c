@@ -24,28 +24,22 @@ void    init_prog(t_prog *prog)
 
 int	main(int argc, char **argv)
 {
-    t_color a_bicolor = {255, 255, 255};
-    t_ambient ambient = {0.2, 255, 255, 255};
     t_camera camera = {{0, 0, 0}, {0, 0, 1}, 90};
-    t_sphere sphere = {{0, 0, 10.6}, 12.6, 10, 0, 255};
-
     t_prog  prog;
     t_mlx_confix *vars;
 
     vars = &prog.mlx;
     init_prog(&prog);
     init_my_mlx(&prog.mlx);
-	// int i = -1;
 
     // scene 
     render_scene(&prog);
 
-    // debug_monitor_value(&vars->monitor);
+    debug_monitor_value(&vars->monitor);
 
     mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 
     // mlx loop hook set here when nothing to think
-
     mlx_my_loop(&prog);
     return (0);
 }
