@@ -1,71 +1,47 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include "../lib/libft.h"
-#include "../lib/get_next_line.h"
-#include "../mlx/mlx.h"
-#include "./minirt_struct.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
+#include "../lib/libft.h"
+#include "../lib/get_next_line.h"
+#include "../mlx/mlx.h"
+#include "vector.h"
+#include "mlx_config.h"
+#include "minirt_struct.h"
+#include "prog_state.h"
+#include "object.h"
+#include "camera.h"
+
 #define PROGRAM_NAME "miniRT"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
-typedef struct	s_img {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		width;
-	int		endian;
-}				t_img;
-
-typedef struct    s_mlx_confix
+typedef struct s_prog
 {
-    void	*mlx;
-    void	*win;
-    t_img	img;
-    int     is_initmlx;
-    int     is_init_img;
-    int     is_initwin;
-}				t_mlx_confix;
+	int		p_state;
+	int		p_error;
+	t_list	*obj;
 
-typedef struct s_input
-{
-	t_list			*obj;
-	int				obj_count;
-	char			*fileinput;
-	t_vector		*vector;
-	t_color			*color;
-	t_resolution	*res;
-	t_ambient		*a;
-	t_camera		*c;
-	t_light			*l;
-	t_sphere		*sp;
-	t_plane			*pl;
-	t_square		*sq;
-	t_cylinder		*cy;
-}	t_input;
+	int		has_camera;
+}	t_prog;
 
+// prog util
+int		validate_args(int argc, char **argv, t_prog *prog);
+int		prog_constructor(t_prog *prog);
+void	error_exit(char *msg, t_prog *prog);
+int		read_rt_file(char *filepath, t_prog *prog);
+int		check_line(char *line, t_prog *prog);
+int		check_line_type(char **splited_lint, t_prog *prog);
+int		read_2bytes(char *line);
 
-// VECTOR
-int vector_init(t_vector *a, double x, double y, double z);
-int vector_assign(t_vector *to, t_vector *from);
-int vector_add(t_vector *a, t_vector *b);
-t_vector* vector_plus(t_vector *res, t_vector *a, t_vector *b);
-t_vector* vector_minus(t_vector *res, t_vector *a, t_vector *b);
+int collect_camera(char **splited_lint, t_prog *prog);
 
-// MLX
-void    mlx_my_putpixel(t_img *data, int x, int y, int color);
-void    mlx_my_init(t_mlx_confix *vars);
-int     mlx_my_close(int key, t_mlx_confix *vars);
-void    mlx_my_loop(t_mlx_confix *vars);
-
-
-void	error_file(char *msg);
-static void	*get_input(char **data, char *file);
-void	read_input(t_input *data, char *file);
+// void	error_file(char *msg);
+// static void	*get_input(char **data, char *file);
+// void	read_input(t_input *data, char *file);
 #endif

@@ -1,5 +1,6 @@
 #include "libft.h"
 
+/// @return `1` on error, `0` on success
 int ft_free_split(char **split_obj)
 {
     int i;

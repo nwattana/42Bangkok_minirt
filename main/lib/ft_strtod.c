@@ -89,4 +89,3 @@ int  ft_strtod(char *str, double *destination)
 		*destination *= -1;
 	return (0);
 }
-// TODO NORMINETTE

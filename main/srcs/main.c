@@ -7,36 +7,34 @@ void debug_mlx_status(t_mlx_confix *vars)
 	printf("is_init_img: %d\n", vars->is_init_img);
 }
 
-void error_exit(char *msg)
-{
-	printf("%s", msg);
-	exit(1);
-}
 
-int validate_args(int argc, char **argv)
-{
-	int i;
-
-	i = 0;
-	if (argc < 2)
-		error_exit("Error\nNo arguments\n");
-	if (argc != 2)
-		error_exit("Error\nToo many arguments\n");
-	
-	return (0);
-}
 
 int	main(int argc, char **argv)
 {
-	// t_prog	program;
+	t_prog	prog;
 
-	// FUNC
-	validate_args(argc, argv);
-	double x;
+	prog_constructor(&prog);
+	printf("prog state: %d\n", prog.p_state);
+	
+	if (validate_args(argc, argv, &prog))
+	{
+		return (1);
+	}
+	// parsing input
+	read_rt_file(argv[1], &prog);
+	printf("prog state: %d\n", prog.p_state);
 
-	ft_strtod("123.456", &x);
-	printf("%f\n", x);
+	t_list *lst;
 
+	lst = prog.obj;
+	print_object_from_list(lst);
+
+
+	// init mlx vars
+    // t_mlx_confix vars;
+    // mlx_my_init(&vars);
+    // mlx_put_image_to_window(vars.mlx, vars.win, vars.img.img, 0, 0);
+    // mlx_my_loop(&vars);
 
 	return (0);
 }

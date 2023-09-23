@@ -6,7 +6,7 @@
 /// @param y vector a y
 /// @param z vector a z
 /// @return 0 if success, 1 if fail
-int vector_init(t_vector *a, double x, double y, double z)
+int vector_init(t_vec3d *a, double x, double y, double z)
 {
     if (a == NULL)
         return (1);
@@ -21,7 +21,7 @@ int vector_init(t_vector *a, double x, double y, double z)
 /// @param to 
 /// @param from
 /// @return 0 if success, 1 if fail
-int vector_assign(t_vector *to, t_vector *from)
+int vector_assign(t_vec3d *to, t_vec3d *from)
 {
     if (to == NULL || from == NULL)
         return (1);
@@ -36,7 +36,7 @@ int vector_assign(t_vector *to, t_vector *from)
 /// @param to 
 /// @param from 
 /// @return 0 if success, 1 if fail
-int vector_add(t_vector *a, t_vector *b)
+int vector_add(t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
         return (1);
@@ -52,7 +52,7 @@ int vector_add(t_vector *a, t_vector *b)
 /// @param a 
 /// @param b 
 /// @return memory address contain result vector
-t_vector* vector_plus(t_vector *res, t_vector *a, t_vector *b)
+t_vec3d* vector_plus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
         return (res);
@@ -68,7 +68,7 @@ t_vector* vector_plus(t_vector *res, t_vector *a, t_vector *b)
 /// @param a 
 /// @param b 
 /// @return memory address contain result vector
-t_vector *vector_minus(t_vector *res, t_vector *a, t_vector *b)
+t_vec3d *vector_minus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
         return (res);
