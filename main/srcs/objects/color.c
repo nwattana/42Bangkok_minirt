@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 /// @brief Only collect color from string please check if the string is valid
 int     collect_color(char *color_string, t_color *color)

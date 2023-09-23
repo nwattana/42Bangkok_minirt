@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 t_object *new_object(int type, void *object,\
     void (*print)(void *object))
