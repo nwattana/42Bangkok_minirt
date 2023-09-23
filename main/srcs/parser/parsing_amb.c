@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 int     collect_ambient(char **split_line, t_prog *prog)
 {

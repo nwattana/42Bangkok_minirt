@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 int collect_light(char **splited_line, t_prog *prog)
 {
