@@ -28,11 +28,14 @@ int validate_args(int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_prog	program;
+	// t_prog	program;
 
 	// FUNC
-	validate_args(argc, argv, prog);
+	validate_args(argc, argv);
+	double x;
 
+	ft_strtod("123.456", &x);
+	printf("%f\n", x);
 
 
 	return (0);

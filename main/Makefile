@@ -5,13 +5,7 @@ SRCS_DIR=srcs
 ORBJ_DIR=objs
 
 # ----------- SOURCES ----------
-# TODO srcs = all .c in srcs folder
-SRCS=main_C/main.c \
-	main_C/read_input.c \
-	main_C/set_data.c \
-	main_C/error.c \
-	srcs/mlx_util.c
-SRCS2=srcs/test_main_test_mlx_lunch.c
+SRCS=$(shell find ./$(SRCS_DIR) -name "*.c" -type f 2> /dev/null)
 OBJS=$(SRCS:.c=.o)
 
 # ----------- MINILIBX ----------
@@ -35,7 +29,6 @@ MLX_APATH=$(MLX_DIR)/libmlx.a
 # ----------- Libft ----------
 LIBFT_ARC=./lib/libft.a
 
-# TODO move .o to obj folder
 %.o: %.c
 	gcc -c $< -o $@ $(MLX_FLAGS)
 
@@ -63,6 +56,8 @@ libft:
 
 clean:
 	-@rm -f $(OBJS)
+	# FIXME re-link need fix
+	-@rm -rf $(ORBJ_DIR)/*
 	-@[ -d "mlx" ] && cd mlx && make clean > /dev/null && echo "Clean MLX OBJ" || echo "mlx not found"
 	make --no-print-directory -C lib clean  > /dev/null 2> /dev/null
 
