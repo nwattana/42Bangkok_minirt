@@ -10,6 +10,7 @@ int     collect_ambient(char **split_line, t_prog *prog)
         return (1);
     ft_strtod(split_line[1], &ambient->intensity);
     collect_color(split_line[2], &ambient->color);
+
     object = malloc(sizeof(t_object));
     if (object == NULL)
         return (1);

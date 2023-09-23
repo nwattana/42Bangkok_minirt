@@ -17,10 +17,8 @@ typedef struct s_object
     void    (*clean)(void *object);
 }	t_object;
 
-t_object    *new_object(int type, void *object, void (*print)(void *object));
 void    print_object_from_list(void *lst);
 void    clean_object_from_list(void *obj);
-
 void    print_object_iter(void *content);
 
 
