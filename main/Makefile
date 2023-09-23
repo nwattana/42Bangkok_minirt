@@ -41,15 +41,21 @@ LIBFT_ARC=./lib/libft.a
 
 all: $(NAME)
 
-$(NAME): mlxx libft $(OBJS) $(MLX)
+$(NAME): $(MLX_APATH) libft $(OBJS) $(MLX)
+	echo $(SRCS)
 	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
+	#FIXME re-link need fix
+	mv $(OBJS) $(ORBJ_DIR)
+
+$(MLX_APATH): mlxx
+	@echo $(MLX_APATH)
 
 # Build minilibx
 mlxx:
 	-@rm -rf $(MLX_DIR) 2> /dev/null
 	-@cd ziped && tar -xpf $(MLX_ZIP) -C ../ 2> /dev/null
 	-@mv $(MLX_TARGET) mlx 2> /dev/null
-	-@make -C mlx > /dev/null 2> /dev/null
+	@make -C mlx > /dev/null 2> /dev/null
 
 libft:
 	@make -C lib bonus  > /dev/null
@@ -58,11 +64,13 @@ libft:
 clean:
 	-@rm -f $(OBJS)
 	-@[ -d "mlx" ] && cd mlx && make clean > /dev/null && echo "Clean MLX OBJ" || echo "mlx not found"
+	make --no-print-directory -C lib clean  > /dev/null 2> /dev/null
+
 
 fclean: clean
 	-@rm -rf $(MLX_DIR)
 	-@rm -rf $(NAME)
-	-@make -C lib fclean  > /dev/null 2> /dev/null
+	make --no-print-directory -C lib fclean  > /dev/null 2> /dev/null
 
 re: fclean all
 
