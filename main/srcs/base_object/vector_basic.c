@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 /// @brief init value for vector a
 /// @param a address of memory contain vector a
