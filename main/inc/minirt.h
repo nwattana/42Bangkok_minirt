@@ -20,6 +20,7 @@
 #include "camera.h"
 #include "ambient.h"
 #include "light.h"
+#include "sphere.h"
 
 #define PROGRAM_NAME "miniRT"
 #define WINDOW_WIDTH 1280.0
@@ -51,6 +52,7 @@ int		count_char(char *str, int c);
 int		collect_camera(char **splited_lint, t_prog *prog);
 int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
+int     collect_sphere(char **splited_str, t_prog *prog);
 // STATE 10
 void	prog_init_mlx(t_prog *prog);
 

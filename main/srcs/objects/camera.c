@@ -10,7 +10,7 @@ void    print_camera(void *cam)
     printf("  camera position: %f, %f, %f\n", camera->position.x, camera->position.y, camera->position.z);
     printf("  camera normal:   %f, %f, %f\n", camera->normal.x, camera->normal.y, camera->normal.z);
     printf("  camera fov:      %f\n", camera->fov);
-    printf("  camera is_init:  %d\n", camera->is_init);\
+    printf("  camera is_init:  %d\n", camera->is_init);
     printf(H_LINE);
 }
 

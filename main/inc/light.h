@@ -1,6 +1,6 @@
 #ifndef LIGHT_H
 # define LIGHT_H
-#include "minirt.h"
+# include "minirt.h"
 
 typedef struct s_light
 {
