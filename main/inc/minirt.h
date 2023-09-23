@@ -15,7 +15,6 @@
 #include "vector.h"
 #include "color.h"
 #include "mlx_config.h"
-#include "minirt_struct.h"
 #include "prog_state.h"
 #include "object.h"
 #include "camera.h"
