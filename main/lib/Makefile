@@ -48,7 +48,8 @@ SRCS	= ft_isalpha.c \
 	  ft_strmapi.c \
 	  get_next_line.c \
 	  get_next_line_utils_bonus.c \
-	  ft_strtod.c
+	  ft_strtod.c \
+	  ft_freesplit.c \
 
 SRCS_B	= ft_lstnew.c \
 	  ft_lstadd_front.c \
