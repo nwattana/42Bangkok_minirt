@@ -27,16 +27,16 @@ endif
 MLX_APATH=$(MLX_DIR)/libmlx.a
 
 # ----------- Libft ----------
-LIBFT_ARC=./lib/libft.a
+LIBFT_DIR=zlib
+LIBFT_ARC=./$(LIBFT_DIR)/libft.a
 
 %.o: %.c
-	gcc -c $< -o $@ $(MLX_FLAGS)
+	gcc -c $< -o $@ $(MLX_FLAGS) -g
 
 all: $(NAME)
 
-$(NAME): $(MLX_APATH) libft $(OBJS) $(MLX)
-	echo $(SRCS)
-	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
+$(NAME): $(MLX_APATH) libft $(OBJS)
+	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC) -g
 	#FIXME re-link need fix
 	mv $(OBJS) $(ORBJ_DIR)
 
@@ -51,7 +51,7 @@ mlxx:
 	@make -C mlx > /dev/null 2> /dev/null
 
 libft:
-	@make -C lib bonus  > /dev/null
+	@make -C $(LIBFT_DIR) bonus  > /dev/null
 
 
 clean:
@@ -59,13 +59,18 @@ clean:
 	# FIXME re-link need fix
 	-@rm -rf $(ORBJ_DIR)/*
 	-@[ -d "mlx" ] && cd mlx && make clean > /dev/null && echo "Clean MLX OBJ" || echo "mlx not found"
-	make --no-print-directory -C lib clean  > /dev/null 2> /dev/null
+	make --no-print-directory -C $(LIBFT_DIR) clean  > /dev/null 2> /dev/null
 
+valgrind: all
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) scene/test.rt
+
+raw: all
+	./$(NAME) scene/test.rt
 
 fclean: clean
 	-@rm -rf $(MLX_DIR)
 	-@rm -rf $(NAME)
-	make --no-print-directory -C lib fclean  > /dev/null 2> /dev/null
+	make --no-print-directory -C $(LIBFT_DIR) fclean  > /dev/null 2> /dev/null
 
 re: fclean all
 

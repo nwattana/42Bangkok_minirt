@@ -15,6 +15,6 @@ typedef struct s_camera
 }	t_camera;
 
 void    print_camera(void *cam);
-
+void    clean_camera(void *cam);
 
 #endif

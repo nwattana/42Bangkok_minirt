@@ -50,6 +50,7 @@ SRCS	= ft_isalpha.c \
 	  get_next_line_utils_bonus.c \
 	  ft_strtod.c \
 	  ft_freesplit.c \
+	  ft_strslen.c
 
 SRCS_B	= ft_lstnew.c \
 	  ft_lstadd_front.c \

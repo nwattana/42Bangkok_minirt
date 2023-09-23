@@ -27,4 +27,6 @@ void    mlx_my_init(t_mlx_confix *vars);
 int     mlx_my_close(int key, t_mlx_confix *vars);
 void    mlx_my_loop(t_mlx_confix *vars);
 
+
+
 #endif

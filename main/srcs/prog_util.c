@@ -33,6 +33,8 @@ int prog_constructor(t_prog *prog)
     prog->p_error = 0;
 	prog->obj = NULL;
 	prog->has_camera = 0;
+	prog->has_ambient = 0;
+	prog->has_light = 0;
 
     return (0);
 }
@@ -50,7 +52,7 @@ int	read_rt_file(char *filepath, t_prog *prog)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		printf("LOG: valdate %s\n", line);
+		printf("LOG: validate %s\n", line);
 		check_line(line, prog);
 		free(line);
 	}
@@ -66,12 +68,10 @@ int read_2bytes(char *line)
 
 	if (line == NULL)
 		return (0);
-	if (ft_strchr("C#", line[0]))
+	if (ft_strchr("C#AL", line[0]))
 		return (1);
 	return (0);
 }
-
-
 
 int check_line_type(char **splited_lint, t_prog *prog)
 {
@@ -80,10 +80,16 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	item = splited_lint[0];
 	if (ft_strncmp(item, "C", ft_strlen(item)) == 0)
 	{
-		printf("camera\n");
 		collect_camera(splited_lint, prog);
 	}
-
+	if (ft_strncmp(item, "A", ft_strlen(item)) == 0)
+	{
+		collect_ambient(splited_lint, prog);
+	}
+	if (ft_strncmp(item, "L", ft_strlen(item)) == 0)
+	{
+		collect_light(splited_lint, prog);
+	}
 }
 
 int check_line(char *line, t_prog *prog)
@@ -100,7 +106,27 @@ int check_line(char *line, t_prog *prog)
 	{
 		split_out = ft_split(line, ' ');
 		check_line_type(split_out, prog);
+		ft_free_split(split_out);
 	}
-
 	return (0);
+}
+
+int		count_char(char *str, int c)
+{
+	int		i;
+	int		counter;
+
+	i = 0;
+	counter = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			counter++;
+		}
+		i++;
+	}
+	return (counter);
 }

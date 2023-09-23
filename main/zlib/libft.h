@@ -68,4 +68,5 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int 	ft_strtod(char *str, double *destination);
 int		ft_free_split(char **split_obj);
+size_t  ft_strslen(char **strs);
 #endif
