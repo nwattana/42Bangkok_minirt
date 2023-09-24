@@ -20,12 +20,13 @@
 #include "camera.h"
 #include "ambient.h"
 #include "light.h"
+#include "ray.h"
 #include "sphere.h"
 
 #define PROGRAM_NAME "miniRT"
-#define WINDOW_WIDTH 1280.0
-#define WINDOW_HEIGHT 720.0
-#define PI 3.14159265358979323846
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 900
+#define PI 3.14159265358979323846f
 #define DEBUG 1
 
 typedef struct s_prog

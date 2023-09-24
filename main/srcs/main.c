@@ -27,14 +27,9 @@ int	main(int argc, char **argv)
 	// prog state update geometry
 	prog.p_state = P_STATE_CAM_GEOMETRY;
 
-	t_camera *cam;
-	t_object *obj;
-
-	obj = (t_object *)get_object_from_list(prog.obj, CAMERA);
-	obj->print(obj->object);
-
 	// Generate image
 	render_image(&prog);
+
 
 	// ft_lstiter(prog.obj, print_object_iter);
 	ft_lstclear(&(prog.obj), clean_object_from_list);
@@ -42,10 +37,11 @@ int	main(int argc, char **argv)
 	// // // TODO: change me
 	t_mlx_confix *vars;
 	vars = &(prog.mlx_config);
-    mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	
-	
+
+
 	// // FIXME: Segmentaion fault what is wrong?
+    mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
     prog_mlx_loop(&prog);
 	return (0);
 }

@@ -44,20 +44,24 @@ void    init_camera(void *cam)
     camera = (t_camera *)cam;
     camera->is_init = 1;
     // HOW to calculate vector up
-    camera->cam_len = 1;
-    camera->aspect_ratio = WINDOW_HEIGHT/WINDOW_WIDTH;
+    camera->cam_len = CAMERA_LEN;
+    camera->aspect_ratio = ASPECT_RATIO;
+    camera->horizontal = HORIZONTAL_SIZE;
     vec3d_init(&(camera->cam_up), 0, 0, 1);
 
-
-    // Call projection screen  u, v
+    
     vec3d_cross(&(camera->projection_screen_u), &(camera->normal), &(camera->cam_up));
     vec3d_normalize(&(camera->projection_screen_u));
 
     vec3d_cross(&(camera->projection_screen_v), &(camera->projection_screen_u), &(camera->normal));
     vec3d_normalize(&(camera->projection_screen_v));
 
+    vec3d_scale(&(camera->projection_screen_u), camera->horizontal, &(camera->projection_screen_u));
+    vec3d_scale(&(camera->projection_screen_v), camera->horizontal / camera->aspect_ratio, &(camera->projection_screen_v));
+
+    // UNUSED
     camera->screen_width = 2.0 * camera->cam_len * tan(camera->fov_rad / 2.0);
-    camera->screen_height = camera->screen_width * camera->aspect_ratio;
+    camera->screen_height = camera->screen_width / camera->aspect_ratio;
 
     vec3d_scale(&temp, camera->cam_len, &(camera->normal));
     vec3d_add(&camera->screen_center, &temp);

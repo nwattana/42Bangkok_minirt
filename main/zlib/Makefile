@@ -10,7 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS	= -Wall -Wextra -Werror
+# FIXME
+FLAGS	= -Wall -Wextra -Werror -g
 NAME	= libft.a
 SRCS	= ft_isalpha.c \
 	  ft_isdigit.c \

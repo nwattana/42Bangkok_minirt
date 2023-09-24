@@ -6,4 +6,6 @@
 # define PASS_READ_RT_FILE 7
 # define PASS_MLX_INIT 10
 # define P_STATE_CAM_GEOMETRY 11
+# define P_STATE_RENDER_IMAGE 12
+# define RENDERING 13
 #endif

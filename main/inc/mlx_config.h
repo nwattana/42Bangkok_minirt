@@ -25,7 +25,7 @@ typedef struct    s_mlx_confix
 void    mlx_my_putpixel(t_img *data, int x, int y, int color);
 void    mlx_my_init(t_mlx_confix *vars);
 int     mlx_my_close(int key, t_mlx_confix *vars);
-
+void    fill_image_with_color(t_mlx_confix *vars);
 
 
 

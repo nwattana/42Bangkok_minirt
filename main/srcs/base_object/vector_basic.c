@@ -111,16 +111,6 @@ int vec3d_normalize(t_vec3d *a)
     return (SUCCESS);
 }
 
-// res = vector from a to b
-int point3d_to_vec3d(t_point3d *res, t_vec3d *a, t_vec3d *b)
-{
-    if (res == NULL || a == NULL || b == NULL)
-        return (ERROR);
-    vec3d_minus((t_vec3d *)res, b, a);
-
-    return (SUCCESS);
-}
-
 int vec3d_scale(t_vec3d *res, double scale, t_vec3d *a)
 {
     if (res == NULL || a == NULL)
@@ -130,4 +120,19 @@ int vec3d_scale(t_vec3d *res, double scale, t_vec3d *a)
     res->z = a->z * scale;
 
     return (SUCCESS);
+}
+
+double vec3d_dot(t_vec3d *a, t_vec3d *b)
+{
+    if (a == NULL || b == NULL)
+    {
+        printf("vec3d_dot: a or b is NULL\n");
+        return (ERROR);
+    }
+    return (a->x * b->x + a->y * b->y + a->z * b->z);
+}
+
+void    print_vec3d(t_vec3d *a)
+{
+    printf("vec3d [%.3f %.3f %.3f]\n", a->x, a->y, a->z);
 }

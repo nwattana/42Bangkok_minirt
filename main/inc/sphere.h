@@ -12,5 +12,5 @@ typedef struct	s_sphere
 
 void   print_sphere(void *sphere);
 void   clean_sphere(void *sphere);
-
+int    test_intersection(t_ray *ray, t_point3d *intersection_point, t_vec3d *local_normal, t_color *local_color);
 #endif

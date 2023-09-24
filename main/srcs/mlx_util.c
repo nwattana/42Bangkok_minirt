@@ -22,7 +22,29 @@ void    mlx_my_init(t_mlx_confix *vars)
     vars->is_initwin = 1;
     vars->img.img = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
     vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bpp, &vars->img.width, &vars->img.endian);
+    fill_image_with_color(vars);
     vars->is_init_img = 1;
+
+}
+
+void fill_image_with_color(t_mlx_confix *vars)
+{
+    int win_x;
+    int win_y;
+    int color;
+
+    win_y = 0;
+    while (win_y < WINDOW_HEIGHT)
+    {
+        win_x = 0;
+        while (win_x < WINDOW_WIDTH)
+        {
+            color = create_rgb(38, 97, 156);
+            mlx_my_putpixel(&(vars->img), win_x, win_y, color);
+            win_x++;
+        }
+        win_y++;
+    }
 }
 
 /// @brief function handle close window
@@ -65,13 +87,14 @@ int animation(void *program)
                 g = ((double)win_y / (double)WINDOW_HEIGHT) * 255.0;
                 b = (((double)win_y *  (double)win_x))  / ((double)WINDOW_HEIGHT * (double)WINDOW_WIDTH) * 255.0;
 
-                color = create_rgb(r, g, b);
-                // mlx_my_putpixel(&(prog->mlx_config.img), win_x, win_y, color);
-                mlx_my_putpixel(&(prog->mlx_config.img), WINDOW_WIDTH - win_x , WINDOW_HEIGHT - win_y, color * loop);
+                color = create_rgb(255, 0, 0);
+                if (win_x == win_y)
+                    mlx_my_putpixel(&(prog->mlx_config.img), win_x, win_y, color);
+                // mlx_my_putpixel(&(prog->mlx_config.img), WINDOW_WIDTH - win_x , WINDOW_HEIGHT - win_y, color * loop);
                 win_x++;
             }
-            usleep(10);
             mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+            usleep(10);
             win_y++;
         }
         loop++;
@@ -93,5 +116,5 @@ void prog_mlx_loop(t_prog *prog)
     // mlx_loop_hook(vars->mlx, animation, prog);
 
     // SWITCH turn on/off mlx window
-    // mlx_loop(vars->mlx);
+    mlx_loop(vars->mlx);
 }

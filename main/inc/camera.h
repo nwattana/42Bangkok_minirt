@@ -2,6 +2,10 @@
 # define CAMERA_H
 # include "minirt.h"
 
+# define CAMERA_LEN 1.0
+# define ASPECT_RATIO 1
+# define HORIZONTAL_SIZE 0.25
+
 
 /// @brief  t_camera is a struct that contains the camera's origin, orientation, and fov.
 /// @param  position is a point that contains the camera's origin.
@@ -21,7 +25,9 @@ typedef struct s_camera
     double      cam_len;
     double      screen_width;
     double      screen_height;
-    t_vec3d      screen_center;
+
+    double      horizontal;
+    t_vec3d     screen_center;
     double      aspect_ratio;
 }	t_camera;
 
@@ -29,4 +35,5 @@ void    print_camera(void *cam);
 void    clean_camera(void *cam);
 void    init_camera(void *cam);
 void    cam_more_info(t_camera *camera);
+
 #endif

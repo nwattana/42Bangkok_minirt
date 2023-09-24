@@ -15,6 +15,19 @@ int     collect_color(char *color_string, t_color *color)
     return (0);
 }
 
+int     assign_color(t_color *color, int r, int g, int b)
+{
+    color->r = r;
+    color->g = g;
+    color->b = b;
+    return (0);
+}
+
+int     s_get_rgb(t_color *color)
+{
+    return (create_rgb(color->r, color->g, color->b));
+}
+
 // FIXME: Validation
 // // FIXME: move file
 // int     validate_color_string(char *color_string)
