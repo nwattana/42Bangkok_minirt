@@ -70,7 +70,7 @@ int render_image(t_prog *prog)
 				// gradient checking
 				// if (((dist - 9.0) / 0.94605) > 1)
 				// 	printf("dist: %f\n", (dist - 19.0) / 0.91492);
-				color = create_rgb(255.0 - ((dist - 19.0) / 0.91492) * 255.0, 0, 0);
+				color = create_rgb(255.0 - ((dist - 19.0) / 0.921038) * 255.0, 0, 0);
 			}
 			else
 				color = create_rgb(0, 0, 0);

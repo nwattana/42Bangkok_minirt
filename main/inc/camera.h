@@ -3,7 +3,7 @@
 # include "minirt.h"
 
 # define CAMERA_LEN 1.0
-# define ASPECT_RATIO 1
+# define ASPECT_RATIO (16.0 / 9.0)
 # define HORIZONTAL_SIZE 0.25
 
 
