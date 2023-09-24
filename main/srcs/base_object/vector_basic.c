@@ -1,12 +1,12 @@
 #include "../../inc/minirt.h"
 
-/// @brief init value for vector a
-/// @param a address of memory contain vector a
-/// @param x vector a x
-/// @param y vector a y
-/// @param z vector a z
+/// @brief init value for vec3d a
+/// @param a address of memory contain vec3d a
+/// @param x vec3d  x
+/// @param y vec3d  y
+/// @param z vec3d  z
 /// @return 0 if success, 1 if fail
-int vector_init(t_vec3d *a, double x, double y, double z)
+int vec3d_init(t_vec3d *a, double x, double y, double z)
 {
     if (a == NULL)
         return (1);
@@ -17,11 +17,11 @@ int vector_init(t_vec3d *a, double x, double y, double z)
     return (0);
 }
 
-/// @brief assign vector `from` to vector `to`
+/// @brief assign vec3d `from` to vec3d `to`
 /// @param to 
 /// @param from
 /// @return 0 if success, 1 if fail
-int vector_assign(t_vec3d *to, t_vec3d *from)
+int vec3d_assign(t_vec3d *to, t_vec3d *from)
 {
     if (to == NULL || from == NULL)
         return (1);
@@ -32,11 +32,11 @@ int vector_assign(t_vec3d *to, t_vec3d *from)
     return (0);
 }
 
-/// @brief add vector b to vector a
+/// @brief add vec3d b to vec3d a
 /// @param to 
 /// @param from 
 /// @return 0 if success, 1 if fail
-int vector_add(t_vec3d *a, t_vec3d *b)
+int vec3d_add(t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
         return (1);
@@ -47,34 +47,87 @@ int vector_add(t_vec3d *a, t_vec3d *b)
     return (0);
 }
 
-/// @brief plus vector a and vector b and assign to vector res
-/// @param res result vector
+/// @brief plus vec3d a and vec3d b and assign to vec3d res
+/// @param res result vec3d
 /// @param a 
 /// @param b 
-/// @return memory address contain result vector
-t_vec3d* vector_plus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
+/// @return memory address contain result vec3d
+int vec3d_plus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
-        return (res);
+        return (ERROR);
     res->x = a->x + b->x;
     res->y = a->y + b->y;
     res->z = a->z + b->z;
 
-    return (res);
+    return (SUCCESS);
 }
 
-/// @brief minus vector a and vector b and assign to vector res
-/// @param res result vector
+/// @brief minus vec3d a and vec3d b and assign to vec3d res
+/// @param res result vec3d
 /// @param a 
 /// @param b 
-/// @return memory address contain result vector
-t_vec3d *vector_minus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
+/// @return memory address contain result vec3d
+int vec3d_minus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
-        return (res);
+        return (ERROR);
     res->x = a->x - b->x;
     res->y = a->y - b->y;
     res->z = a->z - b->z;
 
-    return (res);
+    return (SUCCESS);
+}
+
+int vec3d_cross(t_vec3d *res, t_vec3d *a, t_vec3d *b)
+{
+    if (res == NULL)
+        return (ERROR);
+    res->x = a->y * b->z - a->z * b->y;
+    res->y = a->z * b->x - a->x * b->z;
+    res->z = a->x * b->y - a->y * b->x;
+    
+    return (SUCCESS);
+}
+
+double vec3d_length(t_vec3d *a)
+{
+    if (a == NULL)
+        return (ERROR);
+    return (sqrt(a->x * a->x + a->y * a->y + a->z * a->z));
+}
+
+int vec3d_normalize(t_vec3d *a)
+{
+    double length;
+
+    if (a == NULL)
+        return (ERROR);
+    length = vec3d_length(a);
+    a->x /= length;
+    a->y /= length;
+    a->z /= length;
+
+    return (SUCCESS);
+}
+
+// res = vector from a to b
+int point3d_to_vec3d(t_point3d *res, t_vec3d *a, t_vec3d *b)
+{
+    if (res == NULL || a == NULL || b == NULL)
+        return (ERROR);
+    vec3d_minus((t_vec3d *)res, b, a);
+
+    return (SUCCESS);
+}
+
+int vec3d_scale(t_vec3d *res, double scale, t_vec3d *a)
+{
+    if (res == NULL || a == NULL)
+        return (ERROR);
+    res->x = a->x * scale;
+    res->y = a->y * scale;
+    res->z = a->z * scale;
+
+    return (SUCCESS);
 }

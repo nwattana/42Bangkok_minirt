@@ -36,13 +36,62 @@ int    mlx_my_close(int key, t_mlx_confix *vars)
     return (0);
 }
 
-/// @brief function handle loop
-void mlx_my_loop(t_mlx_confix *vars)
+// TODO: remove this function
+int animation(void *program)
 {
+    t_prog *prog;
+	int		win_x;
+	int		win_y;
+	int		color;
+    int     loop;
+    int     r;
+    int     g;
+    int     b;
+    t_mlx_confix *vars;
+
+    prog = (t_prog *)program;
+    vars = &(prog->mlx_config);
+    loop = 0;
+    while (loop < 20000)
+    {
+        win_y = 0;
+        while (win_y < WINDOW_HEIGHT)
+        {
+	        win_x = 0;
+            while (win_x < WINDOW_WIDTH)
+            {
+                // all render logic here
+                r = ((double)win_x / (double)WINDOW_WIDTH) * 255.0;
+                g = ((double)win_y / (double)WINDOW_HEIGHT) * 255.0;
+                b = (((double)win_y *  (double)win_x))  / ((double)WINDOW_HEIGHT * (double)WINDOW_WIDTH) * 255.0;
+
+                color = create_rgb(r, g, b);
+                // mlx_my_putpixel(&(prog->mlx_config.img), win_x, win_y, color);
+                mlx_my_putpixel(&(prog->mlx_config.img), WINDOW_WIDTH - win_x , WINDOW_HEIGHT - win_y, color * loop);
+                win_x++;
+            }
+            usleep(10);
+            mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+            win_y++;
+        }
+        loop++;
+        }
+}
+
+/// @brief function handle loop
+void prog_mlx_loop(t_prog *prog)
+{
+    t_mlx_confix *vars;
+
+    vars = &(prog->mlx_config);
     // TODO Bug When exist
     mlx_hook(vars->win, 2, 0, mlx_my_close, vars);
     // X red
     mlx_hook(vars->win, 17, 0, mlx_my_close, vars);
 
-    mlx_loop(vars->mlx);
+    // Simple animation
+    // mlx_loop_hook(vars->mlx, animation, prog);
+
+    // SWITCH turn on/off mlx window
+    // mlx_loop(vars->mlx);
 }

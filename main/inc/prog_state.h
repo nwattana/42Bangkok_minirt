@@ -5,5 +5,5 @@
 # define PASS_VALIDATE_ARGS 4
 # define PASS_READ_RT_FILE 7
 # define PASS_MLX_INIT 10
-
+# define P_STATE_CAM_GEOMETRY 11
 #endif

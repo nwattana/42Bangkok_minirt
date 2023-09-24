@@ -20,6 +20,6 @@ typedef struct s_object
 void    print_object_from_list(void *lst);
 void    clean_object_from_list(void *obj);
 void    print_object_iter(void *content);
-
+void    *get_object_from_list(t_list *lst, int type);
 
 #endif

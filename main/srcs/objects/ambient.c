@@ -17,5 +17,6 @@ void    clean_ambient(void *amb)
     t_ambient *ambient;
 
     ambient = (t_ambient *)amb;
+    free(ambient);
     return ;
 }

@@ -25,6 +25,8 @@
 #define PROGRAM_NAME "miniRT"
 #define WINDOW_WIDTH 1280.0
 #define WINDOW_HEIGHT 720.0
+#define PI 3.14159265358979323846
+#define DEBUG 1
 
 typedef struct s_prog
 {
@@ -58,10 +60,13 @@ void	prog_init_mlx(t_prog *prog);
 
 
 // STATE 12
-void	render_image(t_prog *prog);
-int     gen_color_xy(int win_x, int win_y, t_prog *prog);
+int	render_image(t_prog *prog);
 
-// void	error_file(char *msg);
-// static void	*get_input(char **data, char *file);
-// void	read_input(t_input *data, char *file);
+
+
+// MLX Loop
+void    prog_mlx_loop(t_prog *prog);
+
+
+void  debug_message(char *msg);
 #endif

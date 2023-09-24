@@ -96,10 +96,12 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	}
 }
 
-int check_line(char *line, t_prog *prog)
+int check_line(char *lint, t_prog *prog)
 {
 	char **split_out;
+	char *line;
 
+	line = ft_strtrim(lint, " \t\n");
 	if (!read_2bytes(line))
 	{
 		// FIXME: error message grouping
@@ -112,6 +114,7 @@ int check_line(char *line, t_prog *prog)
 		check_line_type(split_out, prog);
 		ft_free_split(split_out);
 	}
+	free(line);
 	return (0);
 }
 
@@ -133,4 +136,10 @@ int		count_char(char *str, int c)
 		i++;
 	}
 	return (counter);
+}
+
+void  debug_message(char *msg)
+{
+	printf(RED"DEBUG:"CLOSE);
+	printf(" %s\n", msg);
 }

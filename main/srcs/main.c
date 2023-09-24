@@ -22,20 +22,31 @@ int	main(int argc, char **argv)
 	printf("prog state: %d\n", prog.p_state);
 
 	// Create MLX window and image
-	// prog_init_mlx(&prog);
+	prog_init_mlx(&prog);
+
+	// prog state update geometry
+	prog.p_state = P_STATE_CAM_GEOMETRY;
+
+	t_camera *cam;
+	t_object *obj;
+
+	obj = (t_object *)get_object_from_list(prog.obj, CAMERA);
+	obj->print(obj->object);
 
 	// Generate image
-	// render_image(&prog);
+	render_image(&prog);
 
-	ft_lstiter(prog.obj, print_object_iter);
+	// ft_lstiter(prog.obj, print_object_iter);
 	ft_lstclear(&(prog.obj), clean_object_from_list);
 
-	// // TODO: change me
-	// t_mlx_confix *vars;
-	// vars = &(prog.mlx_config);
-    // mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+	// // // TODO: change me
+	t_mlx_confix *vars;
+	vars = &(prog.mlx_config);
+    mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+	
+	
 	// // FIXME: Segmentaion fault what is wrong?
-    // mlx_my_loop(vars);
+    prog_mlx_loop(&prog);
 	return (0);
 }
 
@@ -49,43 +60,3 @@ void	prog_init_mlx(t_prog *prog)
 	// MORE setting up mlx
 }
 
-void	render_image(t_prog *prog)
-{
-	int		win_x;
-	int		win_y;
-	int		color;
-
-	win_x = 0;
-	while (win_x < WINDOW_WIDTH)
-	{
-		win_y = 0;
-		while (win_y < WINDOW_HEIGHT)
-		{
-			// all render logic here
-			color = gen_color_xy(win_x, win_y, prog);
-			
-			mlx_my_putpixel(&(prog->mlx_config.img), win_x, win_y, color);
-			win_y++;
-		}
-		win_x++;
-	}
-}
-
-int gen_color_xy(int win_x, int win_y, t_prog *prog)
-{
-	int	color;
-	double r;
-	double g;
-	double b;
-
-	r = ((double)win_x / (double)WINDOW_WIDTH) * 255.0;
-	g = ((double)win_y / (double)WINDOW_HEIGHT) * 255.0;
-	color = create_rgb(r, g, 0);
-
-	return (color);
-}
-
-int	create_rgb(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
-}

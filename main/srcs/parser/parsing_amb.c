@@ -1,5 +1,6 @@
 #include "../../inc/minirt.h"
 
+// FIXME : handle unneeded params
 int     collect_ambient(char **split_line, t_prog *prog)
 {
     t_ambient   *ambient;

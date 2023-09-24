@@ -11,6 +11,7 @@ int     collect_color(char *color_string, t_color *color)
     color->r = ft_atoi(split_color[0]);
     color->g = ft_atoi(split_color[1]);
     color->b = ft_atoi(split_color[2]);
+    ft_free_split(split_color);
     return (0);
 }
 

@@ -73,7 +73,6 @@ int  ft_strtod(char *str, double *destination)
 	int     sign;
 	int     is_fraction;
 
-
 	if (!str || !destination)
 		return (-1);
 	is_fraction = 0;

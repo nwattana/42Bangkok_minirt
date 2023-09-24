@@ -1,5 +1,6 @@
 #include "../../inc/minirt.h"
 
+// FIXME : handle unneeded params
 int     collect_sphere(char **splited_str, t_prog *prog)
 {
     t_sphere    *sphere;
@@ -23,7 +24,5 @@ int     collect_sphere(char **splited_str, t_prog *prog)
     object->print = print_sphere;
     object->clean = clean_sphere;
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
-
-
     return (0);
 }

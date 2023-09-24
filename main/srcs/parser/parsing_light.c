@@ -1,5 +1,6 @@
 #include "../../inc/minirt.h"
 
+// FIXME : handle unneeded params
 int collect_light(char **splited_line, t_prog *prog)
 {
     t_light    *light;
