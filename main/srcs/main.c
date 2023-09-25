@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 	{
 		return (1);
 	}
+
 	// parsing input
 	read_rt_file(argv[1], &prog);
 	printf("prog state: %d\n", prog.p_state);
@@ -30,19 +31,17 @@ int	main(int argc, char **argv)
 	// Generate image
 	render_image(&prog);
 
-
 	// ft_lstiter(prog.obj, print_object_iter);
 	ft_lstclear(&(prog.obj), clean_object_from_list);
 
 	// // // TODO: change me
 	t_mlx_confix *vars;
 	vars = &(prog.mlx_config);
-	
-
 
 	// // FIXME: Segmentaion fault what is wrong?
     mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
     prog_mlx_loop(&prog);
+
 	return (0);
 }
 
@@ -52,7 +51,6 @@ void	prog_init_mlx(t_prog *prog)
 
 	mlx_config = &(prog->mlx_config);
 	mlx_my_init(mlx_config);
-
 	// MORE setting up mlx
 }
 

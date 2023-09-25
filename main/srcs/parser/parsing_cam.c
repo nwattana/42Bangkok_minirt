@@ -21,15 +21,10 @@ int collect_camera(char **splited_line, t_prog *prog)
     init_camera(camera);
 
     // add camera to object list
-    object = malloc(sizeof(t_object));
+    object = create_object_camera(camera);
     if (object == NULL)
-        return (0);
-    object->type = CAMERA;
-    object->object = camera;
-    object->print = print_camera;
-    object->clean = clean_camera;
+        return (1);
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
-
 	return (0);
 }
 
@@ -50,4 +45,20 @@ void    *collect_3d(char *str_vector, void *memory_in)
     ft_free_split(splited_vector);
 
     return (memory_in);
+}
+
+t_object *create_object_camera(t_camera *cam)
+{
+    t_object *object;
+
+    object = malloc(sizeof(t_object));
+    if (object == NULL)
+        return (NULL);
+    object->type = CAMERA;
+    object->object = cam;
+    object->print = print_camera;
+    object->clean = clean_camera;
+    object->test_intersection = none_test_intersection;
+
+    return (object);
 }

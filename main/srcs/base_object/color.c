@@ -28,6 +28,14 @@ int     s_get_rgb(t_color *color)
     return (create_rgb(color->r, color->g, color->b));
 }
 
+int     color_copy(t_color *to, t_color *from)
+{
+    to->r = from->r;
+    to->g = from->g;
+    to->b = from->b;
+    return (0);
+}
+
 // FIXME: Validation
 // // FIXME: move file
 // int     validate_color_string(char *color_string)

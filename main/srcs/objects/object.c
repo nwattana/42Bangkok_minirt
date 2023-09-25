@@ -33,6 +33,11 @@ void    clean_object_from_list(void *obj)
         return ;
     }
     object = (t_object *)obj;
+    if (object->clean == NULL)
+    {
+        printf("object->clean type %d is NULL\n", object->type);
+        return ;
+    }
     object->clean(object->object);
     free(object);
 }
@@ -49,4 +54,13 @@ void    *get_object_from_list(t_list *lst, int type)
         lst = lst->next;
     }
     return (NULL);
+}
+
+int   none_test_intersection(void *obj, t_interparam *param)
+{
+    (void)obj;
+    (void)param;
+
+    printf("this oject has no test intersection function\n");
+    return (ERROR);
 }

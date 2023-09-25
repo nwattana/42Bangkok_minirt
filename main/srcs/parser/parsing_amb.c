@@ -12,14 +12,26 @@ int     collect_ambient(char **split_line, t_prog *prog)
     ft_strtod(split_line[1], &ambient->intensity);
     collect_color(split_line[2], &ambient->color);
 
-    object = malloc(sizeof(t_object));
+    object = create_object_ambient(ambient);
     if (object == NULL)
         return (1);
+
+    ft_lstadd_back(&prog->obj, ft_lstnew(object));
+    return (0);
+}
+
+t_object *create_object_ambient(t_ambient *a)
+{
+    t_object    *object;
+
+    object = malloc(sizeof(t_object));
+    if (object == NULL)
+        return (NULL);
     object->type = AMBIENT;
-    object->object = ambient;
+    object->object = a;
     object->print = print_ambient;
     object->clean = clean_ambient;
-    ft_lstadd_back(&prog->obj, ft_lstnew(object));
+    object->test_intersection = none_test_intersection;
 
-    return (0);
+    return (object);
 }

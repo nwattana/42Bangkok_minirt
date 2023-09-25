@@ -22,7 +22,7 @@ void   clean_sphere(void *sph)
 }
 
 // function to test intersction between ray and sphere
-int     test_intersection(t_ray *ray, t_point3d *intersection_point, t_vec3d *local_normal, t_color *local_color)
+int     sp_test_intersection(void *object, t_interparam *p)
 {
     t_vec3d v_hat;
     // compute the value of a, b and c
@@ -31,10 +31,10 @@ int     test_intersection(t_ray *ray, t_point3d *intersection_point, t_vec3d *lo
     double c;
     double test;
 
-    vec3d_assign(&v_hat, &ray->direction);
+    vec3d_assign(&v_hat, &p->ray.direction);
     a = 1.0;
-    b = 2.0 * vec3d_dot(&v_hat, &ray->origin);
-    c = vec3d_dot(&ray->origin, &ray->origin) - 1.0;
+    b = 2.0 * vec3d_dot(&v_hat, &p->ray.origin);
+    c = vec3d_dot(&p->ray.origin, &p->ray.origin) - 1.0;
 
    // test vector we has intersection with sphere
     test = b * b - 4.0 * a * c;
@@ -51,12 +51,18 @@ int     test_intersection(t_ray *ray, t_point3d *intersection_point, t_vec3d *lo
             return (0);
         if (t1 < t2)
         {
-            vec3d_scale(intersection_point, t1, &v_hat);
+            // intersection_point = t1 * ray direction
+            vec3d_scale(&p->intersection_point, t1, &v_hat);
         }
-        if (t2 < t1)
+        else
         {
-            vec3d_scale(intersection_point, t2, &v_hat);
+            // intersection_point = t2 * ray direction
+            vec3d_scale(&p->intersection_point, t2, &v_hat);
         }
+        // intersection_point = intersection_point + ray origin
+        vec3d_add(&p->intersection_point, &p->ray.origin);
+        vec3d_assign(&p->local_normal, &p->intersection_point);
+        vec3d_normalize(&p->local_normal);
         return (1);
     }
     return (0);

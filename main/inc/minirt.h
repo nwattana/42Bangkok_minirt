@@ -14,10 +14,10 @@
 #include "const_utils.h"
 #include "vector.h"
 #include "color.h"
+#include "camera.h"
+#include "object.h"
 #include "mlx_config.h"
 #include "prog_state.h"
-#include "object.h"
-#include "camera.h"
 #include "ambient.h"
 #include "light.h"
 #include "ray.h"
@@ -52,10 +52,18 @@ int		read_2bytes(char *line);
 int		count_char(char *str, int c);
 
 
-int		collect_camera(char **splited_lint, t_prog *prog);
+int		collect_camera(char **splited_line, t_prog *prog);
 int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
-int     collect_sphere(char **splited_str, t_prog *prog);
+int     collect_sphere(char **splited_line, t_prog *prog);
+
+t_object	*create_object_camera(t_camera *cam);
+t_object	*create_object_ambient(t_ambient *a);
+
+t_object	*create_object_light(t_light *l);
+t_object    *create_object_sphere(t_sphere *sp);
+
+
 // STATE 10
 void	prog_init_mlx(t_prog *prog);
 
@@ -63,7 +71,7 @@ void	prog_init_mlx(t_prog *prog);
 // STATE 12
 int	render_image(t_prog *prog);
 
-
+int     loop_test_object(t_prog *prog, t_interparam *param);
 
 // MLX Loop
 void    prog_mlx_loop(t_prog *prog);
