@@ -36,6 +36,34 @@ int     color_copy(t_color *to, t_color *from)
     return (0);
 }
 
+int     color_scale(t_color *res, double scale, t_color *a)
+{
+    res->r = (scale * (double)a->r);
+    res->g = (scale * (double)a->g);
+    res->b = (scale * (double)a->b);
+    return (0);
+}
+
+int     print_color(t_color *color)
+{
+    printf("color: %d, %d, %d\n", color->r, color->g, color->b);
+    return (0);
+}
+
+int     color_add(t_color *res, t_color *a, t_color *b)
+{
+    res->r = a->r + b->r;
+    if (res->r > 255)
+        res->r = 255;
+    res->g = a->g + b->g;
+    if (res->g > 255)
+        res->g = 255;
+    res->b = a->b + b->b;
+    if (res->b > 255)
+        res->b = 255;
+    return (0);
+}
+
 // FIXME: Validation
 // // FIXME: move file
 // int     validate_color_string(char *color_string)

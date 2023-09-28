@@ -16,5 +16,8 @@ int     collect_color(char *color_string, t_color *color);
 
 int     color_copy(t_color *to, t_color *from);
 
+int     color_scale(t_color *res, double scale, t_color *a);
+int     print_color(t_color *color);
+int     color_add(t_color *res, t_color *a, t_color *b);
 
 #endif

@@ -134,5 +134,5 @@ double vec3d_dot(t_vec3d *a, t_vec3d *b)
 
 void    print_vec3d(t_vec3d *a)
 {
-    printf("vec3d [%.3f %.3f %.3f]\n", a->x, a->y, a->z);
+    printf("vec3d [ %.3f %.3f %.3f ]\n", a->x, a->y, a->z);
 }

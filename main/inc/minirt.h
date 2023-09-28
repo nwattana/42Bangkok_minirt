@@ -13,6 +13,7 @@
 #include "../mlx/mlx.h"
 #include "const_utils.h"
 #include "vector.h"
+#include "matrix.h"
 #include "color.h"
 #include "camera.h"
 #include "object.h"
@@ -39,6 +40,8 @@ typedef struct s_prog
 	int		has_camera;
 	int		has_ambient;
 	int		has_light;
+
+	t_color		ambient_color;
 }	t_prog;
 
 // prog util

@@ -85,7 +85,12 @@ int render_image(t_prog *prog)
 				valid_light = point_light(l_obj->object, prog->obj, &param, &l_color, &intensity);
 				if (valid_light)
 				{
-					renderer.color = create_rgb(255.0 * intensity, 0 ,0);
+					t_color color_result;
+
+					// add ambient?
+					assign_color(&color_result, 255.0 * intensity, 0,0);
+					color_add(&color_result, &color_result, &prog->ambient_color);
+					renderer.color = s_get_rgb(&color_result);
 				}
 				if (renderer.dist < renderer.min_dist)
 					renderer.min_dist = renderer.dist;
@@ -94,7 +99,8 @@ int render_image(t_prog *prog)
 			}
 			else
 			{
-				renderer.color = create_rgb(0, 0, 0);
+				// if nothing intersected put ambient color
+				renderer.color = s_get_rgb(&prog->ambient_color);
 			}
 			mlx_my_putpixel(&(prog->mlx_config.img), renderer.win_x, renderer.win_y, renderer.color);
 			renderer.win_y++;
@@ -109,9 +115,9 @@ int render_image(t_prog *prog)
 // return 1 if intersection, 0 if not
 int loop_test_object(t_prog *prog, t_interparam *param)
 {
-	t_list *lst;
-	t_object *obj;
-	int		ret;
+	t_list		*lst;
+	t_object	*obj;
+	int			ret;
 
 	ret = 0;
 	lst = prog->obj;
