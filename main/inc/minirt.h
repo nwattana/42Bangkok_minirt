@@ -59,6 +59,7 @@ int		collect_camera(char **splited_line, t_prog *prog);
 int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
 int     collect_sphere(char **splited_line, t_prog *prog);
+int     sp_prep_tfmat(t_sphere *sp, t_object *obj);
 
 t_object	*create_object_camera(t_camera *cam);
 t_object	*create_object_ambient(t_ambient *a);
@@ -75,6 +76,8 @@ void	prog_init_mlx(t_prog *prog);
 int	render_image(t_prog *prog);
 
 int     loop_test_object(t_prog *prog, t_interparam *param);
+
+int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir);
 
 // MLX Loop
 void    prog_mlx_loop(t_prog *prog);

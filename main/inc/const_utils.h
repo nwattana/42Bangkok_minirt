@@ -18,4 +18,7 @@
 # define CYAN "\033[0;36m"
 # define CLOSE "\033[0m"
 
+# define FWD 1
+# define BWD -1
+
 #endif

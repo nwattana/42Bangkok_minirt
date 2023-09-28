@@ -25,11 +25,15 @@ void   clean_sphere(void *sph)
 int     sp_test_intersection(void *object, t_interparam *p)
 {
     t_vec3d v_hat;
+    t_object *obj;
     // compute the value of a, b and c
     double a;
     double b;
     double c;
     double test;
+
+    obj = (t_object *)object;
+    // apply_tfmat_to_ray(&p->ray, &obj->tfmat, &p->ray, BWD);
 
     vec3d_assign(&v_hat, &p->ray.direction);
     a = 1.0;
@@ -61,8 +65,10 @@ int     sp_test_intersection(void *object, t_interparam *p)
         }
         // intersection_point = intersection_point + ray origin
         vec3d_add(&p->intersection_point, &p->ray.origin);
+        vec3d_normalize(&p->intersection_point);
+    
+        // v_world = v_hat * BWD_tfmat
         vec3d_assign(&p->local_normal, &p->intersection_point);
-        vec3d_normalize(&p->local_normal);
         return (1);
     }
     return (0);

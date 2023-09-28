@@ -429,3 +429,16 @@ int   cal_tfmat_fwd(t_tfmat *tfmat)
 
     return (0);
 }
+
+int init_tfmat(t_tfmat *tfmat)
+{
+    set_identity_m44(&(tfmat->translate));
+    set_identity_m44(&(tfmat->rotate_x));
+    set_identity_m44(&(tfmat->rotate_y));
+    set_identity_m44(&(tfmat->rotate_z));
+    set_identity_m44(&(tfmat->scale_metrix));
+    set_identity_m44(&(tfmat->mul));
+    set_identity_m44(&(tfmat->fwd));
+    set_identity_m44(&(tfmat->bwd));
+    return (0);
+}

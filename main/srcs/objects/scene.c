@@ -54,7 +54,6 @@ int render_image(t_prog *prog)
 
 
 	l_obj = get_object_from_list(prog->obj, LIGHT);
-	l_obj->print(l_obj->object);
 	init_renderer(&renderer, prog);
 	prog->p_state = RENDERING;
 	renderer.cam->print(renderer.cam->object);
@@ -126,7 +125,7 @@ int loop_test_object(t_prog *prog, t_interparam *param)
 		obj = (t_object *)lst->content;
 		if (obj->type >= 20)
 		{
-			ret = obj->test_intersection(obj->object, param);
+			ret = obj->test_intersection(obj, param);
 		}
 		lst = lst->next;
 	}

@@ -48,6 +48,7 @@ int     vector_to_rotate_x(t_mat44 *res, t_vec3d *v);
 int     vector_to_scale_matrix(t_mat44 *res, t_vec3d *v);
 int     mul_mat44(t_mat44 *res, t_mat44 *base, t_mat44 *scal);
 double  det_matrix44(t_mat44 *mat);
+
 int     create_cofacto_matrix44(t_mat44 *res, t_mat44 *mat);
 int     create_cofacto_tranpose(t_mat44 *res, t_mat44 *mat);
 
@@ -55,6 +56,7 @@ int     create_cofacto_tranpose(t_mat44 *res, t_mat44 *mat);
 int     cal_tf_matrix(t_tfmat *mat_list, t_input_vector *in);
 int     cal_tfmat_fwd(t_tfmat *tfmat);
 int     cal_tfmat_bwd(t_tfmat *tfmat);
+int     init_tfmat(t_tfmat *tfmat);
 
 // DEBUG
 void    print_m44(t_mat44 *m44, char *name);
