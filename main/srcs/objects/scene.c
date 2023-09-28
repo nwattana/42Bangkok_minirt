@@ -2,10 +2,6 @@
 
 typedef struct s_renderer
 {
-	// loop variable
-	int			win_x;
-	int			win_y;
-
 	t_ray 		ray;
 	t_color		color_obj;
 	t_point3d	intersection_point;
@@ -27,15 +23,12 @@ typedef struct s_renderer
 
 }			t_renderer;
 
-
-
+int		which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer);
 
 int  init_renderer(t_renderer *ren, t_prog *prog)
 {
 	if (!ren)
 		return (ERROR);
-	ren->win_x = 0;
-	ren->win_y = 0;
 	ren->color = 0;
 	ren->xfact = 1.0 / ((double)WINDOW_WIDTH / 2.0);
 	ren->yfact = 1.0 / ((double)WINDOW_HEIGHT / 2.0);
@@ -48,67 +41,64 @@ int  init_renderer(t_renderer *ren, t_prog *prog)
 int render_image(t_prog *prog)
 {
 	t_renderer renderer;
-	t_interparam param;
-	t_object *l_obj;
 	t_list *lst;
+	int x;
+	int y;
 
-
-	l_obj = get_object_from_list(prog->obj, LIGHT);
 	init_renderer(&renderer, prog);
 	prog->p_state = RENDERING;
-	renderer.cam->print(renderer.cam->object);
 
-	renderer.win_x = 0;
-	while (renderer.win_x < WINDOW_WIDTH)
+	x = 0;
+	while (x < WINDOW_WIDTH)
 	{
-		// normalize x
-		renderer.norm_x = ((double)renderer.win_x * renderer.xfact) - 1.0f;
-		renderer.win_y = 0;
-		while (renderer.win_y < WINDOW_HEIGHT)
+		y = 0;
+		while (y < WINDOW_HEIGHT)
 		{
-			renderer.norm_y = ((double)renderer.win_y * renderer.yfact) - 1.0f;
-			generate_ray(&param.ray, renderer.cam->object, renderer.norm_x, renderer.norm_y);
-
-			// renderer.has_intersection = sp_test_intersection(&renderer.ray, &renderer.intersection_point, &renderer.local_normal, &renderer.local_color);
-			renderer.has_intersection = loop_test_object(prog, &param);
-
-			if (renderer.has_intersection)
-			{
-				vec3d_minus(&renderer.origin_to_intersection, &param.intersection_point, &param.ray.origin);
-				renderer.dist = vec3d_length(&renderer.origin_to_intersection);
-				// เปลี่ยน method ในการคำนวณสี
-				double intensity = 0;
-				t_color l_color;
-				int		valid_light = 0;
-
-				valid_light = point_light(l_obj->object, prog->obj, &param, &l_color, &intensity);
-				if (valid_light)
-				{
-					t_color color_result;
-
-					// add ambient?
-					assign_color(&color_result, 255.0 * intensity, 0,0);
-					color_add(&color_result, &color_result, &prog->ambient_color);
-					renderer.color = s_get_rgb(&color_result);
-				}
-				if (renderer.dist < renderer.min_dist)
-					renderer.min_dist = renderer.dist;
-				if (renderer.dist > renderer.max_dist)
-					renderer.max_dist = renderer.dist;
-			}
-			else
-			{
-				// if nothing intersected put ambient color
-				renderer.color = s_get_rgb(&prog->ambient_color);
-			}
-			mlx_my_putpixel(&(prog->mlx_config.img), renderer.win_x, renderer.win_y, renderer.color);
-			renderer.win_y++;
+			renderer.color = which_color_should_be(prog, x, y, &renderer);
+			mlx_my_putpixel(&(prog->mlx_config.img), x, y, renderer.color);
+			y++;
 		}
-		renderer.win_x++;
+		x++;
 	}
-	printf("min_dist: %f\n",renderer.min_dist);
-	printf("max_dist: %f\n",renderer.max_dist);
     return (SUCCESS);
+}
+
+// which_color_should_be
+int which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer)
+{
+	t_object *l_obj;
+
+	l_obj = get_object_from_list(prog->obj, LIGHT);
+	t_interparam param;
+	renderer->norm_x = ((double)x* renderer->xfact) - 1.0f;
+	renderer->norm_y = ((double)y * renderer->yfact) - 1.0f;
+	generate_ray(&param.ray, renderer->cam->object, renderer->norm_x, renderer->norm_y);
+
+	renderer->has_intersection = loop_test_object(prog, &param);
+	if (renderer->has_intersection)
+	{
+		vec3d_minus(&renderer->origin_to_intersection, &param.intersection_point, &param.ray.origin);
+		renderer->dist = vec3d_length(&renderer->origin_to_intersection);
+		// เปลี่ยน method ในการคำนวณสี
+		double intensity = 0;
+		t_color l_color;
+		int		valid_light = 0;
+
+		valid_light = point_light(l_obj->object, prog->obj, &param, &l_color, &intensity);
+		if (valid_light)
+		{
+			t_color color_result;
+			// add ambient?
+			assign_color(&color_result, 0, 255.0 * intensity, 0);
+			color_add(&color_result, &color_result, &prog->ambient_color);
+			renderer->color = s_get_rgb(&color_result);
+		}
+	}
+	else
+	{
+		// if nothing intersected put ambient color
+		renderer->color = s_get_rgb(&prog->ambient_color);
+	}
 }
 
 // return 1 if intersection, 0 if not

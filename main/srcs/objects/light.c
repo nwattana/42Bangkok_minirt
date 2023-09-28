@@ -23,10 +23,8 @@ void    clean_light(void *lg)
 
 int point_light(t_light *light, t_list *current_obj, t_interparam *param, t_color *color, double *intensity)
 {
-    // light direction
-    t_vec3d light_dir;
-    // starting point
-    t_point3d light_start;
+    t_vec3d     light_dir;
+    t_point3d   light_start;
 
     double norm_light_vec;
     double angle;
@@ -35,8 +33,8 @@ int point_light(t_light *light, t_list *current_obj, t_interparam *param, t_colo
     vec3d_normalize(&light_dir);
 
     vec3d_assign(&light_start, &param->intersection_point);
-
     angle = acos(vec3d_dot(&param->local_normal, &light_dir));
+    
     if (angle > 1.5708)
     {
         color_copy(color, &light->color);

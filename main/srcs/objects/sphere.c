@@ -26,6 +26,7 @@ int     sp_test_intersection(void *object, t_interparam *p)
 {
     t_vec3d v_hat;
     t_object *obj;
+    t_sphere *sp;
     // compute the value of a, b and c
     double a;
     double b;
@@ -33,6 +34,7 @@ int     sp_test_intersection(void *object, t_interparam *p)
     double test;
 
     obj = (t_object *)object;
+    sp = (t_sphere *)obj->object;
     // apply_tfmat_to_ray(&p->ray, &obj->tfmat, &p->ray, BWD);
 
     vec3d_assign(&v_hat, &p->ray.direction);
@@ -55,25 +57,21 @@ int     sp_test_intersection(void *object, t_interparam *p)
             return (0);
         if (t1 < t2)
         {
-            // intersection_point = t1 * ray direction
             vec3d_scale(&p->intersection_point, t1, &v_hat);
         }
         else
         {
-            // intersection_point = t2 * ray direction
             vec3d_scale(&p->intersection_point, t2, &v_hat);
         }
         // intersection_point = intersection_point + ray origin
         vec3d_add(&p->intersection_point, &p->ray.origin);
         vec3d_normalize(&p->intersection_point);
-    
-        // v_world = v_hat * BWD_tfmat
         vec3d_assign(&p->local_normal, &p->intersection_point);
+        ft_memcpy(&p->local_color, &sp->color, sizeof(t_color));
+
         return (1);
     }
     return (0);
 }
 
 //TODO function to test whether two floating are cloase to being equal
-
-//

@@ -28,7 +28,7 @@ int    assign_value_m44(t_mat44 *mat, double value, int row, int col)
         printf("ERROR: assign_value_m44: row or col out of range\n");
         return (1);
     }
-    mat->m44[row][col] *= value;
+    mat->m44[row][col] = value;
 
     return (0);
 }

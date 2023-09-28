@@ -78,7 +78,6 @@ int	render_image(t_prog *prog);
 int     loop_test_object(t_prog *prog, t_interparam *param);
 
 int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir);
-
 // MLX Loop
 void    prog_mlx_loop(t_prog *prog);
 
