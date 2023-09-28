@@ -27,6 +27,7 @@ typedef struct s_object
 {
     int		type;
     void	*object;
+    t_tfmat     tfmat;
 
     void    (*print)(void *object);
     void    (*clean)(void *object);

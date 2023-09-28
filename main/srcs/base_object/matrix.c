@@ -397,6 +397,8 @@ int     cal_tf_matrix(t_tfmat *mat_list, t_input_vector *in)
 
     cal_tfmat_fwd(mat_list);
     cal_tfmat_bwd(mat_list);
+
+    return (SUCCESS);
 }
 
 int     cal_tfmat_bwd(t_tfmat *mat_list)
@@ -404,9 +406,16 @@ int     cal_tfmat_bwd(t_tfmat *mat_list)
     double det;
 
     det = det_matrix44(&(mat_list->fwd));
+    if (det == 0)
+    {
+        printf("ERROR: cal_tfmat_bwd: det == 0\n");
+        return (ERROR);
+    }
     create_cofacto_matrix44(&(mat_list->mul), &(mat_list->fwd));
     create_cofacto_tranpose(&(mat_list->mul), &(mat_list->mul));
     scale_m44(&(mat_list->bwd), 1.0 / det, &(mat_list->mul));
+
+    return (SUCCESS);
 }
 
 // create forward matrix call multiply all member save to fwd
@@ -417,5 +426,6 @@ int   cal_tfmat_fwd(t_tfmat *tfmat)
     mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_x));
     mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_y));
     mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_z));
+
     return (0);
 }
