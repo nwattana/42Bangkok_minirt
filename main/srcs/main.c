@@ -42,37 +42,6 @@ int	main(int argc, char **argv)
     // mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
     // prog_mlx_loop(&prog);
 
-	t_tfmat tfmat;
-	t_vec3d translete;
-	t_vec3d rotate_x;
-	t_vec3d rotate_y;
-	t_vec3d rotate_z;
-	t_vec3d scale;
-	t_mat33 rot;
-	double len;
-
-	vec3d_init(&translete, 1, 2, 3);
-	vec3d_init(&rotate_x, 0.4, 0, 0);
-	vec3d_init(&rotate_y, 0, 0.5, 0);
-	vec3d_init(&rotate_z, 0, 0, 0.5);
-	vec3d_init(&scale, 2, 2, 2);
-
-	vector_to_translation(&(tfmat.translate), &translete);
-	vector_to_rotate_x(&(tfmat.rotate_x), &rotate_x);
-	vector_to_rotate_y(&(tfmat.rotate_y), &rotate_y);
-	vector_to_rotate_z(&(tfmat.rotate_z), &rotate_z);
-	vector_to_scale_matrix(&(tfmat.scale_metrix), &scale);
-
-	mul_tf_member(&tfmat);
-
-	// cal bwd
-	double det;
-	det = det_matrix44(&(tfmat.fwd));
-	print_m44(&(tfmat.fwd), "fwd");
-	create_cofacto_matrix44(&(tfmat.mul), &(tfmat.fwd));
-	create_cofacto_tranpose(&(tfmat.mul), &(tfmat.mul));
-	scale_m44(&(tfmat.bwd), 1.0 / det, &(tfmat.mul));
-
 	return (0);
 }
 
