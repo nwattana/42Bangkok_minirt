@@ -1,18 +1,19 @@
 #include "../../inc/minirt.h"
 
-void    print_m44(t_mat44 *mat)
+void    print_m44(t_mat44 *mat, char *name)
 {
     int i;
     int j;
 
     i = 0;
+    printf("%s\n", name);
     while (i < 4)
     {
         j = 0;
         printf("[ ");
         while (j < 4)
         {
-            printf("%.3f  ", mat->m44[i][j]);
+            printf("%.4f  ", mat->m44[i][j]);
             j++;
         }
         printf(" ]\n");
@@ -82,7 +83,7 @@ int     scale_m44(t_mat44 *res, double scale, t_mat44 *mat)
     while (i < 4)
     {
         j = 0;
-        while (j < 3)
+        while (j < 4)
         {
             if (i == j)
                 res->m44[i][j] = mat->m44[i][j] * scale;
@@ -126,22 +127,14 @@ int     init_tfmat44(t_tfmat *tfmat)
 
 void print_tfmat(t_tfmat *mat)
 {
-    printf("translate:\n");
-    print_m44(&(mat->translate));
-    printf("rotate_x:\n");
-    print_m44(&(mat->rotate_x));
-    printf("rotate_y:\n");
-    print_m44(&(mat->rotate_y));
-    printf("rotate_z:\n");
-    print_m44(&(mat->rotate_z));
-    printf("scale_metrix:\n");
-    print_m44(&(mat->scale_metrix));
-    printf("mul:\n");
-    print_m44(&(mat->mul));
-    printf("fwd:\n");
-    print_m44(&(mat->fwd));
-    printf("bwd:\n");
-    print_m44(&(mat->bwd));
+    print_m44(&(mat->translate), "translate");
+    print_m44(&(mat->rotate_x), "rotate_x");
+    print_m44(&(mat->rotate_y), "rotate_y");
+    print_m44(&(mat->rotate_z), "rotate_z");
+    print_m44(&(mat->scale_metrix), "scale_metrix");
+    print_m44(&(mat->mul), "mul");
+    print_m44(&(mat->fwd), "fwd");
+    print_m44(&(mat->bwd), "bwd");
 }
 
 int   create_m44_from_vector(t_mat44 *res, t_vec3d *v)
@@ -272,29 +265,15 @@ int   mul_tf_member(t_tfmat *tfmat)
 // create backward matrix
 
 
-// หา inverse matrix ของ t_matt44
-// invers = 1/det * adjoint
-
-// 1/det
-// หา det mat 44
-// - หา det minor matrix ของ mat 44
-// det44 = sum({(-1)^(i+j) * mat44[i][j] * det_minor44(mat44, i, j)
-
-// adjoint
-// adjoint = transpose(cofactor)
-// cofactor[i][j] = (-1)^(i+j) * det_minor44(mat44, i, j)
 
 /// @brief หา det ของ Matrix 3x3
 double     det_matrix(t_mat33 *m)
 {
     double det;
 
-    det = m->m33[0][0] * m->m33[1][1] * m->m33[2][2] +\
-            m->m33[0][1] * m->m33[1][2] * m->m33[2][0] +\
-            m->m33[0][2] * m->m33[1][0] * m->m33[2][1] -\
-            m->m33[0][2] * m->m33[1][1] * m->m33[2][0] -\
-            m->m33[0][1] * m->m33[1][0] * m->m33[2][2] -\
-            m->m33[0][0] * m->m33[1][2] * m->m33[2][1];
+    det = m->m33[0][0] *( m->m33[1][1] * m->m33[2][2] - m->m33[1][2] * m->m33[2][1]) - \
+        m->m33[0][1] * (m->m33[1][0] * m->m33[2][2] - m->m33[1][2] * m->m33[2][0]) + \
+        m->m33[0][2] * (m->m33[1][0] * m->m33[2][1] - m->m33[1][1] * m->m33[2][0]);
     return (det);
 }
 // หา minor matrix ของ mat 4x4 ที่ i,j
@@ -302,25 +281,29 @@ int    get_minor_33(t_mat33 *res, t_mat44 *mat, int i, int j)
 {
     int row;
     int col;
-    int r;
-    int c;
+    int row_res;
+    int col_res;
 
-    row = -1;
-    r = 0;
-    while (++row < 4)
+    row = 0;
+    row_res = 0;
+    while (row < 4)
     {
-        if (row == i)
-            continue ;
-        col = -1;
-        c = 0;
-        while (++col < 4)
+        if (row != i)
         {
-            if (col == j)
-                continue ;
-            res->m33[r][c] = mat->m44[row][col];
-            c++;
+            col = 0;
+            col_res = 0;
+            while (col < 4)
+            {
+                if (col != j)
+                {
+                    res->m33[row_res][col_res] = mat->m44[row][col];
+                    col_res++;
+                }
+                col++;
+            }
+            row_res++;
         }
-        r++;
+        row++;
     }
     return (0);
 }
@@ -350,20 +333,74 @@ void    test_minor(t_mat44 *mat)
     t_mat33 res;
     int i;
     int j;
+    double det;
 
     j = 0;
-    while (j < 3)
+    while (j < 4)
     {
         i = 0;
-        while (i < 3)
+        while (i < 4)
         {
             get_minor_33(&res, mat, i, j);
-            print_mat33(&res);
-            printf("det: %f\n", det_matrix(&res));
-            printf("\n");
-            // printf("det: %f\n", det_matrix(&res));
+            det = det_matrix(&res);
             i++;
         }
         j++;
     }
 }
+
+// det = sum(pow(-1, i + j) * mat->m44[i][j] * det_matrix(&res)) i = 0, j < 4
+double det_matrix44(t_mat44 *mat)
+{
+    double det;
+    t_mat33 res;
+
+    get_minor_33(&res, mat, 0, 0);
+    det += pow(-1, 0 + 0) * mat->m44[0][0] * det_matrix(&res);
+    get_minor_33(&res, mat, 0, 1);
+    det += pow(-1, 0 + 1) * mat->m44[0][1] * det_matrix(&res);
+    get_minor_33(&res, mat, 0, 2);
+    det += pow(-1, 0 + 2) * mat->m44[0][2] * det_matrix(&res);
+    
+    return (det);
+}
+
+int     create_cofacto_matrix44(t_mat44 *res, t_mat44 *mat)
+{
+    t_mat33 minor;
+    int i;
+    int j;
+
+    i = 0;
+    while (i < 4)
+    {
+        j = 0;
+        while (j < 4)
+        {
+            get_minor_33(&minor, mat, i, j);
+            res->m44[i][j] = pow(-1, i + j) * det_matrix(&minor);
+            j++;
+        }
+        i++;
+    }
+}
+
+int     create_cofacto_tranpose(t_mat44 *res, t_mat44 *mat)
+{
+    t_mat33 minor;
+    int i;
+    int j;
+
+    i = 0;
+    while (i < 4)
+    {
+        j = 0;
+        while (j < 4)
+        {
+            res->m44[i][j] = mat->m44[j][i];
+            j++;
+        }
+        i++;
+    }
+}
+

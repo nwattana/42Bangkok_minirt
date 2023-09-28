@@ -23,7 +23,7 @@ typedef struct s_tfmat
     t_mat44     bwd;
 }               t_tfmat;
 
-void    print_m44(t_mat44 *m44);
+void    print_m44(t_mat44 *m44, char *name);
 int     assign_value_m44(t_mat44 *m44, double value, int row, int col);
 
 // Basic matrix operations
@@ -48,4 +48,8 @@ int     mul_mat44(t_mat44 *res, t_mat44 *base, t_mat44 *scal);
 int     mul_tf_member(t_tfmat *tfmat);
 void    print_mat33(t_mat33 *m33);
 void    test_minor(t_mat44 *mat);
+double det_matrix44(t_mat44 *mat);
+int     create_cofacto_matrix44(t_mat44 *res, t_mat44 *mat);
+int     create_cofacto_tranpose(t_mat44 *res, t_mat44 *mat);
+
 #endif
