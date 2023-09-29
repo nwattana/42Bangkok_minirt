@@ -85,8 +85,7 @@ int     scale_m44(t_mat44 *res, double scale, t_mat44 *mat)
         j = 0;
         while (j < 4)
         {
-            if (i == j)
-                res->m44[i][j] = mat->m44[i][j] * scale;
+            res->m44[i][j] = mat->m44[i][j] * scale;
             j++;
         }
         i++;
@@ -366,11 +365,12 @@ int     create_cofacto_matrix44(t_mat44 *res, t_mat44 *mat)
     }
 }
 
+// Avoid OverLappromble TAT
 int     create_cofacto_tranpose(t_mat44 *res, t_mat44 *mat)
 {
-    t_mat33 minor;
     int i;
     int j;
+    t_mat44 temp;
 
     i = 0;
     while (i < 4)
@@ -378,11 +378,12 @@ int     create_cofacto_tranpose(t_mat44 *res, t_mat44 *mat)
         j = 0;
         while (j < 4)
         {
-            res->m44[i][j] = mat->m44[j][i];
+            temp.m44[i][j] = mat->m44[j][i];
             j++;
         }
         i++;
     }
+    ft_memcpy(res, &temp, sizeof(t_mat44));
 }
 
 

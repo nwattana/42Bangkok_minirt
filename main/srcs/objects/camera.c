@@ -60,8 +60,6 @@ void    init_camera(void *cam)
     vec3d_scale(&(camera->projection_screen_v), camera->horizontal / camera->aspect_ratio, &(camera->projection_screen_v));
 
     // UNUSED
-    camera->screen_width = 2.0 * camera->cam_len * tan(camera->fov_rad / 2.0);
-    camera->screen_height = camera->screen_width / camera->aspect_ratio;
 
     vec3d_scale(&temp, camera->cam_len, &(camera->normal));
     vec3d_add(&camera->screen_center, &temp);

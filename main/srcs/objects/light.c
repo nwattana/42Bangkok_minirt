@@ -26,7 +26,6 @@ int point_light(t_light *light, t_list *current_obj, t_interparam *param, t_colo
     t_vec3d     light_dir;
     t_point3d   light_start;
 
-    double norm_light_vec;
     double angle;
 
     vec3d_minus(&light_dir, &light->position, &param->intersection_point);

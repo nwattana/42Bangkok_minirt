@@ -70,8 +70,10 @@ int which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer)
 
 	l_obj = get_object_from_list(prog->obj, LIGHT);
 	t_interparam param;
+
 	renderer->norm_x = ((double)x* renderer->xfact) - 1.0f;
 	renderer->norm_y = ((double)y * renderer->yfact) - 1.0f;
+
 	generate_ray(&param.ray, renderer->cam->object, renderer->norm_x, renderer->norm_y);
 
 	renderer->has_intersection = loop_test_object(prog, &param);
@@ -107,6 +109,7 @@ int loop_test_object(t_prog *prog, t_interparam *param)
 	t_list		*lst;
 	t_object	*obj;
 	int			ret;
+	int			test;
 
 	ret = 0;
 	lst = prog->obj;
@@ -115,7 +118,9 @@ int loop_test_object(t_prog *prog, t_interparam *param)
 		obj = (t_object *)lst->content;
 		if (obj->type >= 20)
 		{
-			ret = obj->test_intersection(obj, param);
+			test = obj->test_intersection(obj, param);
+			if (test != 0)
+				ret = test;
 		}
 		lst = lst->next;
 	}
