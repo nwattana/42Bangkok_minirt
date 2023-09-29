@@ -118,6 +118,7 @@ int loop_test_object(t_prog *prog, t_interparam *param)
 		obj = (t_object *)lst->content;
 		if (obj->type >= 20)
 		{
+			// test distance for each object in intersection
 			test = obj->test_intersection(obj, param);
 			if (test != 0)
 				ret = test;
