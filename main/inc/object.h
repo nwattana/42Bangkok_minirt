@@ -10,6 +10,7 @@
 
 // TYPE more than 10 is reserved for objects
 # define SPHERE 20
+# define PLANE 21
 
 typedef struct s_object t_object;
 
@@ -54,6 +55,5 @@ void    print_object_iter(void *content);
 void    *get_object_from_list(t_list *lst, int type);
 
 int     none_test_intersection(void *object, t_interparam *param);
-int 	init_interparam(t_interparam *param);
 
 #endif

@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	// Generate image
 	render_image(&prog);
 
-	// ft_lstiter(prog.obj, print_object_iter);
+	ft_lstiter(prog.obj, print_object_iter);
 	ft_lstclear(&(prog.obj), clean_object_from_list);
 
 	// // // TODO: change me

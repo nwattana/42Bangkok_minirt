@@ -67,7 +67,7 @@ int read_2bytes(char *line)
 
 	if (line == NULL)
 		return (0);
-	if (ft_strchr("C#ALs", line[0]))
+	if (ft_strchr("C#ALsp", line[0]))
 		return (1);
 	return (0);
 }
@@ -92,6 +92,10 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	if (ft_strncmp(item, "sp", ft_strlen(item)) == 0)
 	{
 		collect_sphere(splited_lint, prog);
+	}
+	if (ft_strncmp(item, "pl", ft_strlen(item)) == 0)
+	{
+		collect_plane(splited_lint, prog);
 	}
 }
 

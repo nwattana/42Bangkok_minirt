@@ -23,6 +23,7 @@
 #include "light.h"
 #include "ray.h"
 #include "sphere.h"
+#include "plane.h"
 
 #define PROGRAM_NAME "miniRT"
 #define WINDOW_WIDTH 1280
@@ -59,6 +60,8 @@ int		collect_camera(char **splited_line, t_prog *prog);
 int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
 int     collect_sphere(char **splited_line, t_prog *prog);
+int		collect_plane(char **str, t_prog *prog);
+
 int     sp_prep_tfmat(t_sphere *sp, t_object *obj);
 
 t_object	*create_object_camera(t_camera *cam);
@@ -66,7 +69,7 @@ t_object	*create_object_ambient(t_ambient *a);
 
 t_object	*create_object_light(t_light *l);
 t_object    *create_object_sphere(t_sphere *sp);
-
+t_object	*create_object_plane(t_plane *plane);
 
 double solve_quadratic(double a, double b, double c);
 int give_value_to_param(t_interparam *p, double t, t_object *obj, t_vec3d *v_hat);
