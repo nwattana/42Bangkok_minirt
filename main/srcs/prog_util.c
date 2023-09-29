@@ -52,7 +52,6 @@ int	read_rt_file(char *filepath, t_prog *prog)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		printf("LOG: validate %s\n", line);
 		check_line(line, prog);
 		free(line);
 	}

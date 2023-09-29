@@ -73,6 +73,13 @@ int		mul_mat_to_vector(t_vec3d *res, t_tfmat *mat, t_vec3d *in_vec, int dir)
 	return (0);
 }
 
+
+/// @brief Apply transformation matrix to ray
+/// @param res 
+/// @param mat 
+/// @param in_ray 
+/// @param dir 
+/// @return 
 int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir)
 {
 	mul_mat_to_vector(&(res->origin), mat, &(in_ray->origin), dir);
@@ -80,5 +87,11 @@ int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir)
 	vec3d_minus(&(res->direction), &(res->destination), &(res->origin));
 	vec3d_normalize(&(res->direction));
 
+	return (0);
+}
+
+int		apply_tfmat_to_vec(t_vec3d *res, t_tfmat *mat, t_vec3d *in_vec, int dir)
+{
+	mul_mat_to_vector(res, mat, in_vec, dir);
 	return (0);
 }

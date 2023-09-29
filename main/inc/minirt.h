@@ -68,6 +68,9 @@ t_object	*create_object_light(t_light *l);
 t_object    *create_object_sphere(t_sphere *sp);
 
 
+double solve_quadratic(double a, double b, double c);
+int give_value_to_param(t_interparam *p, double t, t_object *obj, t_vec3d *v_hat);
+
 // STATE 10
 void	prog_init_mlx(t_prog *prog);
 
@@ -78,9 +81,10 @@ int	render_image(t_prog *prog);
 int     loop_test_object(t_prog *prog, t_interparam *param);
 
 int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir);
+int		apply_tfmat_to_vec(t_vec3d *res, t_tfmat *mat, t_vec3d *in_vec, int dir);
 // MLX Loop
-void    prog_mlx_loop(t_prog *prog);
 
+void    prog_mlx_loop(t_prog *prog);
 
 void  debug_message(char *msg);
 #endif

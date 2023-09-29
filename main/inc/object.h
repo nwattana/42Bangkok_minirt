@@ -11,7 +11,17 @@
 // TYPE more than 10 is reserved for objects
 # define SPHERE 20
 
+typedef struct s_object t_object;
+
 /// @brief struct to store intersection parameters
+/// @param ray ray to test intersection create from camera to screen
+/// @param intersection_point point of intersection
+/// @param local_normal normal vector of intersection point
+/// @param local_color color of intersection point
+/// @param color to plot on screen
+/// @param intensity of light
+/// @param min_dist minimum distance to intersection point of current ray
+/// @param intersection_obj list of object that intersect with current ray
 typedef struct s_interparam
 {
     t_ray       ray;
@@ -20,7 +30,8 @@ typedef struct s_interparam
 	t_color	    local_color;
 	int			color;
     double      intensity;
-
+    double      min_dist;
+    t_object    *intersection_obj;
 }	t_interparam;
 
 typedef struct s_object
@@ -42,6 +53,7 @@ void    clean_object_from_list(void *obj);
 void    print_object_iter(void *content);
 void    *get_object_from_list(t_list *lst, int type);
 
-int    none_test_intersection(void *object, t_interparam *param);
+int     none_test_intersection(void *object, t_interparam *param);
+int 	init_interparam(t_interparam *param);
 
 #endif
