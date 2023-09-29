@@ -28,41 +28,21 @@ int     sp_test_intersection(void *object, t_interparam *p)
     t_object *obj;
     t_sphere *sp;
     // compute the value of a, b and c
-    double a;
-    double b;
-    double c;
-    double test;
+    double t;
 
     obj = (t_object *)object;
     sp = (t_sphere *)obj->object;
     // apply_tfmat_to_ray(&p->ray, &obj->tfmat, &p->ray, BWD);
 
     vec3d_assign(&v_hat, &p->ray.direction);
-    a = 1.0;
-    b = 2.0 * vec3d_dot(&v_hat, &p->ray.origin);
-    c = vec3d_dot(&p->ray.origin, &p->ray.origin) - 1.0;
 
    // test vector we has intersection with sphere
-    test = b * b - 4.0 * a * c;
-    if (test > 0.0)
+    t = solve_quadratic(1, 2.0 * vec3d_dot(&v_hat, &p->ray.origin), vec3d_dot(&p->ray.origin, &p->ray.origin) - 1.0);
+    if (t > 0.0)
     {
-        double testsqr = sqrt(test);
-        double t1;
-        double t2;
-        t1 = (-b + testsqr) / (2.0 * a);
-        t2 = (-b - testsqr) / (2.0 * a);
-
         // if t1 or t2 is negative, then we have an intersection behind the ray origin
-        if (t1 < 0.0 || t2 < 0.0)
-            return (0);
-        if (t1 < t2)
-        {
-            vec3d_scale(&p->intersection_point, t1, &v_hat);
-        }
-        else
-        {
-            vec3d_scale(&p->intersection_point, t2, &v_hat);
-        }
+        vec3d_scale(&p->intersection_point, t, &v_hat);
+
         // intersection_point = intersection_point + ray origin
         vec3d_add(&p->intersection_point, &p->ray.origin);
         vec3d_normalize(&p->intersection_point);
