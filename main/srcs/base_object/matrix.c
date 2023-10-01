@@ -407,10 +407,10 @@ int     cal_tfmat_bwd(t_tfmat *mat_list)
     double det;
 
     det = det_matrix44(&(mat_list->fwd));
-    if (det == 0)
+    if (almost_equal(det,0))
     {
-        printf("ERROR: cal_tfmat_bwd: det == 0\n");
-        return (ERROR);
+        debug_message("cal_tfmat_bwd: det = 0");
+        exit(ERROR);
     }
     create_cofacto_matrix44(&(mat_list->mul), &(mat_list->fwd));
     create_cofacto_tranpose(&(mat_list->mul), &(mat_list->mul));
@@ -424,9 +424,9 @@ int   cal_tfmat_fwd(t_tfmat *tfmat)
 {
     set_identity_m44(&(tfmat->mul));
     mul_mat44(&(tfmat->fwd), &(tfmat->translate), &(tfmat->scale_metrix));
-    mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_x));
-    mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_y));
     mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_z));
+    mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_y));
+    mul_mat44(&(tfmat->fwd), &(tfmat->fwd), &(tfmat->rotate_x));
 
     return (0);
 }

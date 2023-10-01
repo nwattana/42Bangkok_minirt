@@ -118,3 +118,8 @@ void prog_mlx_loop(t_prog *prog)
     // SWITCH turn on/off mlx window
     mlx_loop(vars->mlx);
 }
+
+int almost_equal(double a, double b)
+{
+    return (fabs(a - b) < EPSILON);
+}
