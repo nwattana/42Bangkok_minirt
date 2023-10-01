@@ -35,6 +35,11 @@ int  init_renderer(t_renderer *ren, t_prog *prog)
 	ren->min_dist = INFINITY;
 	ren->max_dist = -INFINITY;
 	ren->cam = get_object_from_list(prog->obj, CAMERA);
+	if (!ren->cam)
+	{
+		debug_message("No camera found");
+		exit(1);
+	}
 }
 
 /// @return 0 if on sucess, 1 if error
@@ -103,7 +108,7 @@ int which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer)
 	}
 }
 
-// return 1 if intersection, 0 if not
+// return 1 if intersection, 0 if not all param passing with `param`
 int loop_test_object(t_prog *prog, t_interparam *param)
 {
 	t_list		*lst;

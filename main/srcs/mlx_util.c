@@ -177,3 +177,8 @@ static int	keyhandler(int keycode)
 		printf("KEY_ESC: %s\n", "EXIT");
 	return (0);
 }
+
+int almost_equal(double a, double b)
+{
+    return (fabs(a - b) < EPSILON);
+}

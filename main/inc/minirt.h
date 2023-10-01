@@ -54,7 +54,7 @@ int		check_line(char *line, t_prog *prog);
 int		check_line_type(char **splited_lint, t_prog *prog);
 int		read_2bytes(char *line);
 int		count_char(char *str, int c);
-
+int		almost_equal(double a, double b);
 
 int		collect_camera(char **splited_line, t_prog *prog);
 int     collect_ambient(char **split_line, t_prog *prog);
@@ -85,6 +85,7 @@ int     loop_test_object(t_prog *prog, t_interparam *param);
 
 int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir);
 int		apply_tfmat_to_vec(t_vec3d *res, t_tfmat *mat, t_vec3d *in_vec, int dir);
+int	mul_mat_to_vector_2(t_vec3d *res, t_mat44 *tmp, t_vec3d *in_vec);
 // MLX Loop
 
 void    prog_mlx_loop(t_prog *prog);

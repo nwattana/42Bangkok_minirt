@@ -20,5 +20,6 @@
 
 # define FWD 1
 # define BWD -1
+# define EPSILON 1e-21f
 
 #endif
