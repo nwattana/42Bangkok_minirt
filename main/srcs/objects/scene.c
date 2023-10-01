@@ -46,7 +46,6 @@ int  init_renderer(t_renderer *ren, t_prog *prog)
 int render_image(t_prog *prog)
 {
 	t_renderer renderer;
-	t_list *lst;
 	int x;
 	int y;
 
@@ -56,19 +55,79 @@ int render_image(t_prog *prog)
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
-		y = 0;
-		while (y < WINDOW_HEIGHT)
+		y = WINDOW_HEIGHT;
+		while (y > 0)
 		{
+			
 			renderer.color = which_color_should_be(prog, x, y, &renderer);
 			mlx_my_putpixel(&(prog->mlx_config.img), x, y, renderer.color);
-			y++;
+			y--;
 		}
 		x++;
 	}
     return (SUCCESS);
 }
 
-// which_color_should_be
+int	test_intersection_obj(t_prog *prog, t_renderer *render)
+{
+	t_list			*lst;
+	t_object		*obj;
+	int				ret;
+	t_interparam 	param;
+
+	ret = 0;
+	lst = prog->obj;
+	while (lst)
+	{
+		obj = (t_object *)lst->content;
+		if (obj->type >= 20)
+		{
+			// test distance for each object in intersection
+			ret = obj->test_intersection(obj, &param);
+			if (ret != 0)
+			{
+				render->color = param.color;
+			}
+		}
+		lst = lst->next;
+	}
+	return (ret);
+}
+
+
+// return 1 if intersection, 0 if not all param passing with `param`
+int loop_test_object(t_prog *prog, t_interparam *param)
+{
+	t_list		*lst;
+	t_object	*obj;
+	int			ret;
+	int			test;
+
+	ret = 0;
+	lst = prog->obj;
+	while (lst)
+	{
+		obj = (t_object *)lst->content;
+		if (obj->type >= 20)
+		{
+			// test distance for each object in intersection
+			test = obj->test_intersection(obj, param);
+			if (test != 0)
+			{
+				ret = test;
+			}
+		}
+		lst = lst->next;
+	}
+	return (ret);
+}
+
+int	create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+
+
 int which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer)
 {
 	t_object *l_obj;
@@ -76,10 +135,7 @@ int which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer)
 	l_obj = get_object_from_list(prog->obj, LIGHT);
 	t_interparam param;
 
-	renderer->norm_x = ((double)x* renderer->xfact) - 1.0f;
-	renderer->norm_y = ((double)y * renderer->yfact) - 1.0f;
-
-	generate_ray(&param.ray, renderer->cam->object, renderer->norm_x, renderer->norm_y);
+	create_ray(&param.ray, renderer->cam->object, x, y);
 
 	renderer->has_intersection = loop_test_object(prog, &param);
 	if (renderer->has_intersection)
@@ -106,34 +162,4 @@ int which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer)
 		// if nothing intersected put ambient color
 		renderer->color = s_get_rgb(&prog->ambient_color);
 	}
-}
-
-// return 1 if intersection, 0 if not all param passing with `param`
-int loop_test_object(t_prog *prog, t_interparam *param)
-{
-	t_list		*lst;
-	t_object	*obj;
-	int			ret;
-	int			test;
-
-	ret = 0;
-	lst = prog->obj;
-	while (lst)
-	{
-		obj = (t_object *)lst->content;
-		if (obj->type >= 20)
-		{
-			// test distance for each object in intersection
-			test = obj->test_intersection(obj, param);
-			if (test != 0)
-				ret = test;
-		}
-		lst = lst->next;
-	}
-	return (ret);
-}
-
-int	create_rgb(int r, int g, int b)
-{
-	return (r << 16 | g << 8 | b);
 }

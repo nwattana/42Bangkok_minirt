@@ -56,3 +56,27 @@ void    print_ray_small(t_ray *ray)
 {
     printf("[%.3f %.3f %.3f]\n", ray->raw.x, ray->raw.y, ray->raw.z);
 }
+
+
+int create_ray(t_ray *ray, t_camera *cam, double u, double v)
+{
+    t_vec3d     destination;
+    t_vec3d temp;
+    u = (double)u / (WINDOW_WIDTH - 1);
+	v = (double)v / (WINDOW_HEIGHT - 1);
+
+    vec3d_assign(&destination, &cam->screen_left_bottom);
+    vec3d_scale(&temp, u, &cam->horizontal);
+    vec3d_add(&destination, &temp);
+    vec3d_scale(&temp, v, &cam->vertical);
+    vec3d_add(&destination, &temp); 
+    vec3d_minus(&destination, &destination, &cam->origin);
+
+    vec3d_assign(&ray->origin, &cam->origin);
+    vec3d_assign(&ray->destination, &destination);
+    vec3d_minus(&ray->raw, &destination, &cam->origin);
+    ray->len = vec3d_length(&ray->raw);
+
+    vec3d_assign(&ray->direction, &destination);
+    vec3d_normalize(&ray->direction);
+}

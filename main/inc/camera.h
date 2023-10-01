@@ -4,7 +4,7 @@
 
 # define CAMERA_LEN 1.0
 # define ASPECT_RATIO (16.0 / 9.0)
-# define HORIZONTAL_SIZE 0.25
+# define VIEWPORT_HEIGHT 0.25
 
 
 /// @brief  t_camera is a struct that contains the camera's origin, orientation, and fov.
@@ -18,17 +18,27 @@ typedef struct s_camera
     t_vec3d     normal;
     double         fov;
     double         fov_rad;
+
     int         is_init;
     t_vec3d     cam_up;
     t_vec3d     projection_screen_u;
     t_vec3d     projection_screen_v;
     double      cam_len;
+
     double      screen_width;
     double      screen_height;
-
-    double      horizontal;
-    t_vec3d     screen_center;
     double      aspect_ratio;
+
+    double      viewport_height;
+    double      viewport_width;
+
+    t_vec3d     horizontal;
+    t_vec3d     vertical;
+
+    t_vec3d     origin;
+    t_vec3d     screen_center;
+    t_vec3d     screen_left_bottom;
+    
 }	t_camera;
 
 void    print_camera(void *cam);

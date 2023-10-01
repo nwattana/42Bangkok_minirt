@@ -15,7 +15,7 @@ int     collect_color(char *color_string, t_color *color)
     return (0);
 }
 
-int     assign_color(t_color *color, int r, int g, int b)
+int     color_assign(t_color *color, int r, int g, int b)
 {
     color->r = r;
     color->g = g;
@@ -23,7 +23,7 @@ int     assign_color(t_color *color, int r, int g, int b)
     return (0);
 }
 
-int     s_get_rgb(t_color *color)
+int     get_rgb(t_color *color)
 {
     return (create_rgb(color->r, color->g, color->b));
 }

@@ -22,6 +22,8 @@ int collect_light(char **splited_line, t_prog *prog)
     if (object == NULL)
         return (SUCCESS);
 
+    // TODO อันเดียวไม่ต้อง ใส่เข้า list แล้ว
+    // ใส่่เข้า prog เลย
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
     return (ERROR);
 }

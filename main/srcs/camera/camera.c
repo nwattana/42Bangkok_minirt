@@ -46,23 +46,38 @@ void    init_camera(void *cam)
     // HOW to calculate vector up
     camera->cam_len = CAMERA_LEN;
     camera->aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
-    camera->horizontal = HORIZONTAL_SIZE;
+    camera->fov_rad = camera->fov * M_PI / 180.0;
+    camera->cam_len = 1;
 
-    vec3d_init(&(camera->cam_up), 0, 0, 1);
+    camera->viewport_height = VIEWPORT_HEIGHT;
+    camera->viewport_width = camera->aspect_ratio * camera->viewport_height;
+    vec3d_assign(&camera->origin, &camera->position);
 
-    vec3d_cross(&(camera->projection_screen_u), &(camera->normal), &(camera->cam_up));
-    vec3d_normalize(&(camera->projection_screen_u));
+    vec3d_init(&camera->horizontal, camera->viewport_width, 0, 0);
+    vec3d_init(&camera->vertical, 0, camera->viewport_height, 0);
 
-    vec3d_cross(&(camera->projection_screen_v), &(camera->projection_screen_u), &(camera->normal));
-    vec3d_normalize(&(camera->projection_screen_v));
+    vec3d_assign(&camera->screen_left_bottom, &camera->origin);
+    vec3d_scale(&temp, 0.5, &camera->horizontal);
+    vec3d_minus(&camera->screen_left_bottom, &camera->screen_left_bottom, &temp);
+    vec3d_scale(&temp, 0.5, &camera->vertical);
+    vec3d_minus(&camera->screen_left_bottom, &camera->screen_left_bottom, &temp);
+    vec3d_init(&camera->screen_center, 0, 0, 0);
 
-    vec3d_scale(&(camera->projection_screen_u), camera->horizontal, &(camera->projection_screen_u));
-    vec3d_scale(&(camera->projection_screen_v), camera->horizontal / camera->aspect_ratio, &(camera->projection_screen_v));
+    // vec3d_init(&(camera->cam_up), 0, 0, 1);
 
-    // UNUSED
+    // vec3d_cross(&(camera->projection_screen_u), &(camera->normal), &(camera->cam_up));
+    // vec3d_normalize(&(camera->projection_screen_u));
 
-    vec3d_scale(&temp, camera->cam_len, &(camera->normal));
-    vec3d_add(&camera->screen_center, &temp);
-    vec3d_add(&camera->screen_center, (t_vec3d *)&(camera->position));
+    // vec3d_cross(&(camera->projection_screen_v), &(camera->projection_screen_u), &(camera->normal));
+    // vec3d_normalize(&(camera->projection_screen_v));
+
+    // vec3d_scale(&(camera->projection_screen_u), camera->horizontal, &(camera->projection_screen_u));
+    // vec3d_scale(&(camera->projection_screen_v), camera->horizontal / camera->aspect_ratio, &(camera->projection_screen_v));
+
+    // vec3d_scale(&temp, camera->cam_len, &(camera->normal));
+    // vec3d_add(&camera->screen_center, &temp);
+    // vec3d_add(&camera->screen_center, (t_vec3d *)&(camera->position));
+
+
 }
 

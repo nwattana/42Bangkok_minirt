@@ -14,6 +14,8 @@ typedef struct s_ray
 
 void    print_ray(t_ray *ray);
 void    print_ray_small(t_ray *ray);
+// DELME
 int     generate_ray(t_ray *m_ray, t_camera *s_cam, double p_x, double p_y);
 
+int create_ray(t_ray *ray, t_camera *cam, double u, double v);  
 #endif

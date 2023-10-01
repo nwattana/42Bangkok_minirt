@@ -10,8 +10,8 @@ typedef struct s_color
 }	t_color;
 
 int	    create_rgb(int r, int g, int b);
-int     s_get_rgb(t_color *color);
-int     assign_color(t_color *color, int r, int g, int b);
+int     get_rgb(t_color *color);
+int     color_assign(t_color *color, int r, int g, int b);
 int     collect_color(char *color_string, t_color *color);
 
 int     color_copy(t_color *to, t_color *from);
