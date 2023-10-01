@@ -1,5 +1,7 @@
 #include "../inc/minirt.h"
 
+
+
 void debug_mlx_status(t_mlx_confix *vars)
 {
 	printf("is_initmlx: %d\n", vars->is_initmlx);
@@ -34,16 +36,19 @@ int	main(int argc, char **argv)
 	ft_lstiter(prog.obj, print_object_iter);
 	ft_lstclear(&(prog.obj), clean_object_from_list);
 
-	// // // TODO: change me
+	// // TODO: change me
 	t_mlx_confix *vars;
 	vars = &(prog.mlx_config);
 
 	// // FIXME: Segmentaion fault what is wrong?
     mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+	
     prog_mlx_loop(&prog);
 
 	return (0);
 }
+
+
 
 void	prog_init_mlx(t_prog *prog)
 {
