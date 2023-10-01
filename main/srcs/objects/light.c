@@ -21,29 +21,32 @@ void    clean_light(void *lg)
     free(light);
 }
 
-int point_light(t_light *light, t_list *current_obj, t_interparam *param, t_color *color, double *intensity)
+int point_light(t_light *light, t_interparam *param)
 {
     t_vec3d     light_dir;
     t_point3d   light_start;
 
     double angle;
 
+
     vec3d_minus(&light_dir, &light->position, &param->intersection_point);
     vec3d_normalize(&light_dir);
-
+    vec3d_normalize(&param->local_normal);
     vec3d_assign(&light_start, &param->intersection_point);
     angle = acos(vec3d_dot(&param->local_normal, &light_dir));
-    
     if (angle > 1.5708)
     {
-        color_copy(color, &light->color);
-        *intensity = 0.0;
+        param->intensity = 0;
         return (0);
     }
-    else
-    {
-        color_copy(color, &light->color);
-        *intensity = light->intensity * (1.0 - (angle / 1.5708));
-        return (1);
-    }
+    param->intensity = light->intensity * (1.0 - (angle / 1.5708));
+
+    // DEBUG
+    // if (param->intersection_obj->type == PLANE)
+    // {
+    //     printf("angle: %f\n", angle);
+    //     printf("intensity: %f\n", param->intensity);
+    // }
+
+    return (1);
 }

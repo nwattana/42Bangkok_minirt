@@ -31,16 +31,25 @@
 #define PI 3.14159265358979323846f
 #define DEBUG 1
 
+/// @brief a Default value for testing and debugging
+typedef struct s_defval
+{
+	t_vec3d vec_111;
+	t_color color_purple;
+	t_color color_white;
+}		t_defval;
+
 typedef struct s_prog
 {
-	int		p_state;
-	int		p_error;
-	t_list	*obj;
+	int				p_state;
+	int				p_error;
+	t_list			*obj;
 	t_mlx_confix	mlx_config;
+	t_defval 		defval;
 
-	int		has_camera;
-	int		has_ambient;
-	int		has_light;
+	int				has_camera;
+	int				has_ambient;
+	int				has_light;
 
 	t_color		ambient_color;
 }	t_prog;
@@ -72,7 +81,6 @@ t_object    *create_object_sphere(t_sphere *sp);
 t_object	*create_object_plane(t_plane *plane);
 
 double solve_quadratic(double a, double b, double c);
-int give_value_to_param(t_interparam *p, double t, t_object *obj, t_vec3d *v_hat);
 
 // STATE 10
 void	prog_init_mlx(t_prog *prog);

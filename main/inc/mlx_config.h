@@ -28,5 +28,4 @@ int     mlx_my_close(int key, t_mlx_confix *vars);
 void    fill_image_with_color(t_mlx_confix *vars);
 
 
-
 #endif

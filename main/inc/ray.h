@@ -2,7 +2,9 @@
 #define RAY_H
 #include "minirt.h"
 
-
+// raw = destination - origin
+// direction = normalize(raw)
+// len = length(raw)
 typedef struct s_ray
 {
     t_point3d origin;
@@ -10,6 +12,7 @@ typedef struct s_ray
     t_vec3d raw;
     t_vec3d direction;
     double  len;
+    int     is_init;
 } t_ray;
 
 void    print_ray(t_ray *ray);

@@ -28,7 +28,7 @@ int     sp_test_intersection(void *object, t_interparam *p)
     t_object *obj;
     t_sphere *sp;
     // compute the value of a, b and c
-    double t;
+    double dist;
     t_ray cal;
 
     obj = (t_object *)object;
@@ -39,36 +39,43 @@ int     sp_test_intersection(void *object, t_interparam *p)
     vec3d_assign(&v_hat, &cal.direction);
 
    // test vector we has intersection with sphere
-    t = solve_quadratic(1, 2.0 * vec3d_dot(&v_hat, &cal.origin), vec3d_dot(&cal.origin, &cal.origin) - 1.0);
-    if (t > 0.0)
+    dist = solve_quadratic(1, 2.0 * vec3d_dot(&v_hat, &cal.origin), vec3d_dot(&cal.origin, &cal.origin) - 1.0);
+    if (dist > 0.0)
     {
         // if t1 or t2 is negative, then we have an intersection behind the ray origin
-        set_intersection_param(p, t, &v_hat, &cal, obj);
-
-        return (1);
+        return (set_intersection_param(p, dist, &v_hat, &cal, obj));
     }
     return (0);
 }
 
-int     set_intersection_param(t_interparam *p, double t, t_vec3d *v_hat, t_ray *cal, t_object *obj)
+int     set_intersection_param(t_interparam *param, double dist, t_vec3d *v_hat, t_ray *cal, t_object *obj)
 {
     t_sphere *sp;
     t_vec3d origin;
     t_vec3d temp;
+    t_interparam p;
 
     sp = (t_sphere *)obj->object;
     vec3d_init(&origin, 0 ,0, 0);
-
+    ft_memcpy(&p, param, sizeof(t_interparam));
     // LOCAL INTERSECTION POINT
-    vec3d_scale(&p->intersection_point, t, v_hat);
+    vec3d_scale(&p.intersection_point, dist, v_hat);
     // intersection_point = intersection_point + ray origin
-    vec3d_add(&p->intersection_point, &(cal->origin));
+    vec3d_add(&p.intersection_point, &(cal->origin));
 
     // Convert Local Intersection Point to World Intersection Point
     apply_tfmat_to_vec(&origin, &obj->tfmat, &origin, FWD);
-    apply_tfmat_to_vec(&p->intersection_point, &obj->tfmat, &p->intersection_point, FWD);
-
-    vec3d_minus(&p->local_normal, &p->intersection_point, &origin);
-    vec3d_normalize(&p->local_normal);
-    ft_memcpy(&p->local_color, &sp->color, sizeof(t_color));
+    apply_tfmat_to_vec(&p.intersection_point, &obj->tfmat, &p.intersection_point, FWD);
+    vec3d_minus(&temp, &p.intersection_point, &p.ray.origin);
+    vec3d_minus(&p.local_normal, &p.intersection_point, &origin);
+    vec3d_normalize(&p.local_normal);
+    ft_memcpy(&p.local_color, &sp->color, sizeof(t_color));
+    p.min_dist = vec3d_length(&temp);
+    if (p.min_dist < param->min_dist)
+    {
+        ft_memcpy(param, &p, sizeof(t_interparam));
+        param->color = s_get_rgb(&sp->color);
+        return (1);
+    }
+    return (0);
 }

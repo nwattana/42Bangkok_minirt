@@ -20,6 +20,7 @@ int     assign_color(t_color *color, int r, int g, int b)
     color->r = r;
     color->g = g;
     color->b = b;
+    color->value = create_rgb(r, g, b);
     return (0);
 }
 
@@ -41,6 +42,12 @@ int     color_scale(t_color *res, double scale, t_color *a)
     res->r = (scale * (double)a->r);
     res->g = (scale * (double)a->g);
     res->b = (scale * (double)a->b);
+    if (res->r > 255)
+        res->r = 255;
+    if (res->g > 255)
+        res->g = 255;
+    if (res->b > 255)
+        res->b = 255;
     return (0);
 }
 

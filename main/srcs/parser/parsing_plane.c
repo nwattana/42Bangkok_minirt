@@ -49,14 +49,14 @@ int pl_prep_tfmat(t_plane *pl, t_object *obj)
     init_tfmat(tfmat);
     vector_to_translation(&tfmat->translate, &pl->point);
     // print arcos value
-    // vec3d_init(&temp, acos(pl->normal.x), acos(pl->normal.y), acos(pl->normal.z * (-1)));
+    // vec3d_init(&temp, acos(pl->normal.x), acos(pl->normal.y), acos(pl->normal.z));
 
-    // vec3d_init(&temp, pl->normal.x, pl->normal.y, pl->normal.z);
+    vec3d_init(&temp, pl->normal.x, pl->normal.y, pl->normal.z);
 
     // TODO : fix this
-    // vector_to_rotate_x(&tfmat->rotate_x, &temp);
-    // vector_to_rotate_y(&tfmat->rotate_y, &temp);
-    // vector_to_rotate_z(&tfmat->rotate_z, &temp);
+    vector_to_rotate_x(&tfmat->rotate_x, &temp);
+    vector_to_rotate_y(&tfmat->rotate_y, &temp);
+    vector_to_rotate_z(&tfmat->rotate_z, &temp);
     print_tfmat(tfmat);
 
     cal_tfmat_fwd(tfmat);

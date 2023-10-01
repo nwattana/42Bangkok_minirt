@@ -7,6 +7,7 @@ typedef struct s_color
     int	r;
     int	g;
     int	b;
+    int value;
 }	t_color;
 
 int	    create_rgb(int r, int g, int b);

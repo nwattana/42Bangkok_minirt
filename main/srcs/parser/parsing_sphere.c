@@ -13,6 +13,7 @@ int     collect_sphere(char **splited_str, t_prog *prog)
     // center radius color
     collect_3d(splited_str[1], &sphere->center);
     ft_strtod(splited_str[2], &sphere->radius);
+    sphere->radius = sqrt(sphere->radius);
     collect_color(splited_str[3], &sphere->color);
 
     object = create_object_sphere(sphere);

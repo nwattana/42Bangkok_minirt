@@ -11,7 +11,5 @@ typedef struct s_light
 
 void    print_light(void *light);
 void    clean_light(void *light);
-
-int point_light(t_light *light, t_list *current_obj, t_interparam *param, t_color *color, double *intensity);
-
+int point_light(t_light *light, t_interparam *param);
 #endif

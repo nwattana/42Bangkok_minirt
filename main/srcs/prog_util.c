@@ -1,5 +1,5 @@
 #include "../inc/minirt.h"
-
+void	init_defval(t_defval *defval);
 /// @brief program with printing error message
 void error_exit(char *msg, t_prog *prog)
 {
@@ -35,6 +35,7 @@ int prog_constructor(t_prog *prog)
 	prog->has_camera = 0;
 	prog->has_ambient = 0;
 	prog->has_light = 0;
+	init_defval(&prog->defval);
 
     return (0);
 }
@@ -77,6 +78,10 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	char	*item;
 
 	item = splited_lint[0];
+	if (item == NULL)
+	{
+		return (0);
+	}
 	if (ft_strncmp(item, "C", ft_strlen(item)) == 0)
 	{
 		collect_camera(splited_lint, prog);
@@ -145,4 +150,12 @@ void  debug_message(char *msg)
 {
 	printf(RED"DEBUG:"CLOSE);
 	printf(" %s\n", msg);
+}
+
+void	init_defval(t_defval *defval)
+{
+	vec3d_init(&defval->vec_111, 1, 1, 1);
+	assign_color(&defval->color_purple, 255, 153, 255);
+	assign_color(&defval->color_white, 255, 255, 255);
+	
 }

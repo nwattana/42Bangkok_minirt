@@ -22,7 +22,7 @@ typedef struct s_object t_object;
 /// @param color to plot on screen
 /// @param intensity of light
 /// @param min_dist minimum distance to intersection point of current ray
-/// @param intersection_obj list of object that intersect with current ray
+/// @param intersection_obj closest object that intersect with current ray
 typedef struct s_interparam
 {
     t_ray       ray;
@@ -33,6 +33,7 @@ typedef struct s_interparam
     double      intensity;
     double      min_dist;
     t_object    *intersection_obj;
+
 }	t_interparam;
 
 typedef struct s_object

@@ -14,7 +14,6 @@ int generate_ray(t_ray *m_ray, t_camera *s_cam, double p_x, double p_y)
 
     if (m_ray == NULL || s_cam == NULL)
         return (1);
-    
     vec3d_assign(&(m_ray->origin), &s_cam->position);
     // compute the location of the screen point in world coordinates
 
