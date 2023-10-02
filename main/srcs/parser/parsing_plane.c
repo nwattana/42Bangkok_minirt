@@ -15,10 +15,7 @@ int collect_plane(char **str, t_prog *prog)
     object = create_object_plane(plane);
     if (object == NULL)
         return (1);
-    
-
     pl_prep_tfmat(plane, object);
-    print_tfmat(&object->tfmat);
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
     return (0);
 }
@@ -47,20 +44,26 @@ int pl_prep_tfmat(t_plane *pl, t_object *obj)
     tfmat = &(obj->tfmat);
 
     init_tfmat(tfmat);
-    vector_to_translation(&tfmat->translate, &pl->point);
+    // vector_to_translation(&tfmat->translate, &pl->point);
     // print arcos value
     // vec3d_init(&temp, acos(pl->normal.x), acos(pl->normal.y), acos(pl->normal.z));
 
-    vec3d_init(&temp, pl->normal.x, pl->normal.y, pl->normal.z);
+   vec3d_init(&temp, 0, 0, 1);
+   vector_to_translation(&tfmat->translate, &temp);
 
+   vec3d_init(&temp, 4, 4, 1);
+   vector_to_scale_matrix(&tfmat->scale_metrix, &temp);
+
+   vec3d_init(&temp, 0, 0, PI/4);
     // TODO : fix this
     vector_to_rotate_x(&tfmat->rotate_x, &temp);
     vector_to_rotate_y(&tfmat->rotate_y, &temp);
     vector_to_rotate_z(&tfmat->rotate_z, &temp);
-    print_tfmat(tfmat);
+
 
     cal_tfmat_fwd(tfmat);
     cal_tfmat_bwd(tfmat);
+    print_tfmat(tfmat);
     
     return (0);
 }

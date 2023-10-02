@@ -55,3 +55,12 @@ void    print_ray_small(t_ray *ray)
 {
     printf("[%.3f %.3f %.3f]\n", ray->raw.x, ray->raw.y, ray->raw.z);
 }
+
+int    get_point_on_ray(t_point3d *res, t_ray *ray, double dist)
+{
+    vec3d_assign(res, &(ray->direction));
+    vec3d_scale(res, dist, res);
+    vec3d_add(res, &(ray->origin));
+
+    return (1);
+}

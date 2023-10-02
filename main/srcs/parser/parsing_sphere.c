@@ -47,12 +47,14 @@ int     sp_prep_tfmat(t_sphere *sp, t_object *obj)
 {
     t_tfmat *tfmat;
     t_vec3d temp;
+    double  radius;
 
     tfmat = &(obj->tfmat);
 
     init_tfmat(tfmat);
     vector_to_translation(&tfmat->translate, &sp->center);
-    vec3d_init(&temp, sp->radius, sp->radius, sp->radius);
+    radius = sp->radius;
+    vec3d_init(&temp, radius, radius, radius);
     vector_to_scale_matrix(&tfmat->scale_metrix, &temp);
 
     cal_tfmat_fwd(tfmat);

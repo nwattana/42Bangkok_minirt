@@ -18,5 +18,5 @@ typedef struct s_ray
 void    print_ray(t_ray *ray);
 void    print_ray_small(t_ray *ray);
 int     generate_ray(t_ray *m_ray, t_camera *s_cam, double p_x, double p_y);
-
+int    get_point_on_ray(t_point3d *res, t_ray *ray, double dist);
 #endif
