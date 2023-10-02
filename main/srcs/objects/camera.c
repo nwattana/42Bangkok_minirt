@@ -47,7 +47,10 @@ void    init_camera(void *cam)
     camera->cam_len = CAMERA_LEN;
     camera->aspect_ratio = (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT;
     camera->horizontal = HORIZONTAL_SIZE;
+    vec3d_plus(&(camera->lookat), &(camera->position), &(camera->normal));
 
+    // set up vector to (0, 0, 1)
+    // TODO: cameraa normal parallel to up vector
     vec3d_init(&(camera->cam_up), 0, 0, 1);
 
     vec3d_cross(&(camera->projection_screen_u), &(camera->normal), &(camera->cam_up));

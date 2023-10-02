@@ -29,6 +29,7 @@ typedef struct s_camera
     double      horizontal;
     t_vec3d     screen_center;
     double      aspect_ratio;
+    t_point3d   lookat;
 }	t_camera;
 
 void    print_camera(void *cam);

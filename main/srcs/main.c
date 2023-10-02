@@ -1,7 +1,5 @@
 #include "../inc/minirt.h"
 
-
-
 void debug_mlx_status(t_mlx_confix *vars)
 {
 	printf("is_initmlx: %d\n", vars->is_initmlx);

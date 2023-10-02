@@ -46,10 +46,11 @@ int     pl_test_intersection(void *object, t_interparam *param)
     vec3d_minus(&p0_l0, &cal.origin, &(pl->point));
     double  parametric_distance;
 
-    parametric_distance = abs(vec3d_dot(&p0_l0, &(pl->normal)) / b);
+    parametric_distance = -vec3d_dot(&p0_l0, &(pl->normal)) / b;
 
     if (parametric_distance >= 0.0)
     {
+
         // param->intersection_point
         vec3d_scale(&param->intersection_point, parametric_distance, &cal.direction);
         vec3d_add(&param->intersection_point, &cal.origin);
