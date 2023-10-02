@@ -16,15 +16,13 @@ int collect_camera(char **splited_line, t_prog *prog)
     collect_3d(splited_line[2], &camera->normal);
     ft_strtod(splited_line[3], &camera->fov);
 
-    camera->fov_rad = (camera->fov * PI) / 180.0;
-    camera->is_init = 0;
     init_camera(camera);
-
-    // add camera to object list
-    object = create_object_camera(camera);
-    if (object == NULL)
-        return (1);
-    ft_lstadd_back(&prog->obj, ft_lstnew(object));
+    if (prog->camera != NULL)
+    {
+        debug_message("Only one camera is allowed");
+        exit(1);
+    }
+    prog->camera = camera;
 	return (0);
 }
 
@@ -61,4 +59,12 @@ t_object *create_object_camera(t_camera *cam)
     object->test_intersection = none_test_intersection;
 
     return (object);
+}
+
+void    clean_camera(void *cam)
+{
+    t_camera *camera;
+
+    camera = (t_camera *)cam;
+    free(camera);
 }

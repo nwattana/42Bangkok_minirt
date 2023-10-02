@@ -18,14 +18,9 @@ int collect_light(char **splited_line, t_prog *prog)
     collect_color(splited_line[3], &light->color);
 
     // add light to object list
-    object = create_object_light(light);
-    if (object == NULL)
-        return (SUCCESS);
+    prog->light = light;
 
-    // TODO อันเดียวไม่ต้อง ใส่เข้า list แล้ว
-    // ใส่่เข้า prog เลย
-    ft_lstadd_back(&prog->obj, ft_lstnew(object));
-    return (ERROR);
+    return (SUCCESS);
 }
 
 t_object *create_object_light(t_light *light)

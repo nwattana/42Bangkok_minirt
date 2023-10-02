@@ -15,10 +15,7 @@ int collect_plane(char **str, t_prog *prog)
     object = create_object_plane(plane);
     if (object == NULL)
         return (1);
-    
-
     pl_prep_tfmat(plane, object);
-    print_tfmat(&object->tfmat);
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
     return (0);
 }

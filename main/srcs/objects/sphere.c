@@ -57,15 +57,6 @@ int     sp_test_intersection(void *object, t_interparam *p)
     {
         if (dist < p->min_dist)
         {
-            printf("dist: %f\n", dist);
-            exit(0);
-            p->min_dist = dist;
-            p->intersection_obj = obj;
-            ft_memcpy(&p->intersection_point, &p->ray.destination, sizeof(t_point3d));
-            vec3d_minus(&p->local_normal, &p->intersection_point, &sphere->center);
-            vec3d_normalize(&p->local_normal);
-            color_copy(&p->local_color,&sphere->color);
-            p->color = get_rgb(&p->local_color);
             return (1);
         }
     }

@@ -44,11 +44,6 @@ int     color_scale(t_color *res, double scale, t_color *a)
     return (0);
 }
 
-int     print_color(t_color *color)
-{
-    printf("color: %d, %d, %d\n", color->r, color->g, color->b);
-    return (0);
-}
 
 int     color_add(t_color *res, t_color *a, t_color *b)
 {
@@ -62,4 +57,9 @@ int     color_add(t_color *res, t_color *a, t_color *b)
     if (res->b > 255)
         res->b = 255;
     return (0);
+}
+
+int	create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
 }

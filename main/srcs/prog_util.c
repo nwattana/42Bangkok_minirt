@@ -36,6 +36,8 @@ int prog_constructor(t_prog *prog)
 	prog->has_ambient = 0;
 	prog->has_light = 0;
 
+	prog->camera = NULL;
+	prog->light = NULL;
     return (0);
 }
 

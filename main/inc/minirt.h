@@ -42,6 +42,9 @@ typedef struct s_prog
 	int		has_ambient;
 	int		has_light;
 
+	t_camera 	*camera;
+	t_light		*light;
+
 	t_color		ambient_color;
 }	t_prog;
 
@@ -81,11 +84,9 @@ void	prog_init_mlx(t_prog *prog);
 // STATE 12
 int	render_image(t_prog *prog);
 
-int     loop_test_object(t_prog *prog, t_interparam *param);
 
 int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir);
 int		apply_tfmat_to_vec(t_vec3d *res, t_tfmat *mat, t_vec3d *in_vec, int dir);
-int	mul_mat_to_vector_2(t_vec3d *res, t_mat44 *tmp, t_vec3d *in_vec);
 // MLX Loop
 
 void    prog_mlx_loop(t_prog *prog);
