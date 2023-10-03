@@ -1,6 +1,5 @@
 #include "../../inc/minirt.h"
 
-// FIXME : handle unneeded params
 int     collect_sphere(char **splited_str, t_prog *prog)
 {
     t_sphere    *sphere;
@@ -10,14 +9,15 @@ int     collect_sphere(char **splited_str, t_prog *prog)
     if (sphere == NULL)
         return (1);
     
-    // center radius color
     collect_3d(splited_str[1], &sphere->center);
     ft_strtod(splited_str[2], &sphere->radius);
-    collect_color(splited_str[3], &sphere->color);
+    color_collect_string(splited_str[3], &sphere->color);
 
     object = create_object_sphere(sphere);
     if (object == NULL)
         return (1);
+    prog->item_count++;
+    object->id = prog->item_count;
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
     return (0);
 }

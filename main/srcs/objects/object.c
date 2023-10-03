@@ -70,6 +70,6 @@ int init_intersection_param(t_interparam *p)
     p->min_dist = INFINITY;
     p->color = 0;
     p->intensity = 0;
-    p->intersection_obj = NULL;
+    p->intsct_obj_id = -1;
     return (SUCCESS);
 }

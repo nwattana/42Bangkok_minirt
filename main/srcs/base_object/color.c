@@ -1,7 +1,13 @@
 #include "../../inc/minirt.h"
 
-/// @brief Only collect color from string please check if the string is valid
-int     collect_color(char *color_string, t_color *color)
+int     color_collect_string(char *color_string, t_color *color);
+int     color_init(t_color *color, int r, int g, int b);
+int     color_plus(t_color *res, t_color *a, t_color *b);
+int     color_struct2int(t_color *color);
+int     color_rgb2int(int r, int g, int b);
+int     color_scale(t_color *res, double scale, t_color *a);
+
+int     color_collect_string(char *color_string, t_color *color)
 {
     char    **split_color;
 
@@ -15,7 +21,7 @@ int     collect_color(char *color_string, t_color *color)
     return (0);
 }
 
-int     color_assign(t_color *color, int r, int g, int b)
+int     color_init(t_color *color, int r, int g, int b)
 {
     color->r = r;
     color->g = g;
@@ -23,17 +29,9 @@ int     color_assign(t_color *color, int r, int g, int b)
     return (0);
 }
 
-int     get_rgb(t_color *color)
+int     color_struct2int(t_color *color)
 {
-    return (create_rgb(color->r, color->g, color->b));
-}
-
-int     color_copy(t_color *to, t_color *from)
-{
-    to->r = from->r;
-    to->g = from->g;
-    to->b = from->b;
-    return (0);
+    return (color_rgb2int(color->r, color->g, color->b));
 }
 
 int     color_scale(t_color *res, double scale, t_color *a)
@@ -44,8 +42,7 @@ int     color_scale(t_color *res, double scale, t_color *a)
     return (0);
 }
 
-
-int     color_add(t_color *res, t_color *a, t_color *b)
+int     color_plus(t_color *res, t_color *a, t_color *b)
 {
     res->r = a->r + b->r;
     if (res->r > 255)
@@ -59,7 +56,15 @@ int     color_add(t_color *res, t_color *a, t_color *b)
     return (0);
 }
 
-int	create_rgb(int r, int g, int b)
+int	color_rgb2int(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
+}
+
+int color_copy(t_color *dst, t_color *src)
+{
+    dst->r = src->r;
+    dst->g = src->g;
+    dst->b = src->b;
+    return (0);
 }

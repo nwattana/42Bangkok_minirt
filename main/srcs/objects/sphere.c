@@ -1,5 +1,5 @@
 #include "../../inc/minirt.h"
-int     set_intersection_param(t_interparam *p, double t, t_vec3d *v_hat, t_ray *cal, t_object *obj);
+
 void   print_sphere(void *sph)
 {
     t_sphere *sphere;
@@ -20,7 +20,6 @@ void   clean_sphere(void *sph)
     sphere = (t_sphere *)sph;
     free(sphere);
 }
-
 
 double sp_cale_dist(t_sphere *sphere, t_ray *ray)
 {
@@ -60,10 +59,5 @@ int     sp_test_intersection(void *object, t_interparam *p)
             return (1);
         }
     }
-    return (0);
-}
-
-int     set_intersection_param(t_interparam *p, double t, t_vec3d *v_hat, t_ray *cal, t_object *obj)
-{
     return (0);
 }
