@@ -31,8 +31,6 @@ int	main(int argc, char **argv)
 	// Generate image
 	render_image(&prog);
 
-	ft_lstiter(prog.obj, print_object_iter);
-	ft_lstclear(&(prog.obj), clean_object_from_list);
 
 	// // TODO: change me
 	t_mlx_confix *vars;
@@ -42,7 +40,6 @@ int	main(int argc, char **argv)
     mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	
     prog_mlx_loop(&prog);
-
 	return (0);
 }
 

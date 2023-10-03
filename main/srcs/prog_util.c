@@ -29,12 +29,20 @@ int validate_args(int argc, char **argv, t_prog *prog)
 
 int prog_constructor(t_prog *prog)
 {
-    prog->p_state = 1;
+	t_camera *cam;
+	t_light *light;
+	t_ambient *ambient;
+
+	cam = (t_camera *)(&prog->camera);
+	light = (t_light *)(&prog->light);
+	ambient = (t_ambient *)(&prog->ambient);
+
     prog->p_error = 0;
 	prog->obj = NULL;
-	prog->has_camera = 0;
-	prog->has_ambient = 0;
-	prog->has_light = 0;
+	cam->count = 0;
+	light->count = 0;
+	ambient->count = 0;
+	prog->item = 0;
 	init_defval(&prog->defval);
 
     return (0);

@@ -39,6 +39,24 @@ typedef struct s_defval
 	t_color color_white;
 }		t_defval;
 
+typedef struct s_renderer
+{
+
+	double		xfact;
+	double		yfact;
+	double		norm_x;
+	double		norm_y;
+	int			has_intersection;
+
+	int			color;
+	double 		min_dist;
+	double 		max_dist;
+	t_vec3d 	origin_to_intersection;
+	t_object	*cam;
+	double 		dist;
+
+}			t_renderer;
+
 typedef struct s_prog
 {
 	int				p_state;
@@ -47,12 +65,16 @@ typedef struct s_prog
 	t_mlx_confix	mlx_config;
 	t_defval 		defval;
 
-	int				has_camera;
-	int				has_ambient;
-	int				has_light;
 
-	t_color		ambient_color;
+	// Single only object;
+	t_camera	camera;
+	t_light		light;
+	t_ambient	ambient;
+	t_color	ambient_color;
+	int		item;
+
 }	t_prog;
+
 
 // prog util
 int		validate_args(int argc, char **argv, t_prog *prog);
@@ -87,13 +109,22 @@ void	prog_init_mlx(t_prog *prog);
 
 
 // STATE 12
+// t_renderer
+int  init_renderer(t_renderer *ren, t_prog *prog);
+
+
 int	render_image(t_prog *prog);
 
 int     loop_test_object(t_prog *prog, t_interparam *param);
 
 int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir);
 int		apply_tfmat_to_vec(t_vec3d *res, t_tfmat *mat, t_vec3d *in_vec, int dir);
-int	mul_mat_to_vector_2(t_vec3d *res, t_mat44 *tmp, t_vec3d *in_vec);
+int		mul_mat_to_vector_2(t_vec3d *res, t_mat44 *tmp, t_vec3d *in_vec);
+int loop_test_light(t_prog *prog, t_interparam *param, t_ray *inter_to_light);
+void  init_light_intersection_param(t_interparam *param, t_prog *prog, t_interparam *inter);
+int		which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer);
+int	cal_light(t_prog *prog, t_renderer *renderer, t_interparam *param);
+int	init_intersection_param(t_interparam *param, t_prog *prog);
 // MLX Loop
 
 void    prog_mlx_loop(t_prog *prog);

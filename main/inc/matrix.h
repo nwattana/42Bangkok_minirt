@@ -58,11 +58,12 @@ int     cal_tfmat_fwd(t_tfmat *tfmat);
 int     cal_tfmat_bwd(t_tfmat *tfmat);
 int     init_tfmat(t_tfmat *tfmat);
 
+int trans_normal_rtxyz(t_vec3d *normal, t_vec3d *rotate_vector);
+
 // DEBUG
 void    print_m44(t_mat44 *m44, char *name);
 void    print_mat33(t_mat33 *m33);
 void    print_tfmat(t_tfmat *mat);
 void    test_minor(t_mat44 *mat);
-
 
 #endif

@@ -200,6 +200,18 @@ int     vector_to_rotate_x(t_mat44 *res, t_vec3d *v)
     return (0);
 }
 
+int     value_to_rotate_x(t_mat44 *res, double rad)
+{
+    set_identity_m44(res);
+    assign_value_m44(res, cos(rad), 1, 1);
+    assign_value_m44(res, -sin(rad), 1, 2);
+    assign_value_m44(res, sin(rad), 2, 1);
+    assign_value_m44(res, cos(rad), 2, 2);
+
+    return (0);
+}
+
+
 int     vector_to_scale_matrix(t_mat44 *res, t_vec3d *v)
 {
     set_identity_m44(res);
@@ -209,6 +221,17 @@ int     vector_to_scale_matrix(t_mat44 *res, t_vec3d *v)
 
     return (0);
 }
+
+int val_to_scale_mattix(t_mat44 *res, double x, double y, double z)
+{
+    set_identity_m44(res);
+    assign_value_m44(res, x, 0, 0);
+    assign_value_m44(res, y, 1, 1);
+    assign_value_m44(res, z, 2, 2);
+
+    return (0);
+}
+
 
 // SUSPECTED
 int     mul_mat44(t_mat44 *res, t_mat44 *base, t_mat44 *scal)
@@ -395,7 +418,6 @@ int     cal_tf_matrix(t_tfmat *mat_list, t_input_vector *in)
     vector_to_rotate_y(&(mat_list->rotate_y), &(in->rotate_y));
     vector_to_rotate_z(&(mat_list->rotate_z), &(in->rotate_z));
     vector_to_scale_matrix(&(mat_list->scale_metrix), &(in->scale));
-
     cal_tfmat_fwd(mat_list);
     cal_tfmat_bwd(mat_list);
 
@@ -410,6 +432,7 @@ int     cal_tfmat_bwd(t_tfmat *mat_list)
     if (almost_equal(det,0))
     {
         debug_message("cal_tfmat_bwd: det = 0");
+        print_tfmat(mat_list);
         exit(ERROR);
     }
     create_cofacto_matrix44(&(mat_list->mul), &(mat_list->fwd));
@@ -442,4 +465,18 @@ int init_tfmat(t_tfmat *tfmat)
     set_identity_m44(&(tfmat->fwd));
     set_identity_m44(&(tfmat->bwd));
     return (0);
+}
+
+int trans_normal_rtxyz(t_vec3d *normal, t_vec3d *rotate_vector)
+{
+    rotate_vector->y = atan(normal->y / -normal->z);
+    rotate_vector->x = atan(-normal->z / normal->x);
+    rotate_vector->z = atan(normal->x / normal->y);
+    if (isnan(rotate_vector->y))
+        rotate_vector->y = 0;
+    if (isnan(rotate_vector->x))
+        rotate_vector->x = 0;
+    if (isnan(rotate_vector->z))
+        rotate_vector->z = 0;
+    return (SUCCESS);
 }

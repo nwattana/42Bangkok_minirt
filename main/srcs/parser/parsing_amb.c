@@ -4,10 +4,13 @@
 int     collect_ambient(char **split_line, t_prog *prog)
 {
     double intensity;
+    t_ambient *ambient;
 
+    ambient = &prog->ambient;
     ft_strtod(split_line[1], &intensity);
-    collect_color(split_line[2], &prog->ambient_color);
-    color_scale(&prog->ambient_color, intensity, &prog->ambient_color);
+    collect_color(split_line[2], &ambient->color);
+    ambient->intensity = intensity;
+    ambient->count++;
 
     return (SUCCESS);
 }

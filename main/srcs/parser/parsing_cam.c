@@ -6,10 +6,12 @@ int collect_camera(char **splited_line, t_prog *prog)
     t_camera	*camera;
     t_object    *object;
 
-    prog->has_camera = 1;
-    camera = malloc(sizeof(t_camera));
-    if (camera == NULL)
-        return (1);
+    camera = &prog->camera;
+    if (camera->count != 0)
+    {
+        debug_message("Has Camera more than one");
+        exit(1);
+    }
 
     // position  direction fov
     collect_3d(splited_line[1], &camera->position);
@@ -18,13 +20,9 @@ int collect_camera(char **splited_line, t_prog *prog)
 
     camera->fov_rad = (camera->fov * PI) / 180.0;
     camera->is_init = 0;
+    camera->count++;
     init_camera(camera);
 
-    // add camera to object list
-    object = create_object_camera(camera);
-    if (object == NULL)
-        return (1);
-    ft_lstadd_back(&prog->obj, ft_lstnew(object));
 	return (0);
 }
 

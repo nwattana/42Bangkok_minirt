@@ -43,6 +43,11 @@ int     sp_test_intersection(void *object, t_interparam *p)
     if (dist > 0.0)
     {
         // if t1 or t2 is negative, then we have an intersection behind the ray origin
+        if (obj ==NULL)
+        {
+            debug_message("obj is null");
+            exit(1);
+        }
         return (set_intersection_param(p, dist, &v_hat, &cal, obj));
     }
     return (0);
@@ -50,10 +55,10 @@ int     sp_test_intersection(void *object, t_interparam *p)
 
 int     set_intersection_param(t_interparam *param, double dist, t_vec3d *v_hat, t_ray *cal, t_object *obj)
 {
-    t_sphere *sp;
-    t_vec3d origin;
-    t_vec3d temp;
-    t_interparam p;
+    t_sphere        *sp;
+    t_vec3d         origin;
+    t_vec3d         temp;
+    t_interparam    p;
 
     sp = (t_sphere *)obj->object;
     vec3d_init(&origin, 0 ,0, 0);
@@ -62,19 +67,32 @@ int     set_intersection_param(t_interparam *param, double dist, t_vec3d *v_hat,
     vec3d_scale(&p.intersection_point, dist, v_hat);
     // intersection_point = intersection_point + ray origin
     vec3d_add(&p.intersection_point, &(cal->origin));
-
     // Convert Local Intersection Point to World Intersection Point
     apply_tfmat_to_vec(&origin, &obj->tfmat, &origin, FWD);
     apply_tfmat_to_vec(&p.intersection_point, &obj->tfmat, &p.intersection_point, FWD);
     vec3d_minus(&temp, &p.intersection_point, &p.ray.origin);
     vec3d_minus(&p.local_normal, &p.intersection_point, &origin);
+    // DEBUG normalize
+    if (vec3d_length(&p.local_normal) == 0)
+    {
+        debug_message("local normal length is 0: set_intersection_param");
+        return (0);
+    }
     vec3d_normalize(&p.local_normal);
     ft_memcpy(&p.local_color, &sp->color, sizeof(t_color));
     p.min_dist = vec3d_length(&temp);
+
     if (p.min_dist < param->min_dist)
     {
+        if (obj == NULL)
+        {
+            debug_message("obj is null");
+            exit(1);
+        }
+        param->intersection_obj = obj;
+        param->min_dist = p.min_dist;
+
         ft_memcpy(param, &p, sizeof(t_interparam));
-        param->color = s_get_rgb(&sp->color);
         return (1);
     }
     return (0);

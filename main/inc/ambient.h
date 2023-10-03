@@ -5,6 +5,7 @@
 
 typedef struct s_ambient
 {
+    int     count;
     double      intensity;
     t_color     color;
 }           t_ambient;

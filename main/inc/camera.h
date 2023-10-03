@@ -4,7 +4,7 @@
 
 # define CAMERA_LEN 1.0
 # define ASPECT_RATIO (16.0 / 9.0)
-# define HORIZONTAL_SIZE 0.25
+# define HORIZONTAL_SIZE 1
 
 
 /// @brief  t_camera is a struct that contains the camera's origin, orientation, and fov.
@@ -13,6 +13,8 @@
 /// @param  fov is an int that contains the camera's fov.
 typedef struct s_camera
 {
+    int         count;
+
     t_point3d   position;
     // m_alignment vertor
     t_vec3d     normal;

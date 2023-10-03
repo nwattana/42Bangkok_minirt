@@ -7,22 +7,18 @@ int collect_light(char **splited_line, t_prog *prog)
     t_light    *light;
     t_object    *object;
 
-    prog->has_light = 1;
-    light = malloc(sizeof(t_light));
-    if (light == NULL)
-        return (ERROR);
+    light = &prog->light;
+    if (light->count >= 1)
+    {
+        debug_message("Error\nToo many lights\n");
+        exit(1);
+    }
     
     // position intensity color
     collect_3d(splited_line[1], &light->position);
     ft_strtod(splited_line[2], &light->intensity);
     collect_color(splited_line[3], &light->color);
 
-    // add light to object list
-    object = create_object_light(light);
-    if (object == NULL)
-        return (SUCCESS);
-
-    ft_lstadd_back(&prog->obj, ft_lstnew(object));
     return (ERROR);
 }
 

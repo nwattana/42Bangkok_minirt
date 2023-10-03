@@ -32,6 +32,9 @@ int generate_ray(t_ray *m_ray, t_camera *s_cam, double p_x, double p_y)
     vec3d_assign(&(m_ray->raw), &(m_ray->direction));
 
     m_ray->len = vec3d_length(&(m_ray->direction));
+    // DEBUG normalize
+    if (vec3d_length(&(m_ray->direction)) == 0)
+        return (1);
     vec3d_normalize(&(m_ray->direction));
     vec3d_assign(&(m_ray->destination), &world_coord);
     vec3d_assign(&(m_ray->origin), &(s_cam->position));
@@ -63,4 +66,22 @@ int    get_point_on_ray(t_point3d *res, t_ray *ray, double dist)
     vec3d_add(res, &(ray->origin));
 
     return (1);
+}
+
+int create_ray_from_points(t_ray *ray, t_point3d *origin, t_point3d *destination)
+{
+    vec3d_assign(&(ray->origin), origin);
+    vec3d_assign(&(ray->destination), destination);
+    vec3d_minus(&(ray->raw), destination, origin);
+    vec3d_assign(&(ray->direction), &(ray->raw));
+    // DEBUG normalize
+    if (vec3d_length(&(ray->direction)) == 0)
+    {
+        debug_message("ray direction length is 0: create_ray_from_points");
+        return (1);
+    }
+    vec3d_normalize(&(ray->direction));
+    ray->len = vec3d_length(&(ray->raw));
+
+    return (SUCCESS);
 }

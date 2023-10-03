@@ -20,7 +20,8 @@ int     collect_sphere(char **splited_str, t_prog *prog)
     if (object == NULL)
         return (1);
     // add sphere to object list
-
+    prog->item++;
+    object->id = prog->item;
     sp_prep_tfmat(sphere, object);
 
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
