@@ -14,19 +14,19 @@ int	main(int argc, char **argv)
 	read_rt_file(argv[1], &prog);
 
 	// Create MLX window and image
-	// prog_init_mlx(&prog);
+	prog_init_mlx(&prog);
 
 	// Generate image
 	// render_image(&prog);
 
 	// // TODO: change me
-	// t_mlx_confix *vars;
-	// vars = &(prog.mlx_config);
+	t_mlx_confix *vars;
+	vars = &(prog.mlx_config);
 
 	// // FIXME: Segmentaion fault what is wrong?
-    // mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
+    mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	
-    // prog_mlx_loop(&prog);
+    prog_mlx_loop(&prog);
 	return (0);
 }
 

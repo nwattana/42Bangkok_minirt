@@ -40,7 +40,7 @@ void fill_image_with_color(t_mlx_confix *vars)
         win_x = 0;
         while (win_x < WINDOW_WIDTH)
         {
-            color = color_rgb2int(38, 97, 156);
+            color = color_rgb2int(0, 0, 0);
             mlx_my_putpixel(&(vars->img), win_x, win_y, color);
             win_x++;
         }
