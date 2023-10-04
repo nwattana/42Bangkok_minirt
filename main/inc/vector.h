@@ -25,5 +25,5 @@ double vec3d_length(t_vec3d *a);
 double vec3d_dot(t_vec3d *a, t_vec3d *b);
 void    print_vec3d(t_vec3d *a);
 void *collect_3d(char *str_vector, void *memory_in);
-
+int vec3d_eq(t_vec3d *v1, t_vec3d *v2);
 #endif

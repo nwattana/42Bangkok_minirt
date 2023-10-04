@@ -105,9 +105,10 @@ int vec3d_normalize(t_vec3d *a)
         return (ERROR);
     length = vec3d_length(a);
     if (length == 0)
-    {
+    {   
+        print_vec3d(a);
         debug_message("vec3d_normalize: length is 0\n");
-        exit(ERROR);
+        return (ERROR);
     }
     a->x /= length;
     a->y /= length;

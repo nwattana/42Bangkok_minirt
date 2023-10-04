@@ -86,6 +86,16 @@ int		apply_tfmat_to_ray(t_ray *res, t_tfmat *mat, t_ray *in_ray, int dir)
 	mul_mat_to_vector(&(res->destination), mat, &(in_ray->destination), dir);
 	vec3d_minus(&(res->direction), &(res->destination), &(res->origin));
 	vec3d_normalize(&(res->direction));
+	if (vec3d_normalize(&(res->direction)) == 1)
+    {
+		printf("Dir %d\n", dir);
+		print_vec3d(&in_ray->destination);
+		print_vec3d(&res->destination);
+		print_vec3d(&in_ray->origin);
+		printf("Direction %s %d\n", dir == FWD ? "FWD":"BWD", dir);
+        printf("main.c1\n");
+		exit(1);
+    }
 
 	return (0);
 }

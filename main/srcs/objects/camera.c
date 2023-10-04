@@ -55,9 +55,17 @@ void    init_camera(void *cam)
 
     vec3d_cross(&(camera->projection_screen_u), &(camera->normal), &(camera->cam_up));
     vec3d_normalize(&(camera->projection_screen_u));
+    if (vec3d_normalize(&(camera->projection_screen_u)) == 1)
+    {
+        printf("camera.c1\n");
+    }
 
     vec3d_cross(&(camera->projection_screen_v), &(camera->projection_screen_u), &(camera->normal));
     vec3d_normalize(&(camera->projection_screen_v));
+    if (vec3d_normalize(&(camera->projection_screen_v)) == 1)
+    {
+        printf("camera.c2\n");
+    }
 
     vec3d_scale(&(camera->projection_screen_u), camera->horizontal, &(camera->projection_screen_u));
     vec3d_scale(&(camera->projection_screen_v), camera->horizontal / camera->aspect_ratio, &(camera->projection_screen_v));

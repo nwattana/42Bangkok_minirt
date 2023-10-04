@@ -19,6 +19,13 @@ int which_color_should_be(t_prog *prog, int x, int y, t_renderer *renderer)
 
 	if (renderer->has_intersection)
 	{
+		t_vec3d temp;
+
+		temp = (t_vec3d){0,0,0};
+		if (vec3d_eq(&param.local_normal, &temp))
+		{
+			printf("Error normal\n");
+		}
 		// ถ้า hit จะเข้าไปเชคแสงที่ วัตถุว่าโดนแสงแค่ไหน
 		color = cal_light(prog, renderer, &param);
 	}
@@ -57,7 +64,6 @@ int loop_test_object(t_prog *prog, t_interparam *param)
 				if (ret == 1 && param->intersection_obj == NULL)
 				{
 					param->intersection_obj = obj;
-
 				}
 			}
 		}

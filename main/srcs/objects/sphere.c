@@ -72,13 +72,25 @@ int     set_intersection_param(t_interparam *param, double dist, t_vec3d *v_hat,
     apply_tfmat_to_vec(&p.intersection_point, &obj->tfmat, &p.intersection_point, FWD);
     vec3d_minus(&temp, &p.intersection_point, &p.ray.origin);
     vec3d_minus(&p.local_normal, &p.intersection_point, &origin);
+    
     // DEBUG normalize
     if (vec3d_length(&p.local_normal) == 0)
     {
         debug_message("local normal length is 0: set_intersection_param");
         return (0);
     }
+    if (vec3d_length(&p.local_normal) == 0)
+    {
+        print_vec3d(&p.intersection_point);
+        print_vec3d(&origin);
+        // return (0);
+        exit(1);
+    }
     vec3d_normalize(&p.local_normal);
+    if (vec3d_normalize(&p.local_normal) == 1 )
+    {
+        printf("sphere.c1 error\n");
+    }
     ft_memcpy(&p.local_color, &sp->color, sizeof(t_color));
     p.min_dist = vec3d_length(&temp);
 

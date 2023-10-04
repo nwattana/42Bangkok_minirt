@@ -36,6 +36,11 @@ int generate_ray(t_ray *m_ray, t_camera *s_cam, double p_x, double p_y)
     if (vec3d_length(&(m_ray->direction)) == 0)
         return (1);
     vec3d_normalize(&(m_ray->direction));
+    if (vec3d_normalize(&(m_ray->direction)) == 1)
+    {
+        printf("ray.c1\n");
+        exit(0);
+    }
     vec3d_assign(&(m_ray->destination), &world_coord);
     vec3d_assign(&(m_ray->origin), &(s_cam->position));
 

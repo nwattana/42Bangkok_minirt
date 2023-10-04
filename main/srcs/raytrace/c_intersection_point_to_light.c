@@ -43,6 +43,14 @@ int	cal_light(t_prog *prog, t_renderer *renderer, t_interparam *param)
     return (ret_color);
 }
 
+int vec3d_eq(t_vec3d *v1, t_vec3d *v2)
+{
+    if ((v1->x == v2->x) && (v1->y == v2->y) && (v1->z == v2->z))
+    {
+        return (SUCCESS);
+    }
+    return (ERROR);
+}
 
 int point_light(t_light *light, t_interparam *param, t_prog *prog)
 {
@@ -53,9 +61,15 @@ int point_light(t_light *light, t_interparam *param, t_prog *prog)
     double angle;
     int reach_ray;
 
-    // init_light_intersection_param(&light_param, prog, param);
-    // create_ray_from_points(&inter_to_light, &param->intersection_point, &light->position);
-    // reach_ray = loop_test_light(prog, &light_param, &inter_to_light);
+    reach_ray = 0;
+    init_light_intersection_param(&light_param, prog, param);
+    if (vec3d_eq(&param->intersection_point, &light->position))
+    {
+        param->intensity = 0;
+        return (1);
+    }
+    create_ray_from_points(&inter_to_light, &param->intersection_point, &light->position);
+    reach_ray = loop_test_light(prog, &light_param, &inter_to_light);
 
     // ยิง แสงจาก intersection point ไป หา light source
 
@@ -67,9 +81,14 @@ int point_light(t_light *light, t_interparam *param, t_prog *prog)
         return (0);
     }
     vec3d_normalize(&light_dir);
+    if (vec3d_normalize(&light_dir) == 1)
+    {
+        printf("c_inter1\n");
+    }
+      
     vec3d_assign(&light_start, &param->intersection_point);
     angle = acos(vec3d_dot(&param->local_normal, &light_dir));
-    if (angle > 1.5708 || reach_ray)
+    if (angle >= 1.5708 || reach_ray)
     {
         param->intensity = 0;
         return (0);
@@ -86,7 +105,9 @@ int loop_test_light(t_prog *prog, t_interparam *param, t_ray *inter_to_light)
     int         test;
 
     ret = 0;
+    test = 0;
     lst = prog->obj;
+
     while (lst)
     {
         obj = (t_object *)lst->content;
@@ -95,7 +116,11 @@ int loop_test_light(t_prog *prog, t_interparam *param, t_ray *inter_to_light)
             debug_message("lst->content is null");
             exit(1);
         }
-        if (obj->type >= 20)
+        if (param->intersection_obj == NULL)
+        {
+            return (ERROR);
+        }
+        if (obj->type >= 20 && obj->id != param->intersection_obj->id)
         {
             // test distance for each object in intersection
             test = obj->test_intersection(obj , param);

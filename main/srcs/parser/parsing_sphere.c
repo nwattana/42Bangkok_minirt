@@ -15,7 +15,6 @@ int     collect_sphere(char **splited_str, t_prog *prog)
     ft_strtod(splited_str[2], &sphere->radius);
     sphere->radius = sqrt(sphere->radius);
     collect_color(splited_str[3], &sphere->color);
-
     object = create_object_sphere(sphere);
     if (object == NULL)
         return (1);
@@ -23,7 +22,6 @@ int     collect_sphere(char **splited_str, t_prog *prog)
     prog->item++;
     object->id = prog->item;
     sp_prep_tfmat(sphere, object);
-
     ft_lstadd_back(&prog->obj, ft_lstnew(object));
     return (0);
 }
@@ -55,6 +53,7 @@ int     sp_prep_tfmat(t_sphere *sp, t_object *obj)
     init_tfmat(tfmat);
     vector_to_translation(&tfmat->translate, &sp->center);
     radius = sp->radius;
+    printf("radius =  %f\n", radius);
     vec3d_init(&temp, radius, radius, radius);
     vector_to_scale_matrix(&tfmat->scale_metrix, &temp);
 

@@ -52,7 +52,7 @@ void    *get_object_from_list(t_list *lst, int type)
         if (object->type == type)
             return (object);
         lst = lst->next;
-    }
+    } 
     return (NULL);
 }
 

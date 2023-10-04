@@ -35,7 +35,6 @@ int     pl_test_intersection(void *object, t_interparam *param)
 
     obj = (t_object *)object;
     pl = (t_plane *)obj->object;
-
    apply_tfmat_to_ray(&cal, &obj->tfmat, &param->ray, BWD);
    vec3d_assign(&k, &cal.direction);
 
@@ -43,6 +42,11 @@ int     pl_test_intersection(void *object, t_interparam *param)
    if (vec3d_length(&k) == 0)
         return (0);
    vec3d_normalize(&k);
+   if (vec3d_normalize(&k) == 1)
+    {
+        printf("plane.c1\n");
+        exit(0);
+    }
    
    if (almost_equal(k.z, 0))
         return (0);
