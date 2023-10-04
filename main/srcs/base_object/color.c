@@ -42,6 +42,13 @@ int     color_scale(t_color *res, double scale, t_color *a)
     return (0);
 }
 
+int     color_dot(t_color *res, t_color *c1, t_color *intensity)
+{
+    res->r = (double)c1->r * (double)intensity->r;
+    res->g = (double)c1->g * (double)intensity->g;
+    res->b = (double)c1->b * (double)intensity->b;
+}
+
 int     color_plus(t_color *res, t_color *a, t_color *b)
 {
     res->r = a->r + b->r;

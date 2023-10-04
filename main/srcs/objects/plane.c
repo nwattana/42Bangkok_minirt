@@ -1,5 +1,5 @@
 #include "../../inc/minirt.h"
-
+int almost_equal(double a, double b);
 void    print_plane(void    *pl)
 {
     t_plane *plane;
@@ -24,11 +24,38 @@ void    clean_plane(void *pl)
 
 int     pl_test_intersection(void *object, t_interparam *param)
 {
-    static int i = 0;
+    t_vec3d     *ray;
+    double      dot;
+    t_plane     *plane;
+    t_object    *obj;
+    t_vec3d     inters_point;
+    double      dist;
 
-    if (i == 0)
+    obj = (t_object *)object;
+    plane = (t_plane *)obj->object;
+    ray = &param->ray->direction;
+
+    dot = vec3d_dot(&plane->normal, ray);
+    if (almost_equal(dot, 0))
+        return (0);
+    vec3d_minus(&inters_point, &plane->point, &param->ray->origin);
+    dist = vec3d_dot(&inters_point, &plane->normal) / dot;
+    if (param->min_dist > dist && dist > 0)
     {
-        debug_message("test intersection for plane\n");
+        param->local_color = plane->color;
+        param->min_dist = dist;
+        param->inters_point.x = param->ray->origin.x + dist * ray->x;
+        param->inters_point.y = param->ray->origin.y + dist * ray->y;
+        param->inters_point.z = param->ray->origin.z + dist * ray->z;
+        param->inters_normal = plane->normal;
+        param->inter_obj_id = obj->id;
+        return (1);
     }
     return (0);
 }
+
+
+int almost_equal(double a, double b)
+{
+    return (fabs(a - b) < EPSILON);
+}   

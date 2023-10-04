@@ -90,6 +90,7 @@ typedef struct s_interparam
     t_vec3d     inters_normal;
     double      min_dist;
     double      inter_obj_id;
+    t_color     local_color;
     int     is_hit;
 
 }	t_interparam;
@@ -125,6 +126,7 @@ typedef struct s_prog
 	t_camera 	camera;
 	t_light		light;
 	t_color		ambient_color;
+    double     ambient_intensity;
 
 	int	item_count;
 }	t_prog;
@@ -174,7 +176,7 @@ int     print_color(t_color *color);
 int     color_plus(t_color *res, t_color *a, t_color *b);
 int     color_copy(t_color *dst, t_color *src);
 t_color int2color(int color);
-
+int     color_dot(t_color *res, t_color *c1, t_color *c2);
 // cam
 void    init_camera(t_camera *cam);
 
