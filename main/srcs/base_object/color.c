@@ -68,3 +68,13 @@ int color_copy(t_color *dst, t_color *src)
     dst->b = src->b;
     return (0);
 }
+
+t_color int2color(int color)
+{
+    t_color res;
+
+    res.r = (color >> 16) & 0xFF;
+    res.g = (color >> 8) & 0xFF;
+    res.b = color & 0xFF;
+    return (res);
+}

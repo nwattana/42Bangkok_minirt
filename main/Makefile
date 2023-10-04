@@ -38,7 +38,7 @@ all: $(NAME)
 $(NAME): $(MLX_APATH) libft $(OBJS)
 	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC) -g
 	#FIXME re-link need fix
-	mv $(OBJS) $(ORBJ_DIR)
+
 
 $(MLX_APATH): mlxx
 	@echo $(MLX_APATH)

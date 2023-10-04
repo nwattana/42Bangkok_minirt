@@ -17,10 +17,11 @@
 #include "prog_state.h"
 
 #define PROGRAM_NAME "miniRT"
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
+#define WINDOW_WIDTH 640.0f
+#define WINDOW_HEIGHT 360.0f
 #define PI 3.14159265358979323846f
 #define DEBUG 1
+#define WORLD_SCALE 1.0f
 typedef struct s_color
 {
     int	r;
@@ -28,8 +29,7 @@ typedef struct s_color
     int	b;
 }	t_color;
 
-# define CAMERA_LEN 1.0
-# define VIEWPORT_HEIGHT 2
+# define CAMERA_LEN 1.0f
 
 
 /// @brief  t_camera is a struct that contains the camera's origin, orientation, and fov.
@@ -39,21 +39,16 @@ typedef struct s_color
 typedef struct s_camera
 {
     t_point3d   position;
-    // m_alignment vertor
     t_vec3d     normal;
     double         fov;
-    double  image_width;
-    double  image_height;
+
+    double      len;
+    t_point3d   middle_screen;
     t_vec3d     cam_up;
-    t_vec3d     projection_screen_u;
-    t_vec3d     projection_screen_v;
-    t_vec3d     u_dir;
-    t_vec3d     v_dir;
-    t_vec3d     horizontal;
-    t_vec3d     vertical;
-    t_vec3d     origin;
-    t_vec3d     screen_center;
-    t_vec3d     lower_left_coner;
+    t_vec3d     cam_left;
+    double      aspect_ratio;
+    t_point3d   top_left;
+    t_vec3d     world_up;
 }	t_camera;
 
 
@@ -67,7 +62,6 @@ typedef struct s_light
 typedef struct s_ray
 {
     t_point3d origin;
-    t_point3d destination;
     t_vec3d direction;
 } t_ray;
 
@@ -89,14 +83,13 @@ typedef struct s_plane
 /// @param intersection_obj list of object that intersect with current ray
 typedef struct s_interparam
 {
-    t_ray       ray;
-	t_point3d	intersection_point;
-    t_vec3d		local_normal;
-	t_color	    local_color;
-	int			color;
-    double      intensity;
+    t_ray       *ray;
+    t_point3d   inters_point;
+    t_vec3d     inters_normal;
     double      min_dist;
-    int         intsct_obj_id;
+    double      inter_obj_id;
+    int     is_hit;
+
 }	t_interparam;
 
 typedef struct	s_sphere
@@ -126,6 +119,7 @@ typedef struct s_prog
 	int			has_camera;
 	int			has_ambient;
 	int			has_light;
+
 	t_camera 	camera;
 	t_light		light;
 	t_color		ambient_color;
@@ -148,6 +142,9 @@ int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
 int     collect_sphere(char **splited_line, t_prog *prog);
 int		collect_plane(char **str, t_prog *prog);
+
+// set up camera
+double cale_camera_len(t_camera *camera);
 
 // Plane
 void    clean_plane(void *pl);
@@ -174,9 +171,9 @@ int     color_scale(t_color *res, double scale, t_color *a);
 int     print_color(t_color *color);
 int     color_plus(t_color *res, t_color *a, t_color *b);
 int     color_copy(t_color *dst, t_color *src);
+t_color int2color(int color);
 
 // cam
-int    camera_lookat(t_vec3d *poi, t_camera *camera, double length);
 void    init_camera(t_camera *cam);
 
 // object
@@ -189,14 +186,15 @@ t_object    *create_object_sphere(t_sphere *sp);
 t_object	*create_object_plane(t_plane *plane);
 
 // ray
-int		create_ray(t_ray *ray, t_camera *cam, double u, double v);
-
+void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
+int     init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param);
+int     trace_ray_to_obj(t_prog *prog, t_interparam *param);
+int     loop_test_ray_to_obj(t_prog *prog, t_interparam *param);
 // simple math
 double solve_quadratic(double a, double b, double c);
 
 void	prog_init_mlx(t_prog *prog);
 int		render_image(t_prog *prog);
 void    prog_mlx_loop(t_prog *prog);
-
 void  debug_message(char *msg);
 #endif

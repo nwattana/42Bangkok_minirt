@@ -101,9 +101,33 @@ int vec3d_normalize(t_vec3d *a)
     if (a == NULL)
         return (ERROR);
     length = vec3d_length(a);
+    if (length == 0)
+    {
+        debug_message("vec3d_normalize: length is 0");
+        return (ERROR);
+    }
     a->x /= length;
     a->y /= length;
     a->z /= length;
+
+    return (SUCCESS);
+}
+
+int vec3d_tonormal(t_vec3d *res, t_vec3d *in)
+{
+    double length;
+
+    if (in == NULL || res == NULL)
+        return (ERROR);
+    length = vec3d_length(in);
+    if (length == 0)
+    {
+        debug_message("vec3d_tonormal: length is 0");
+        return (ERROR);
+    }
+    res->x = in->x / length;
+    res->y = in->y / length;
+    res->z = in->z / length;
 
     return (SUCCESS);
 }
@@ -129,7 +153,7 @@ double vec3d_dot(t_vec3d *a, t_vec3d *b)
     return (a->x * b->x + a->y * b->y + a->z * b->z);
 }
 
-void    print_vec3d(t_vec3d *a)
+void    print_vec3d(t_vec3d *a, char *message)
 {
-    printf("vec3d [ %.3f %.3f %.3f ]\n", a->x, a->y, a->z);
+    printf("vec3d %s [ %.3f %.3f %.3f ]\n",message, a->x, a->y, a->z);
 }

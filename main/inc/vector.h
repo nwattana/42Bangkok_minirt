@@ -21,7 +21,7 @@ int     vec3d_normalize(t_vec3d *a);
 int     vec3d_scale(t_vec3d *res, double scale, t_vec3d *a);
 double  vec3d_length(t_vec3d *a);
 double  vec3d_dot(t_vec3d *a, t_vec3d *b);
-void    print_vec3d(t_vec3d *a);
+void    print_vec3d(t_vec3d *a, char *message);
 void    *collect_3d(char *str_vector, void *memory_in);
 
 #endif

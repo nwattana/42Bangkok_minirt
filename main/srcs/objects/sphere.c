@@ -43,21 +43,29 @@ double sp_cale_dist(t_sphere *sphere, t_ray *ray)
 // function to test intersction between ray and sphere
 int     sp_test_intersection(void *object, t_interparam *p)
 {
+    t_ray *ray;
+    t_sphere *sp;
     double dist;
-    t_sphere *sphere;
-    t_object *obj;
+    t_vec3d oc;
 
-    obj = (t_object *)object;
-    sphere = (t_sphere *)obj->object;
-    dist = sp_cale_dist(sphere, &p->ray);
+    sp = (t_sphere *)object;
+    ray = p->ray;
+    vec3d_minus(&oc, &ray->origin, &sp->center);
 
+    double a;
+    double b;
+    double c;
 
+    a = vec3d_dot(&ray->direction, &ray->direction);
+    b = 2.0 * vec3d_dot(&oc, &ray->direction);
+    c = vec3d_dot(&oc, &oc) - (sp->radius * sp->radius);
+
+    double discriminant;
+
+    dist = solve_quadratic(a, b, c);
     if (dist > 0.0)
     {
-        if (dist < p->min_dist)
-        {
-            return (1);
-        }
+        return (1);
     }
     return (0);
 }

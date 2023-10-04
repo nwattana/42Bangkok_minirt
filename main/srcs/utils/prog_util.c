@@ -35,7 +35,6 @@ int prog_constructor(t_prog *prog)
 	prog->has_camera = 0;
 	prog->has_ambient = 0;
 	prog->has_light = 0;
-
 	prog->item_count = 0;
     return (0);
 }
@@ -55,7 +54,6 @@ int	read_rt_file(char *filepath, t_prog *prog)
 		if (!line)
 			break ;
 		check_line(line, prog);
-		debug_message(line);
 		free(line);
 	}
 	close(fd);

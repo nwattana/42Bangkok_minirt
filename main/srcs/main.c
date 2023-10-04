@@ -17,8 +17,10 @@ int	main(int argc, char **argv)
 	prog_init_mlx(&prog);
 
 	// Generate image
-	// render_image(&prog);
+	render_image(&prog);
 
+
+	ft_lstiter(prog.obj, print_object_iter);
 	// // TODO: change me
 	t_mlx_confix *vars;
 	vars = &(prog.mlx_config);
