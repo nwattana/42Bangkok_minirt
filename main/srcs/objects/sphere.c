@@ -46,19 +46,20 @@ int     sp_test_intersection(void *object, t_interparam *p)
     t_ray *ray;
     t_sphere *sp;
     double dist;
-    t_vec3d oc;
+    t_vec3d cam2obj;
 
     sp = (t_sphere *)object;
     ray = p->ray;
-    vec3d_minus(&oc, &ray->origin, &sp->center);
+    vec3d_minus(&cam2obj, &ray->origin, &sp->center);
+
 
     double a;
     double b;
     double c;
 
     a = vec3d_dot(&ray->direction, &ray->direction);
-    b = 2.0 * vec3d_dot(&oc, &ray->direction);
-    c = vec3d_dot(&oc, &oc) - (sp->radius * sp->radius);
+    b = 2.0 * vec3d_dot(&cam2obj, &ray->direction);
+    c = vec3d_dot(&cam2obj, &cam2obj) - (sp->radius * sp->radius);
 
     double discriminant;
 

@@ -41,14 +41,16 @@ typedef struct s_camera
     t_point3d   position;
     t_vec3d     normal;
     double         fov;
+    double         fov_rad;
 
     double      len;
-    t_point3d   middle_screen;
-    t_vec3d     cam_up;
-    t_vec3d     cam_left;
     double      aspect_ratio;
-    t_point3d   top_left;
     t_vec3d     world_up;
+    t_vec3d     look_at;
+    t_vec3d     u;
+    t_vec3d     v;
+    t_vec3d     top_left;
+
 }	t_camera;
 
 

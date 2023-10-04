@@ -19,12 +19,9 @@ int render_image(t_prog *prog)
             t_ray ray;
             int color;
             t_color colors;
-            
-
 
             generate_ray(&ray, prog, x, y);
             color = ray_color(&ray, prog);
-
             // color = color_rgb2int(255 * (WINDOW_WIDTH - x) * (WINDOW_HEIGHT - y )/ (WINDOW_WIDTH * WINDOW_HEIGHT), 0, 0);
             mlx_my_putpixel(&prog->mlx_config.img, x, y, color);
             y++;
@@ -44,26 +41,13 @@ void    print_ray(t_ray *ray, char *mess)
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y)
 {
     t_camera *cam;
-    t_vec3d des_x;
-    t_vec3d des_y;
-    double x_fact;
-    double y_fact;
 
-    x_fact = (double)x / WINDOW_WIDTH;
-    y_fact = (double)y / WINDOW_HEIGHT;
-    cam = &prog->camera;
-    ft_memcpy(&ray->origin, &cam->top_left, sizeof(t_point3d));
-    vec3d_scale(&des_x, x_fact, &cam->cam_left);
-    vec3d_scale(&des_y, y_fact, &cam->cam_up);
-    vec3d_plus(&des_x, &des_x, &des_y);
-
+    cam = (t_camera *)&prog->camera;
+    ray->direction.x = x * cam->u.x + y * cam->v.x + cam->top_left.x;
+    ray->direction.y = x * cam->u.y + y * cam->v.y + cam->top_left.y;
+    ray->direction.z = x * cam->u.z + y * cam->v.z + cam->top_left.z;
+    vec3d_normalize(&ray->direction);
     vec3d_assign(&ray->origin, &cam->position);
-    vec3d_plus(&ray->direction, &des_x, &cam->middle_screen);
-    vec3d_minus(&ray->direction, &ray->direction, &ray->origin);
-    if (vec3d_normalize(&ray->direction))
-    {
-        debug_message("normalize ray direction failed: generate_ray\n");
-    }
 }
 
 int     ray_color(t_ray *ray, t_prog *prog)
@@ -102,11 +86,6 @@ int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
         obj = (t_object *)lst->content;
         if (obj->type == SPHERE)
             hit = sp_test_intersection(obj->object, param);
-        // else if (obj->type == PLANE)
-        //     hit = pl_test_intersection(obj->object, param);
-        // else if (obj->type == CYLINDER)
-        //     hit = cy_test_intersection(obj->object, param);
-
         lst = lst->next;
     }
     return (hit);

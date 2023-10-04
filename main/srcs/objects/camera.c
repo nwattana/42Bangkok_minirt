@@ -1,7 +1,9 @@
 #include "../../inc/minirt.h"
-void    cale_middle_screen(t_camera *camera);
-int collect_camera(char **splited_line, t_prog *prog);
-void    cale_top_left(t_camera *cam);
+void    camera_look_at(t_camera *camera);
+void    camera_right_vector(t_camera *camera);
+void    camera_up_vector(t_camera *camera);
+void    camera_top_left_vector(t_camera *camera);
+
 int is_parallel(t_vec3d *v1, t_vec3d *v2)
 {
     double dot;
@@ -20,36 +22,79 @@ int is_parallel(t_vec3d *v1, t_vec3d *v2)
 void    init_camera(t_camera *camera)
 {
     t_point3d   w;
-    t_vec3d     world_up;
-    double     aux_cale;
+
+    double      aux_cale;
+    t_vec3d     look_at;
 
     aux_cale = 0;
     // set world up
-    world_up = (t_vec3d){0,1,0};
-    if (is_parallel(&camera->normal, &world_up))
-    {
-        world_up = (t_vec3d){0,0,1};
-    }
-    ft_memcpy(&camera->world_up, &world_up, sizeof(t_vec3d));
     camera->len = cale_camera_len(camera);
     camera->aspect_ratio = WINDOW_WIDTH / WINDOW_HEIGHT;
-    cale_middle_screen(camera);
-    cale_top_left(camera);
+    camera_look_at(camera);
+    camera_up_vector(camera);
+    camera_right_vector(camera);
+    camera_top_left_vector(camera);
 }
 
-void    cale_top_left(t_camera *cam)
+void    camera_look_at(t_camera *camera)
 {
-    t_vec3d left;
-    t_vec3d top;
+    t_vec3d     world_origin;
 
-    // middle_screem
-    vec3d_scale(&left, WINDOW_WIDTH / 2, &cam->cam_left);
-    vec3d_minus(&left, &cam->middle_screen, &left);
-    vec3d_scale(&top, WINDOW_HEIGHT / 2, &cam->cam_up);
-    vec3d_plus(&cam->top_left, &left, &top);
+    world_origin = (t_vec3d){0,0,0};
+    vec3d_minus(&camera->look_at, &world_origin, &camera->position);
+    if (vec3d_normalize(&camera->look_at))
+    {
+        print_vec3d(&camera->look_at, "look_at");
+        debug_message("normalize look_at failed: init_camera\n");
+    }
 }
 
-// len in pixel unit
+void    camera_top_left_vector(t_camera *cam)
+{
+    t_vec3d    aux;
+    t_vec3d    aux2;
+    t_vec3d    aux3;
+    double      aux_cale;
+
+    aux_cale = WINDOW_WIDTH / 2;
+    aux_cale = aux_cale / (2.0 * tan(cam->fov * (PI/180.0) / 2.0));
+    ft_memcpy(&aux, &cam->look_at, sizeof(t_vec3d));
+    vec3d_normalize(&aux);
+    vec3d_scale(&aux, aux_cale, &aux);
+    vec3d_scale(&aux2, WINDOW_WIDTH/2, &cam->u);
+    vec3d_scale(&aux3, WINDOW_HEIGHT/2, &cam->v);
+    vec3d_minus(&cam->top_left, &aux, &aux2);
+    vec3d_minus(&cam->top_left, &cam->top_left, &aux3);
+}
+
+void camera_up_vector(t_camera *camera)
+{
+    t_vec3d     world_up;
+
+    world_up = (t_vec3d){0,1,0};
+    if (is_parallel(&camera->look_at, &camera->normal))
+    {
+        debug_message("camera look_at is parallel to world_up\n");
+        exit(1);
+    }
+    vec3d_cross(&camera->u, &camera->look_at, &camera->normal);
+    if (vec3d_normalize(&camera->u))
+    {
+        debug_message("normalize u failed: init_camera\n");
+        exit(1);
+    }
+}
+
+void camera_right_vector(t_camera *camera)
+{
+    vec3d_cross(&camera->v, &camera->look_at, &camera->u);
+    if (vec3d_normalize(&camera->v))
+    {
+        debug_message("normalize world_up failed: init_camera\n");
+        exit(1);
+    }
+}
+
 double cale_camera_len(t_camera *camera)
 {
     double  len;
@@ -64,40 +109,9 @@ double cale_camera_len(t_camera *camera)
     aux_cale = aux_cale * PI / 180;
     aux_cale = tan(aux_cale);
     len = (WINDOW_WIDTH / (2 * aux_cale));
+
     return (len);
 }
-
-void    cale_middle_screen(t_camera *camera)
-{
-    t_vec3d     aux;
-    t_vec3d     aux2;
-
-    // cam_origin
-    ft_memcpy(&aux, &camera->position, sizeof(t_vec3d));
-
-    // len x normal
-    vec3d_scale(&aux2, camera->len, &camera->normal);
-
-    // v_cam + len x normal = world_2_middle_screen or cam_to_screen
-    vec3d_plus(&camera->middle_screen, &aux, &aux2);
-
-    // screen_up = cam2screen x world_2_screen
-    vec3d_cross(&camera->cam_up, &camera->normal, &camera->world_up);
-    if (vec3d_normalize(&camera->cam_up))
-    {
-        print_vec3d(&camera->cam_up, "cam_up");
-        debug_message("normalize cam_up failed: cale_middle_screen\n");
-    }
-
-    // screen_left = cam2screen x screen_up
-    vec3d_cross(&camera->cam_left, &camera->normal, &camera->cam_up);
-    if (vec3d_normalize(&camera->cam_left))
-    {
-        print_vec3d(&camera->cam_left, "cam_left");
-        debug_message("normalize cam_left failed: cale_middle_screen\n");
-    }
-}
-
 
 int collect_camera(char **splited_line, t_prog *prog)
 {
