@@ -22,6 +22,7 @@ void    clean_plane(void *pl)
 }
 
 
+// NOTE : not complete
 int     pl_test_intersection(void *object, t_interparam *param)
 {
     t_vec3d     *ray;

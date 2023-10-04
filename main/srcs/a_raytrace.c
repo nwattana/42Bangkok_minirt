@@ -149,6 +149,7 @@ int     trace_inters_to_light(t_prog *prog, t_interparam *param)
     return (temp);
 }
 
+// NOTE not complete
 int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
 {
     t_list      *lst;
