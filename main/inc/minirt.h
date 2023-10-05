@@ -15,6 +15,7 @@
 #include "vector.h"
 #include "mlx_config.h"
 #include "prog_state.h"
+#include "cylinder.h"
 
 #define PROGRAM_NAME "miniRT"
 #define WINDOW_WIDTH 1280
@@ -105,6 +106,15 @@ typedef struct	s_sphere
     double		radius;
     t_color     color;
 }				t_sphere;
+
+typedef struct	s_cylinder
+{
+    t_point3d   position;
+    t_vec3d     direction;
+    double		radius;
+    double		hight;
+    t_color     color;
+}	t_cylinder;
 
 typedef struct s_object
 {

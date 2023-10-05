@@ -162,6 +162,10 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	{
 		collect_plane(splited_lint, prog);
 	}
+	if (ft_strncmp(splited_lint[0], "cy", ft_strlen(splited_lint[0])) == 0)
+	{
+		collect_cylinder(splited_lint, prog);
+	}
 	return (0);
 }
 
