@@ -83,17 +83,18 @@ static int	ft_isvalue(char *str)
 	if (str[0] == '-')
 		i++;
 	else if (str[0] == ',')
-		return (1);
+		return (0);
+	
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
 		{
 			if (point >= 2 && !ft_isdigit(str[i - 1]))
-				return (1);
+				return (0);
 			if (str[i] == '.' )
 			{
-				if (!ft_isdigit(str[i - 1]))
-					return (1);
+				if (!ft_isdigit(str[i - 1]) || !ft_isdigit(str[i + 1]))
+					return (0);
 				else
 					point++;
 				i++;
@@ -101,12 +102,12 @@ static int	ft_isvalue(char *str)
 			else if (str[i] == ',' || str[i] == '-')
 				i++;
 			else
-				return (1);
+				return (0);
 		}
 		else
 			i++;
 	}
-	return (0);
+	return (1);
 }
 
 static int count_idx(char **str)
@@ -125,14 +126,16 @@ static int check_line_value(char **str, int idx, t_prog *prog)
 	int i;
 
 	len = count_idx(str);
-	i = idx - 1;
+	i = 1;
 	if (len > idx)
-		error_exit("Error\n wrong value", prog);
-	while (str[i] && i > 0)
+		error_exit("Error\n wrong value\n", prog);
+	if (ft_strncmp(str[0], "//", ft_strlen(str[0])) == 0)
+		return (0);
+	while (str[i] && i < idx)
 	{
-		if ((ft_isvalue(str[i])) == 1)
-			error_exit("Error\n wrong value", prog);
-		i--;
+		if (!(ft_isvalue(str[i])))
+			error_exit("Error\n wrong value\n", prog);
+		i++;
 	}
 	return (0);
 }
@@ -141,7 +144,6 @@ int check_line_type(char **splited_lint, t_prog *prog)
 {
 	if (ft_strncmp(splited_lint[0], "C", ft_strlen(splited_lint[0])) == 0)
 	{
-		// check_line_value(splited_lint, 3);
 		collect_camera(splited_lint, prog);
 	}
 	if (ft_strncmp(splited_lint[0], "A", ft_strlen(splited_lint[0])) == 0)
@@ -171,6 +173,8 @@ static int	get_index(char **str)
 		index = 3;
 	else if (ft_strncmp(str[0], "cy", ft_strlen(str[0])) == 0)
 		index = 6;
+	else if (ft_strncmp(str[0], "//", ft_strlen(str[0])) == 0)
+		index = count_idx(str);
 	else 
 		index = 4;
 	return (index);
