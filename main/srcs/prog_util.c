@@ -63,12 +63,74 @@ int	read_rt_file(char *filepath, t_prog *prog)
 /// @return 1 if valid, 0 if invalid
 int read_2bytes(char *line)
 {
-	int i;
-
 	if (line == NULL)
 		return (0);
-	if (ft_strchr("C#ALsp", line[0]))
+	if (ft_strchr("C#ALspc", line[0]) || ft_strncmp(&line[0], "//", 3))
 		return (1);
+	return (0);
+}
+
+static int	ft_isvalue(char *str)
+{
+	int	i;
+	int	point;
+
+	i = 0;
+	point = 0;
+	if (str[0] == '-')
+		i++;
+	else if (str[0] == ',')
+		return (1);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+		{
+			if (point >= 2 && !ft_isdigit(str[i - 1]))
+				return (1);
+			if (str[i] == '.' )
+			{
+				if (!ft_isdigit(str[i - 1]))
+					return (1);
+				else
+					point++;
+				i++;
+			}
+			else if (str[i] == ',' || str[i] == '-')
+				i++;
+			else
+				return (1);
+		}
+		else
+			i++;
+	}
+	return (0);
+}
+
+static int count_idx(char **str)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
+
+static int check_line_value(char **str, int idx, t_prog *prog)
+{	
+	int len;
+	int i;
+
+	len = count_idx(str);
+	i = idx - 1;
+	if (len > idx)
+		error_exit("Error\n wrong value", prog);
+	while (str[i] && i > 0)
+	{
+		if ((ft_isvalue(str[i])) == 1)
+			error_exit("Error\n wrong value", prog);
+		i--;
+	}
 	return (0);
 }
 
@@ -79,6 +141,7 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	item = splited_lint[0];
 	if (ft_strncmp(item, "C", ft_strlen(item)) == 0)
 	{
+		// check_line_value(splited_lint, 3);
 		collect_camera(splited_lint, prog);
 	}
 	if (ft_strncmp(item, "A", ft_strlen(item)) == 0)
@@ -99,10 +162,24 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	}
 }
 
+static int	get_index(char **str)
+{
+	int	index;
+
+	if (ft_strncmp(str[0], "A", ft_strlen(str[0])) == 0)
+		index = 3;
+	else if (ft_strncmp(str[0], "cy", ft_strlen(str[0])) == 0)
+		index = 6;
+	else 
+		index = 4;
+	return (index);
+}
+
 int check_line(char *lint, t_prog *prog)
 {
 	char **split_out;
 	char *line;
+	int		index;
 
 	line = ft_strtrim(lint, " \t\n");
 	if (!read_2bytes(line))
@@ -114,6 +191,8 @@ int check_line(char *lint, t_prog *prog)
 	else
 	{
 		split_out = ft_split(line, ' ');
+		index = get_index(split_out);
+		check_line_value(split_out, index, prog);
 		check_line_type(split_out, prog);
 		ft_free_split(split_out);
 	}
