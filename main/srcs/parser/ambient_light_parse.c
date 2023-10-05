@@ -11,10 +11,9 @@ int     collect_ambient(char **split_line, t_prog *prog)
         return (ERROR);
     }
     prog->has_ambient = 1;
-    ft_strtod(split_line[1], &intensity);
+    ft_strtod(split_line[1], &prog->ambient_intensity);
     color_collect_string(split_line[2], &prog->ambient_color);
     color_scale(&prog->ambient_color, intensity, &prog->ambient_color);
-    color_scale(&prog->ambient_intensity, 1.0/255.0, &prog->ambient_color);
 
     return (SUCCESS);
 }

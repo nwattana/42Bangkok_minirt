@@ -83,8 +83,6 @@ int     ray_color(t_ray *ray, t_prog *prog)
     return (color_struct2int(&color));
 }
 
-
-
 void    trace_light(t_prog *prog, t_interparam *param)
 {
     int         hit;
@@ -120,12 +118,12 @@ void    init_intersection_light_param(t_prog *prog, t_interparam *param, t_obsli
     light_param->angle = acos(vec3d_dot(&param->inters_normal, &light_param->light_dir));
     if (light_param->angle <= 1.570796)
     {
-        light_param->angle_scale = (1.0 - (light_param->angle / 1.570797));
+        light_param->angle_scale = (1.0 - (light_param->angle / 1.570796));
     }
     else
     {
-        printf("angle > 1.570796, %f\n", light_param->angle);
         print_vec3d(&param->inters_normal, "inters_normal");
+        light_param->angle_scale = prog->ambient_intensity;
     }
 }
 
@@ -133,7 +131,7 @@ int     trace_inters_to_light(t_prog *prog, t_interparam *param)
 {
     t_list      *lst;
     t_object    *obj;
-    int temp;
+    int         temp;
 
     lst = prog->obj;
     temp = 0;
