@@ -62,5 +62,14 @@ int   none_test_intersection(void *obj, t_interparam *param)
     (void)param;
 
     printf("this oject has no test intersection function\n");
-    return (ERROR);
+    exit(ERROR);
+}
+
+int init_intersection_param(t_interparam *p)
+{
+    p->min_dist = INFINITY;
+    p->color = 0;
+    p->intensity = 0;
+    p->intsct_obj_id = -1;
+    return (SUCCESS);
 }
