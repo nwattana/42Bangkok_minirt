@@ -118,9 +118,14 @@ void    init_intersection_light_param(t_prog *prog, t_interparam *param, t_obsli
     vec3d_normalize(&light_param->light_dir);
 
     light_param->angle = acos(vec3d_dot(&param->inters_normal, &light_param->light_dir));
-    if (light_param->angle < PI / 2)
+    if (light_param->angle <= 1.570796)
     {
-        light_param->angle_scale = (1 - light_param->angle * 2 / PI);
+        light_param->angle_scale = (1.0 - (light_param->angle / 1.570797));
+    }
+    else
+    {
+        printf("angle > 1.570796, %f\n", light_param->angle);
+        print_vec3d(&param->inters_normal, "inters_normal");
     }
 }
 

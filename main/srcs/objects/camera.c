@@ -38,10 +38,10 @@ void    init_camera(t_camera *camera)
 
 void    camera_look_at(t_camera *camera)
 {
-    t_vec3d     world_origin;
+    t_vec3d     look_at;
 
-    world_origin = (t_vec3d){0,0,0};
-    vec3d_minus(&camera->look_at, &world_origin, &camera->position);
+    vec3d_plus(&look_at, &camera->position, &camera->normal);
+    vec3d_minus(&camera->look_at, &look_at, &camera->position);
     if (vec3d_normalize(&camera->look_at))
     {
         print_vec3d(&camera->look_at, "look_at");
@@ -72,12 +72,12 @@ void camera_up_vector(t_camera *camera)
     t_vec3d     world_up;
 
     world_up = (t_vec3d){0,1,0};
-    if (is_parallel(&camera->look_at, &camera->normal))
+    if (is_parallel(&camera->look_at, &world_up))
     {
         debug_message("camera look_at is parallel to world_up\n");
         exit(1);
     }
-    vec3d_cross(&camera->u, &camera->look_at, &camera->normal);
+    vec3d_cross(&camera->u, &camera->look_at, &world_up);
     if (vec3d_normalize(&camera->u))
     {
         debug_message("normalize u failed: init_camera\n");
