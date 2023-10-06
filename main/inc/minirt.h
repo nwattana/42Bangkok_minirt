@@ -22,6 +22,9 @@
 #define PI 3.14159265358979323846f
 #define DEBUG 1
 #define WORLD_SCALE 1.0f
+
+typedef struct s_interparam t_interparam;
+
 typedef struct s_color
 {
     int	r;
@@ -29,7 +32,16 @@ typedef struct s_color
     int	b;
 }	t_color;
 
-# define CAMERA_LEN 1.0f
+typedef struct s_object
+{
+    int		type;
+    void	*object;
+    int		id;
+    void    (*print)(void *object);
+    void    (*clean)(void *object);
+
+    int    (*test_intersection)(void *object, t_interparam *param);
+}	t_object;
 
 
 /// @brief  t_camera is a struct that contains the camera's origin, orientation, and fov.
@@ -86,13 +98,23 @@ typedef struct s_plane
 typedef struct s_interparam
 {
     t_ray       *ray;
+    int         start_ray_obj_id;
+    int         hit;
+
+    double      f_dist;
+    int         f_ishit;
+    t_object    *f_obj;
+    t_vec3d     f_normal;
+    t_vec3d     f_point;
+    t_color     f_color;
+
+    double      inters_dist;
+    int         inters_obj_id;
     t_point3d   inters_point;
     t_vec3d     inters_normal;
-    double      min_dist;
-    t_color     local_color;
-    int         is_hit;
-    int         start_ray_obj_id;
-    int         inter_obj_id;
+    t_color     inters_color;
+    
+    int         d_inters_obj_type;
 
 }	t_interparam;
 
@@ -103,16 +125,7 @@ typedef struct	s_sphere
     t_color     color;
 }				t_sphere;
 
-typedef struct s_object
-{
-    int		type;
-    void	*object;
-    int		id;
-    void    (*print)(void *object);
-    void    (*clean)(void *object);
 
-    int    (*test_intersection)(void *object, t_interparam *param);
-}	t_object;
 
 typedef struct s_prog
 {
@@ -131,6 +144,17 @@ typedef struct s_prog
 
 	int	item_count;
 }	t_prog;
+
+typedef struct s_obslight
+{
+    t_vec3d     light_dir;
+    double      angle;
+    double      max_dist;
+    double      angle_scale;
+    int     inters_obj;
+}       t_obslight;
+
+
 
 // prog util
 int		validate_args(int argc, char **argv, t_prog *prog);
@@ -194,7 +218,6 @@ t_object	*create_object_plane(t_plane *plane);
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
 int     init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param);
 int     trace_ray_to_obj(t_prog *prog, t_interparam *param);
-int     loop_test_ray_to_obj(t_prog *prog, t_interparam *param);
 // simple math
 double solve_quadratic(double a, double b, double c);
 
@@ -202,4 +225,22 @@ void	prog_init_mlx(t_prog *prog);
 int		render_image(t_prog *prog);
 void    prog_mlx_loop(t_prog *prog);
 void  debug_message(char *msg);
+
+// intersection param manipulate
+int reset_inters_focus(t_interparam *param);
+int init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param);
+int gather_inters_info(t_interparam *param, t_object *focus_obj);
+
+
+
+void    print_ray(t_ray *ray, char *mess);
+int     render_image(t_prog *prog);
+void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
+int     ray_color(t_ray *ray, t_prog *prog);
+void    init_intersection_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param);
+int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *light_param);
+void    trace_light(t_prog *prog, t_interparam *param);
+
+void    print_obj_type(int type);
+
 #endif

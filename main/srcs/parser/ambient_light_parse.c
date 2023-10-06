@@ -33,6 +33,5 @@ int collect_light(char **splited_line, t_prog *prog)
     collect_3d(splited_line[1], &light->position);
     ft_strtod(splited_line[2], &light->intensity);
     color_collect_string(splited_line[3], &light->color);
-
     return (SUCCESS);
 }

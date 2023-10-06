@@ -1,5 +1,6 @@
 #include "../../inc/minirt.h"
-int almost_equal(double a, double b);
+int     almost_equal(double a, double b);
+double  pl_cale_dist(t_ray *ray, t_plane *pl, int *hit);
 void    print_plane(void    *pl)
 {
     t_plane *plane;
@@ -22,40 +23,47 @@ void    clean_plane(void *pl)
 }
 
 
-// NOTE : not complete
 int     pl_test_intersection(void *object, t_interparam *param)
 {
     t_vec3d     *ray;
-    double      dot;
     t_plane     *plane;
     t_object    *obj;
-    t_vec3d     inters_point;
     double      dist;
 
     obj = (t_object *)object;
     plane = (t_plane *)obj->object;
     ray = &param->ray->direction;
 
-    dot = vec3d_dot(&plane->normal, ray);
-    if (almost_equal(dot, 0))
-        return (0);
-    vec3d_minus(&inters_point, &plane->point, &param->ray->origin);
-    dist = vec3d_dot(&inters_point, &plane->normal) / dot;
-    if (param->min_dist > dist && dist > 0)
+    dist = pl_cale_dist(param->ray, plane, &param->f_ishit);
+    if (dist > 0)
     {
-        param->local_color = plane->color;
-        param->min_dist = dist;
-        param->inters_point.x = param->ray->origin.x + dist * ray->x;
-        param->inters_point.y = param->ray->origin.y + dist * ray->y;
-        param->inters_point.z = param->ray->origin.z + dist * ray->z;
-        // vec3d_scale(&param->inters_normal, 1, &plane->normal);
-        param->inters_normal = plane->normal;
-        param->inter_obj_id = obj->id;
-        return (1);
+        param->f_color = plane->color;
+        param->f_dist = dist;
+        param->f_point.x = param->ray->origin.x + dist * ray->x;
+        param->f_point.y = param->ray->origin.y + dist * ray->y;
+        param->f_point.z = param->ray->origin.z + dist * ray->z;
+        param->f_normal = plane->normal;
+        param->f_ishit = 1;
     }
-    return (0);
+    return (param->f_ishit);
 }
 
+// PROB
+// plane [0,0,0] , normal = [0,0,1]
+double pl_cale_dist(t_ray *ray, t_plane *pl, int *hit)
+{
+    double dist;
+    double dot;
+    t_vec3d     inters_point;
+
+    dist = -1;
+    dot = vec3d_dot(&pl->normal, &ray->direction);
+    if (almost_equal(dot, 0))
+        return (0);
+    vec3d_minus(&inters_point, &pl->point, &ray->origin);
+    dist = vec3d_dot(&inters_point, &pl->normal) / dot;
+    return (dist);
+}
 
 int almost_equal(double a, double b)
 {

@@ -1,5 +1,5 @@
 #include "../../inc/minirt.h"
-double  sp_find_dist(t_ray *ray, t_sphere *sp);
+double  sp_cale_dist(t_ray *ray, t_sphere *sp);
 int intersection_point(t_vec3d *inters, t_ray *ray, double dist);
 int intersection_noraml(t_vec3d *normal, t_point3d *inters, t_point3d *center);
 
@@ -33,18 +33,17 @@ int     sp_test_intersection(void *object, t_interparam *p)
 
     obj = (t_object *)object;
     sp = (t_sphere *)obj->object;
-    dist = sp_find_dist(p->ray, sp);
-    if (dist > 0.0 && dist < p->min_dist)
+    dist = sp_cale_dist(p->ray, sp);
+    if (dist > 0.0)
     {
-        p->min_dist = dist;
-        p->is_hit = 1;
-        p->inter_obj_id = obj->id;
-        intersection_point(&p->inters_point, p->ray, dist);
-        intersection_noraml(&p->inters_normal, &p->inters_point, &sp->center);
-        ft_memcpy(&p->local_color, &sp->color, sizeof(t_color));
-        return (1);
+        p->f_dist = dist;
+        p->f_ishit = 1;
+        p->f_ishit = 1;
+        intersection_point(&p->f_point, p->ray, dist);
+        intersection_noraml(&p->f_normal, &p->f_point, &sp->center);
+        ft_memcpy(&p->f_color, &sp->color, sizeof(t_color));
     }
-    return (0);
+    return (p->f_ishit);
 }
 
 int intersection_noraml(t_vec3d *normal, t_point3d *inters, t_point3d *center)
@@ -72,7 +71,7 @@ int intersection_point(t_vec3d *inters, t_ray *ray, double dist)
     return (SUCCESS);
 }
 
-double  sp_find_dist(t_ray *ray, t_sphere *sp)
+double  sp_cale_dist(t_ray *ray, t_sphere *sp)
 {
     double  a;
     double  b;
