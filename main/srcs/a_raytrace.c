@@ -5,6 +5,7 @@ typedef struct s_obslight
     double      angle;
     double      max_dist;
     double      angle_scale;
+    int     inters_obj;
 }       t_obslight;
 
 int     render_image(t_prog *prog);
@@ -12,13 +13,16 @@ void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
 int     ray_color(t_ray *ray, t_prog *prog);
 void    print_ray(t_ray *ray, char *mess);
 void    init_intersection_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param);
-int     trace_inters_to_light(t_prog *prog, t_interparam *param);
+int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *light_param);
 void    trace_light(t_prog *prog, t_interparam *param);
 
+// from main.c
 int render_image(t_prog *prog)
 {
-    int x;
-    int y;    
+    int     x;
+    int     y;
+    t_ray   ray;
+    int     color;    
 
     x = 0;
     while (x < WINDOW_WIDTH)
@@ -26,10 +30,6 @@ int render_image(t_prog *prog)
         y = 0;
         while (y < WINDOW_HEIGHT)
         {
-            t_ray ray;
-            int color;
-            t_color colors;
-
             generate_ray(&ray, prog, x, y);
             color = ray_color(&ray, prog);
             mlx_my_putpixel(&prog->mlx_config.img, x, y, color);
@@ -37,14 +37,6 @@ int render_image(t_prog *prog)
         }
         x++;
     }
-}
-
-
-void    print_ray(t_ray *ray, char *mess)
-{
-    printf("ray %s:\n", mess);
-    print_vec3d(&ray->origin, "origin");
-    print_vec3d(&ray->direction, "direction");
 }
 
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y)
@@ -68,21 +60,21 @@ int     ray_color(t_ray *ray, t_prog *prog)
     color = (t_color){0,0,0};
     param.ray = ray;
     init_intersection_param(prog, ray, &param);
-
     hit = trace_ray_to_obj(prog, &param);
     if (hit)
     {
+        // ถ้าเจอยิงจากจุด intersect ไปที่แสง
         trace_light(prog, &param);
         ft_memcpy(&color, &param.local_color, sizeof(t_color));
     }
     else
     {
-
         ft_memcpy(&color, &prog->ambient_color, sizeof(t_color));
     }
     return (color_struct2int(&color));
 }
 
+// เลือก สีที่จะ Plot ใส่ Param->local_color
 void    trace_light(t_prog *prog, t_interparam *param)
 {
     int         hit;
@@ -91,7 +83,8 @@ void    trace_light(t_prog *prog, t_interparam *param)
 
     hit = 0;
     init_intersection_light_param(prog, param, &light_param);
-    hit = trace_inters_to_light(prog, param);
+    hit = trace_inters_to_light(prog, param, &light_param);
+    // Superposition Sum of light color = ambient + light_ray * angle_scale
     if (hit)
     {
         color_scale(&cale_color, prog->ambient_intensity, &param->local_color);
@@ -100,7 +93,7 @@ void    trace_light(t_prog *prog, t_interparam *param)
     else
     {
         color_scale(&cale_color, prog->ambient_intensity, &param->local_color);
-        color_plus(&param->local_color, &param->local_color, &cale_color);
+        // color_plus(&param->local_color, &param->local_color, &cale_color);
         color_scale(&param->local_color, light_param.angle_scale, &param->local_color);
     }
     // color_scale(&cale_color, prog->ambient_intensity, &cale_color);
@@ -110,24 +103,23 @@ void    trace_light(t_prog *prog, t_interparam *param)
 void    init_intersection_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param)
 {
     light_param->angle = 0;
-
     vec3d_minus(&light_param->light_dir, &prog->light.position, &param->inters_point);
     light_param->max_dist = vec3d_length(&light_param->light_dir);
     vec3d_normalize(&light_param->light_dir);
-
     light_param->angle = acos(vec3d_dot(&param->inters_normal, &light_param->light_dir));
+
     if (light_param->angle <= 1.570796)
     {
         light_param->angle_scale = (1.0 - (light_param->angle / 1.570796));
     }
     else
     {
-        print_vec3d(&param->inters_normal, "inters_normal");
-        light_param->angle_scale = prog->ambient_intensity;
+        // Use ambient intensity
+        light_param->angle_scale = 0;
     }
 }
 
-int     trace_inters_to_light(t_prog *prog, t_interparam *param)
+int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *light_param)
 {
     t_list      *lst;
     t_object    *obj;
@@ -153,6 +145,7 @@ int     trace_inters_to_light(t_prog *prog, t_interparam *param)
 }
 
 // NOTE not complete
+// FOCUS ยิงแสงจากกล้อง ไป หาวัตถ
 int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
 {
     t_list      *lst;
@@ -168,18 +161,14 @@ int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
         if (obj->type == SPHERE)
         {
             temp = sp_test_intersection(obj, param);
-            if (temp == 1)
-            {
-                hit = temp;
-            }
         }
         else if (obj->type == PLANE)
         {
             temp = pl_test_intersection(obj, param);
-            if (temp == 1)
-            {
-                hit = temp;
-            }
+        }
+        if (temp == 1)
+        {
+            hit = temp;
         }
         lst = lst->next;
     }
@@ -196,4 +185,5 @@ int init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param)
     param->is_hit = 0;
     param->inter_obj_id = -1;
     param->local_color = (t_color){0,0,0};
+    param->start_ray_obj_id = CAMERA_ID;
 }

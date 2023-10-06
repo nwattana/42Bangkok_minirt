@@ -51,7 +51,10 @@ int intersection_noraml(t_vec3d *normal, t_point3d *inters, t_point3d *center)
 {
     vec3d_minus(normal, inters, center);
     if(vec3d_normalize(normal))
+    {
+        debug_message("sphere intersection_normal: normal is zero vector\n");
         return (ERROR);
+    }
     return (SUCCESS);
 }
 
@@ -62,7 +65,10 @@ int intersection_point(t_vec3d *inters, t_ray *ray, double dist)
     vec3d_scale(inters, dist, &ray->direction);
     vec3d_plus(inters, &ray->origin, inters);
     if (vec3d_length(inters) == 0.0)
+    {
+        debug_message("sphere intersection_point: inters is zero vector\n");
         return (ERROR);
+    }
     return (SUCCESS);
 }
 

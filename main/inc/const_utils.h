@@ -23,6 +23,7 @@
 # define EPSILON 1e-21f
 
 # define CAMERA 1
+# define CAMERA_ID -1
 # define AMBIENT 2
 # define LIGHT 3
 
@@ -31,5 +32,6 @@
 # define PLANE 21
 # define CYLINDER 22
 
+# define NONE_ID 0
 
 #endif

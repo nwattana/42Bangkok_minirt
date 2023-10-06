@@ -157,3 +157,10 @@ void    print_vec3d(t_vec3d *a, char *message)
 {
     printf("vec3d %s [ %.3f %.3f %.3f ]\n",message, a->x, a->y, a->z);
 }
+
+void    print_ray(t_ray *ray, char *mess)
+{
+    printf("ray %s:\n", mess);
+    print_vec3d(&ray->origin, "origin");
+    print_vec3d(&ray->direction, "direction");
+}

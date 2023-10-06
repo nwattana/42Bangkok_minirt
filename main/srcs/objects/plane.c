@@ -50,11 +50,6 @@ int     pl_test_intersection(void *object, t_interparam *param)
         param->inters_point.z = param->ray->origin.z + dist * ray->z;
         // vec3d_scale(&param->inters_normal, 1, &plane->normal);
         param->inters_normal = plane->normal;
-        // DEBUG
-        if (param->local_color.r == 0 && param->local_color.g == 0 && param->local_color.b == 0)
-        {
-            printf("plane color is 0\n");
-        }
         param->inter_obj_id = obj->id;
         return (1);
     }

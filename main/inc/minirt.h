@@ -89,9 +89,10 @@ typedef struct s_interparam
     t_point3d   inters_point;
     t_vec3d     inters_normal;
     double      min_dist;
-    double      inter_obj_id;
     t_color     local_color;
-    int     is_hit;
+    int         is_hit;
+    int         start_ray_obj_id;
+    int         inter_obj_id;
 
 }	t_interparam;
 
