@@ -1,5 +1,8 @@
 #include "../../inc/minirt.h"
-int     set_intersection_param(t_interparam *p, double t, t_vec3d *v_hat, t_ray *cal, t_object *obj);
+double  sp_cale_dist(t_ray *ray, t_sphere *sp);
+int intersection_point(t_vec3d *inters, t_ray *ray, double dist);
+int intersection_noraml(t_vec3d *normal, t_point3d *inters, t_point3d *center);
+
 void   print_sphere(void *sph)
 {
     t_sphere *sphere;
@@ -24,51 +27,62 @@ void   clean_sphere(void *sph)
 // function to test intersction between ray and sphere
 int     sp_test_intersection(void *object, t_interparam *p)
 {
-    t_vec3d v_hat;
-    t_object *obj;
+    double dist;
     t_sphere *sp;
-    // compute the value of a, b and c
-    double t;
-    t_ray cal;
+    t_object *obj;
+    t_vec3d out_vec;
 
     obj = (t_object *)object;
     sp = (t_sphere *)obj->object;
-    // apply_tfmat_to_ray(&p->ray, &obj->tfmat, &p->ray, BWD);
-
-    apply_tfmat_to_ray(&cal, &obj->tfmat, &p->ray, BWD);
-    vec3d_assign(&v_hat, &cal.direction);
-
-   // test vector we has intersection with sphere
-    t = solve_quadratic(1, 2.0 * vec3d_dot(&v_hat, &cal.origin), vec3d_dot(&cal.origin, &cal.origin) - 1.0);
-    if (t > 0.0)
+    dist = sp_cale_dist(p->ray, sp);
+    if (dist > 0.0)
     {
-        // if t1 or t2 is negative, then we have an intersection behind the ray origin
-        set_intersection_param(p, t, &v_hat, &cal, obj);
-
-        return (1);
+        p->f_dist = dist;
+        p->f_ishit = 1;
+        p->f_ishit = 1;
+        intersection_point(&p->f_point, p->ray, dist);
+        intersection_noraml(&p->f_normal, &p->f_point, &sp->center);
+        ft_memcpy(&p->f_color, &sp->color, sizeof(t_color));
     }
-    return (0);
+    return (p->f_ishit);
 }
 
-int     set_intersection_param(t_interparam *p, double t, t_vec3d *v_hat, t_ray *cal, t_object *obj)
+int intersection_noraml(t_vec3d *normal, t_point3d *inters, t_point3d *center)
 {
-    t_sphere *sp;
-    t_vec3d origin;
-    t_vec3d temp;
+    vec3d_minus(normal, inters, center);
+    if(vec3d_normalize(normal))
+    {
+        debug_message("sphere intersection_normal: normal is zero vector\n");
+        return (ERROR);
+    }
+    return (SUCCESS);
+}
 
-    sp = (t_sphere *)obj->object;
-    vec3d_init(&origin, 0 ,0, 0);
+int intersection_point(t_vec3d *inters, t_ray *ray, double dist)
+{
+    t_vec3d *v3;
 
-    // LOCAL INTERSECTION POINT
-    vec3d_scale(&p->intersection_point, t, v_hat);
-    // intersection_point = intersection_point + ray origin
-    vec3d_add(&p->intersection_point, &(cal->origin));
+    vec3d_scale(inters, dist, &ray->direction);
+    vec3d_plus(inters, &ray->origin, inters);
+    if (vec3d_length(inters) == 0.0)
+    {
+        debug_message("sphere intersection_point: inters is zero vector\n");
+        return (ERROR);
+    }
+    return (SUCCESS);
+}
 
-    // Convert Local Intersection Point to World Intersection Point
-    apply_tfmat_to_vec(&origin, &obj->tfmat, &origin, FWD);
-    apply_tfmat_to_vec(&p->intersection_point, &obj->tfmat, &p->intersection_point, FWD);
+double  sp_cale_dist(t_ray *ray, t_sphere *sp)
+{
+    double  a;
+    double  b;
+    double  c;
+    t_vec3d cam2obj;
+    double  dist;
 
-    vec3d_minus(&p->local_normal, &p->intersection_point, &origin);
-    vec3d_normalize(&p->local_normal);
-    ft_memcpy(&p->local_color, &sp->color, sizeof(t_color));
+    vec3d_minus(&cam2obj, &ray->origin, &sp->center);
+    a = vec3d_dot(&ray->direction, &ray->direction);
+    b = 2.0 * vec3d_dot(&cam2obj, &ray->direction);
+    c = vec3d_dot(&cam2obj, &cam2obj) - (sp->radius * sp->radius);
+    return(solve_quadratic(a, b, c));
 }

@@ -1,15 +1,12 @@
 #include "../../inc/minirt.h"
 
-/// @brief init value for vec3d a
-/// @param a address of memory contain vec3d a
-/// @param x vec3d  x
-/// @param y vec3d  y
-/// @param z vec3d  z
-/// @return 0 if success, 1 if fail
 int vec3d_init(t_vec3d *a, double x, double y, double z)
 {
     if (a == NULL)
+    {
+        debug_message("vec3d_init: a is NULL");
         return (1);
+    }
     a->x = x;
     a->y = y;
     a->z = z;
@@ -17,18 +14,14 @@ int vec3d_init(t_vec3d *a, double x, double y, double z)
     return (0);
 }
 
-/// @brief assign vec3d `from` to vec3d `to`
-/// @param to 
-/// @param from
-/// @return 0 if success, 1 if fail
 int vec3d_assign(t_vec3d *to, t_vec3d *from)
 {
     if (to == NULL || from == NULL)
+    {
+        debug_message("vec3d_assign: to or from is NULL");
         return (1);
-    to->x = from->x;
-    to->y = from->y;
-    to->z = from->z;
-
+    }
+    ft_memcpy(to, from, sizeof(t_vec3d));
     return (0);
 }
 
@@ -39,7 +32,10 @@ int vec3d_assign(t_vec3d *to, t_vec3d *from)
 int vec3d_add(t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
+    {
+        debug_message("vec3d_add: a or b is NULL");
         return (1);
+    }
     a->x += b->x;
     a->y += b->y;
     a->z += b->z;
@@ -55,7 +51,10 @@ int vec3d_add(t_vec3d *a, t_vec3d *b)
 int vec3d_plus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
 {
     if (a == NULL || b == NULL)
+    {
+        debug_message("vec3d_plus: a or b is NULL");
         return (ERROR);
+    }
     res->x = a->x + b->x;
     res->y = a->y + b->y;
     res->z = a->z + b->z;
@@ -63,15 +62,13 @@ int vec3d_plus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
     return (SUCCESS);
 }
 
-/// @brief minus vec3d a and vec3d b and assign to vec3d res
-/// @param res result vec3d
-/// @param a 
-/// @param b 
-/// @return memory address contain result vec3d
 int vec3d_minus(t_vec3d *res, t_vec3d *a, t_vec3d *b)
 {
-    if (a == NULL || b == NULL)
+    if (a == NULL || b == NULL || res == NULL)
+    {
+        debug_message("vec3d_minus: a or b is NULL");
         return (ERROR);
+    }
     res->x = a->x - b->x;
     res->y = a->y - b->y;
     res->z = a->z - b->z;
@@ -104,9 +101,33 @@ int vec3d_normalize(t_vec3d *a)
     if (a == NULL)
         return (ERROR);
     length = vec3d_length(a);
+    if (length == 0)
+    {
+        debug_message("vec3d_normalize: length is 0");
+        return (ERROR);
+    }
     a->x /= length;
     a->y /= length;
     a->z /= length;
+
+    return (SUCCESS);
+}
+
+int vec3d_tonormal(t_vec3d *res, t_vec3d *in)
+{
+    double length;
+
+    if (in == NULL || res == NULL)
+        return (ERROR);
+    length = vec3d_length(in);
+    if (length == 0)
+    {
+        debug_message("vec3d_tonormal: length is 0");
+        return (ERROR);
+    }
+    res->x = in->x / length;
+    res->y = in->y / length;
+    res->z = in->z / length;
 
     return (SUCCESS);
 }
@@ -132,7 +153,14 @@ double vec3d_dot(t_vec3d *a, t_vec3d *b)
     return (a->x * b->x + a->y * b->y + a->z * b->z);
 }
 
-void    print_vec3d(t_vec3d *a)
+void    print_vec3d(t_vec3d *a, char *message)
 {
-    printf("vec3d [ %.3f %.3f %.3f ]\n", a->x, a->y, a->z);
+    printf("vec3d %s [ %.3f %.3f %.3f ]\n",message, a->x, a->y, a->z);
+}
+
+void    print_ray(t_ray *ray, char *mess)
+{
+    printf("ray %s:\n", mess);
+    print_vec3d(&ray->origin, "origin");
+    print_vec3d(&ray->direction, "direction");
 }

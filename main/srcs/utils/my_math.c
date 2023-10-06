@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 // return min exist positive value
 double solve_quadratic(double a, double b, double c)
@@ -9,6 +9,8 @@ double solve_quadratic(double a, double b, double c)
     double testsqr;
 
     test = b * b - 4.0 * a * c;
+    if (test < 0.0)
+        return (-1);
     testsqr = sqrt(test);
     if (test > 0.0)
     {
@@ -23,3 +25,4 @@ double solve_quadratic(double a, double b, double c)
     }
     return (-1);
 }
+

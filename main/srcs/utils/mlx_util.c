@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 static int	keyhandler(int keycode);
 /// @brief mlx_my_putpixel is a function that put a pixel in the image.
@@ -40,7 +40,7 @@ void fill_image_with_color(t_mlx_confix *vars)
         win_x = 0;
         while (win_x < WINDOW_WIDTH)
         {
-            color = create_rgb(38, 97, 156);
+            color = color_rgb2int(0, 0, 0);
             mlx_my_putpixel(&(vars->img), win_x, win_y, color);
             win_x++;
         }
@@ -93,7 +93,7 @@ int animation(void *program)
                 g = ((double)win_y / (double)WINDOW_HEIGHT) * 255.0;
                 b = (((double)win_y *  (double)win_x))  / ((double)WINDOW_HEIGHT * (double)WINDOW_WIDTH) * 255.0;
 
-                color = create_rgb(255, 0, 0);
+                color = color_rgb2int(255, 0, 0);
                 if (win_x == win_y)
                     mlx_my_putpixel(&(prog->mlx_config.img), win_x, win_y, color);
                 // mlx_my_putpixel(&(prog->mlx_config.img), WINDOW_WIDTH - win_x , WINDOW_HEIGHT - win_y, color * loop);
@@ -178,7 +178,11 @@ static int	keyhandler(int keycode)
 	return (0);
 }
 
-int almost_equal(double a, double b)
+
+
+void debug_mlx_status(t_mlx_confix *vars)
 {
-    return (fabs(a - b) < EPSILON);
+	printf("is_initmlx: %d\n", vars->is_initmlx);
+	printf("is_initwin: %d\n", vars->is_initwin);
+	printf("is_init_img: %d\n", vars->is_init_img);
 }

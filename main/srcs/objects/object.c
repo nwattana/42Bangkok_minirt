@@ -62,5 +62,5 @@ int   none_test_intersection(void *obj, t_interparam *param)
     (void)param;
 
     printf("this oject has no test intersection function\n");
-    return (ERROR);
+    exit(ERROR);
 }

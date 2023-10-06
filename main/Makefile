@@ -38,7 +38,7 @@ all: $(NAME)
 $(NAME): $(MLX_APATH) libft $(OBJS)
 	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC) -g
 	#FIXME re-link need fix
-	mv $(OBJS) $(ORBJ_DIR)
+
 
 $(MLX_APATH): mlxx
 	@echo $(MLX_APATH)
@@ -65,7 +65,15 @@ valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) scene/test.rt
 
 raw: all
-	./$(NAME) scene/test.rt
+	./$(NAME) scene/test.rt  
+
+# infinite loop
+# hd: all
+# 	./$(NAME) scene/light_behind_plane.rt 
+
+shadow: all
+	./$(NAME) scene/shadow.rt
+
 
 fclean: clean
 	-@rm -rf $(MLX_DIR)

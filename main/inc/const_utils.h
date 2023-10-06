@@ -22,4 +22,16 @@
 # define BWD -1
 # define EPSILON 1e-21f
 
+# define CAMERA 1
+# define CAMERA_ID -1
+# define AMBIENT 2
+# define LIGHT 3
+
+// TYPE more than 10 is reserved for objects
+# define SPHERE 20
+# define PLANE 21
+# define CYLINDER 22
+
+# define NONE_ID 0
+
 #endif

@@ -1,4 +1,4 @@
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 /// @brief program with printing error message
 void error_exit(char *msg, t_prog *prog)
@@ -23,7 +23,7 @@ int validate_args(int argc, char **argv, t_prog *prog)
 		error_exit("Error\nWrong file extension\n", prog);
 	if (ft_strncmp(argv[1] + len - 3, ".rt", 3) != 0)
 		error_exit("Error\nWrong file extension\n", prog);
-	prog->p_state = PASS_VALIDATE_ARGS;
+	// prog->p_state = PASS_VALIDATE_ARGS;
 	return (0);
 }
 
@@ -35,7 +35,7 @@ int prog_constructor(t_prog *prog)
 	prog->has_camera = 0;
 	prog->has_ambient = 0;
 	prog->has_light = 0;
-
+	prog->item_count = 0;
     return (0);
 }
 
@@ -44,6 +44,7 @@ int	read_rt_file(char *filepath, t_prog *prog)
 	int		fd;
 	char	*line;
 
+	line = NULL;
 	fd = open(filepath, O_RDONLY);
 	if (fd < 0)
 		error_exit("Error\n file not found", prog);
@@ -55,7 +56,7 @@ int	read_rt_file(char *filepath, t_prog *prog)
 		check_line(line, prog);
 		free(line);
 	}
-	prog->p_state = PASS_READ_RT_FILE;
+	close(fd);
 	return (0);
 }
 
@@ -74,29 +75,27 @@ int read_2bytes(char *line)
 
 int check_line_type(char **splited_lint, t_prog *prog)
 {
-	char	*item;
-
-	item = splited_lint[0];
-	if (ft_strncmp(item, "C", ft_strlen(item)) == 0)
+	if (ft_strncmp(splited_lint[0], "C", ft_strlen(splited_lint[0])) == 0)
 	{
 		collect_camera(splited_lint, prog);
 	}
-	if (ft_strncmp(item, "A", ft_strlen(item)) == 0)
+	if (ft_strncmp(splited_lint[0], "A", ft_strlen(splited_lint[0])) == 0)
 	{
 		collect_ambient(splited_lint, prog);
 	}
-	if (ft_strncmp(item, "L", ft_strlen(item)) == 0)
+	if (ft_strncmp(splited_lint[0], "L", ft_strlen(splited_lint[0])) == 0)
 	{
 		collect_light(splited_lint, prog);
 	}
-	if (ft_strncmp(item, "sp", ft_strlen(item)) == 0)
+	if (ft_strncmp(splited_lint[0], "sp", ft_strlen(splited_lint[0])) == 0)
 	{
 		collect_sphere(splited_lint, prog);
 	}
-	if (ft_strncmp(item, "pl", ft_strlen(item)) == 0)
+	if (ft_strncmp(splited_lint[0], "pl", ft_strlen(splited_lint[0])) == 0)
 	{
 		collect_plane(splited_lint, prog);
 	}
+	return (0);
 }
 
 int check_line(char *lint, t_prog *prog)
@@ -108,7 +107,6 @@ int check_line(char *lint, t_prog *prog)
 	if (!read_2bytes(line))
 	{
 		// FIXME: error message grouping
-		printf("Error\nWrong file format\n");
 		prog->p_error = 1;
 	}
 	else
@@ -143,6 +141,7 @@ int		count_char(char *str, int c)
 
 void  debug_message(char *msg)
 {
-	printf(RED"DEBUG:"CLOSE);
-	printf(" %s\n", msg);
+	ft_putstr_fd(RED"DEBUG:"CLOSE, 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
 }
