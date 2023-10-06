@@ -85,3 +85,10 @@ t_color int2color(int color)
     res.b = color & 0xFF;
     return (res);
 }
+
+void    color_set_defval(t_color *color)
+{
+    color->r = 0;
+    color->g = 0;
+    color->b = 0;
+}

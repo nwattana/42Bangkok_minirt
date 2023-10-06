@@ -30,6 +30,7 @@ int     sp_test_intersection(void *object, t_interparam *p)
     double dist;
     t_sphere *sp;
     t_object *obj;
+    t_vec3d out_vec;
 
     obj = (t_object *)object;
     sp = (t_sphere *)obj->object;

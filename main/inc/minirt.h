@@ -115,6 +115,7 @@ typedef struct s_interparam
     t_color     inters_color;
     
     int         d_inters_obj_type;
+    t_color     final_color;
 
 }	t_interparam;
 
@@ -142,17 +143,35 @@ typedef struct s_prog
 	t_color		ambient_color;
     double     ambient_intensity;
 
+    int			x;
+    int			y;
+
 	int	item_count;
 }	t_prog;
 
+typedef struct s_slight
+{
+    t_color    light_color;
+    t_color    ambient_color;
+
+}       t_slight;
+
 typedef struct s_obslight
 {
+    t_ray       ray;
     t_vec3d     light_dir;
     double      angle;
     double      max_dist;
     double      angle_scale;
-    int     inters_obj;
+    int         inters_obj;
+
+    double      scale_angle;
+    int         stuck;
+
+    t_slight    light;
 }       t_obslight;
+
+
 
 
 
@@ -201,6 +220,8 @@ int     print_color(t_color *color);
 int     color_plus(t_color *res, t_color *a, t_color *b);
 int     color_copy(t_color *dst, t_color *src);
 t_color int2color(int color);
+void    color_set_defval(t_color *color);
+
 int     color_dot(t_color *res, t_color *c1, t_color *c2);
 // cam
 void    init_camera(t_camera *cam);
@@ -231,13 +252,16 @@ int reset_inters_focus(t_interparam *param);
 int init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param);
 int gather_inters_info(t_interparam *param, t_object *focus_obj);
 
+// light 
+void    init_inters_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param);
+int     cale_angle_scale(t_obslight *l_param, t_interparam *p);
+
 
 
 void    print_ray(t_ray *ray, char *mess);
 int     render_image(t_prog *prog);
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
 int     ray_color(t_ray *ray, t_prog *prog);
-void    init_intersection_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param);
 int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *light_param);
 void    trace_light(t_prog *prog, t_interparam *param);
 

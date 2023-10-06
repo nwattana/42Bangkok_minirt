@@ -1,6 +1,6 @@
 #include "../../inc/minirt.h"
 int     almost_equal(double a, double b);
-double  pl_cale_dist(t_ray *ray, t_plane *pl, int *hit);
+double pl_cale_dist(t_ray *ray, t_plane *pl, int *hit, t_interparam *param);
 void    print_plane(void    *pl)
 {
     t_plane *plane;
@@ -34,7 +34,7 @@ int     pl_test_intersection(void *object, t_interparam *param)
     plane = (t_plane *)obj->object;
     ray = &param->ray->direction;
 
-    dist = pl_cale_dist(param->ray, plane, &param->f_ishit);
+    dist = pl_cale_dist(param->ray, plane, &param->f_ishit, param);
     if (dist > 0)
     {
         param->f_color = plane->color;
@@ -50,7 +50,7 @@ int     pl_test_intersection(void *object, t_interparam *param)
 
 // PROB
 // plane [0,0,0] , normal = [0,0,1]
-double pl_cale_dist(t_ray *ray, t_plane *pl, int *hit)
+double pl_cale_dist(t_ray *ray, t_plane *pl, int *hit, t_interparam *param)
 {
     double dist;
     double dot;
@@ -62,6 +62,15 @@ double pl_cale_dist(t_ray *ray, t_plane *pl, int *hit)
         return (0);
     vec3d_minus(&inters_point, &pl->point, &ray->origin);
     dist = vec3d_dot(&inters_point, &pl->normal) / dot;
+    if (dist < 0)
+        return (0);
+    ft_memcpy(&param->f_normal, &pl->normal, sizeof(t_vec3d));
+    if (dot > 0)
+    {
+        param->f_normal.x = -param->f_normal.x;
+        param->f_normal.y = -param->f_normal.y;
+        param->f_normal.z = -param->f_normal.z;
+    }
     return (dist);
 }
 

@@ -74,8 +74,8 @@ void camera_up_vector(t_camera *camera)
     world_up = (t_vec3d){0,1,0};
     if (is_parallel(&camera->look_at, &world_up))
     {
+        world_up = (t_vec3d){0,0,1};
         debug_message("camera look_at is parallel to world_up\n");
-        exit(1);
     }
     vec3d_cross(&camera->u, &camera->look_at, &world_up);
     if (vec3d_normalize(&camera->u))

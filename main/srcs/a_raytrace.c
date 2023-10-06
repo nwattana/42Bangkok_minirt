@@ -3,23 +3,21 @@
 // from main.c
 int render_image(t_prog *prog)
 {
-    int     x;
-    int     y;
     t_ray   ray;
     int     color;    
 
-    x = 0;
-    while (x < WINDOW_WIDTH)
+    prog->x = 0;
+    while (prog->x < WINDOW_WIDTH)
     {
-        y = 0;
-        while (y < WINDOW_HEIGHT)
+        prog->y = 0;
+        while (prog->y < WINDOW_HEIGHT)
         {
-            generate_ray(&ray, prog, x, y);
+            generate_ray(&ray, prog, prog->x, prog->y);
             color = ray_color(&ray, prog);
-            mlx_my_putpixel(&prog->mlx_config.img, x, y, color);
-            y++;
+            mlx_my_putpixel(&prog->mlx_config.img, prog->x, prog->y, color);
+            prog->y++;
         }
-        x++;
+        prog->x++;
     }
 }
 
@@ -49,60 +47,71 @@ int     ray_color(t_ray *ray, t_prog *prog)
     {
         // ถ้าเจอยิงจากจุด intersect ไปที่แสง
         trace_light(prog, &param);
-        ft_memcpy(&color, &param.inters_color, sizeof(t_color));
+    }
+    ft_memcpy(&color, &param.final_color, sizeof(t_color));
+
+    return (color_struct2int(&color));
+}
+
+int     cale_angle_scale(t_obslight *l_param, t_interparam *p)
+{
+    l_param->angle = acos(vec3d_dot(&p->inters_normal, &l_param->light_dir));
+    if (l_param->angle <= 1.570796)
+    {
+        l_param->angle_scale = (1.0 - (l_param->angle / 1.570796));
     }
     else
     {
-        ft_memcpy(&color, &prog->ambient_color, sizeof(t_color));
+        l_param->angle_scale = 0;
     }
-    return (color_struct2int(&color));
 }
 
 // เลือก สีที่จะ Plot ใส่ Param->local_color
 void    trace_light(t_prog *prog, t_interparam *param)
 {
-    int         hit;
-    t_obslight  light_param;
+    t_obslight  l_param;
     t_color     cale_color;
 
-    hit = 1;
-    init_intersection_light_param(prog, param, &light_param);
-    hit = trace_inters_to_light(prog, param, &light_param);
-    // Superposition Sum of light color = ambient + light_ray * angle_scale
+    init_inters_light_param(prog, param, &l_param);
+    if (param == NULL)
+    {
+        printf("trace_light: param is NULL\n");
+        exit(0);
+    }
+    // can reach light source
+    trace_inters_to_light(prog, param, &l_param);
 
-    if (hit)
+    // l_param->angle_scale
+    if (l_param.stuck == 0)
     {
-        color_scale(&cale_color, prog->ambient_intensity, &param->inters_color);
-        color_plus(&param->inters_color, &param->inters_color, &cale_color);
+        cale_angle_scale(&l_param, param);
     }
-    else
-    {
-        color_scale(&cale_color, prog->ambient_intensity, &param->inters_color);
-        // color_plus(&param->local_color, &param->local_color, &cale_color);
-        color_scale(&param->inters_color, light_param.angle_scale, &param->inters_color);
-    }
-    // color_scale(&cale_color, prog->ambient_intensity, &cale_color);
+
+    color_scale(&l_param.light.light_color, l_param.angle_scale, &param->inters_color);
+    color_scale(&l_param.light.ambient_color, prog->ambient_intensity, &param->inters_color);
+    // light color
+    
+    
+    
+    color_plus(&param->final_color, &l_param.light.ambient_color, &l_param.light.light_color);
 }
 
 
 // check intes_normal can reach light
-void    init_intersection_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param)
+// ถ้าแสงอยู่หลัง
+void    init_inters_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param)
 {
+    color_set_defval(&light_param->light.light_color);
+    color_set_defval(&light_param->light.ambient_color);
+    light_param->scale_angle = 0;
     light_param->angle = 0;
     vec3d_minus(&light_param->light_dir, &prog->light.position, &param->inters_point);
     light_param->max_dist = vec3d_length(&light_param->light_dir);
     vec3d_normalize(&light_param->light_dir);
-    light_param->angle = acos(vec3d_dot(&param->inters_normal, &light_param->light_dir));
-
-    if (light_param->angle <= 1.570796)
-    {
-        light_param->angle_scale = (1.0 - (light_param->angle / 1.570796));
-    }
-    else
-    {
-        // Use ambient intensity
-        light_param->angle_scale = 0;
-    }
+    light_param->stuck = 0;
+    vec3d_assign(&light_param->ray.origin, &param->inters_point);
+    vec3d_assign(&light_param->ray.direction, &light_param->light_dir);
+    param->ray = &light_param->ray;
 }
 
 int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *light_param)
@@ -112,10 +121,10 @@ int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *lig
     int         temp;
 
     lst = prog->obj;
-    reset_inters_focus(param);
     temp = 0;
     while (lst && !temp)
     {
+        reset_inters_focus(param);
         obj = (t_object *)lst->content;
         if (obj->id == param->inters_obj_id)
         {
@@ -126,8 +135,15 @@ int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *lig
         {
             temp = sp_test_intersection(obj, param);
         }
+        else if (obj->type == PLANE)
+        {
+            temp = pl_test_intersection(obj, param);
+        }
         lst = lst->next;
     }
+    // Check f_dist < light_dist)
+    if (param->f_dist < light_param->max_dist - 0.001)
+        light_param->stuck = 1;
     return (temp);
 }
 
