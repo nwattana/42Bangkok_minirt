@@ -1,5 +1,5 @@
 #include "../../inc/minirt.h"
-int     almost_equal(double a, double b);
+
 double pl_cale_dist(t_ray *ray, t_plane *pl, int *hit, t_interparam *param);
 void    print_plane(void    *pl)
 {

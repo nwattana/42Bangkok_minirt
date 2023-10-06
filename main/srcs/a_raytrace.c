@@ -139,9 +139,12 @@ int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *lig
         {
             temp = pl_test_intersection(obj, param);
         }
+        else if (obj->type == CYLINDER)
+        {
+            temp = cy_test_intersection(obj, param);
+        }
         lst = lst->next;
     }
-    // Check f_dist < light_dist)
     if (param->f_dist < light_param->max_dist - 0.001)
         light_param->stuck = 1;
     return (temp);
@@ -158,8 +161,6 @@ int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
     {
         // reset focus param
         reset_inters_focus(param);
-        f_hit = 0;
-
         focus_obj = (t_object *)lst->content;
         if (focus_obj->type == SPHERE)
         {
@@ -169,10 +170,12 @@ int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
         {
             f_hit = pl_test_intersection(focus_obj, param);
         }
-
+        // else if (focus_obj->type == CYLINDER)
+        // {
+        //     f_hit = cy_test_intersection(focus_obj, param);
+        // }
         if (param->f_ishit == 1)
         {
-            // gather inters info
             if (param->f_dist < param->inters_dist)
             {
                 gather_inters_info(param, focus_obj);
@@ -220,4 +223,6 @@ void    print_obj_type(int type)
         printf("SPHERE");
     else if (type == PLANE)
         printf("PLANE");
+    else if (type == CYLINDER)
+        printf("CYLINDER");
 }
