@@ -8,8 +8,8 @@ void    print_cylinder(void *object)
     printf("cylinder: \n");
     print_vec3d(&cylinder->point,"point: ");
     print_vec3d(&cylinder->normal,"normal: ");
-    printf("radius: %f\n", cylinder->radius);
-    printf("height: %f\n", cylinder->height);
+    printf("radius: %f\n", cylinder->radi);
+    printf("height: %f\n", cylinder->len);
     print_color(&cylinder->color);
 }
 

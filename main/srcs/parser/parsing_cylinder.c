@@ -10,8 +10,8 @@ int collect_cylinder(char **str, t_prog *prog)
         return (1);
     collect_3d(str[1], &cylinder->point);
     collect_3d(str[2], &cylinder->normal);
-    ft_strtod(str[3], &cylinder->radius);
-    ft_strtod(str[4], &cylinder->height);
+    ft_strtod(str[3], &cylinder->radi);
+    ft_strtod(str[4], &cylinder->len);
     color_collect_string(str[5], &cylinder->color);
 
     object = create_object_cylinder(cylinder);
