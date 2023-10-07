@@ -59,8 +59,6 @@ int	read_rt_file(char *filepath, t_prog *prog)
 
 int read_2bytes(char *line)
 {
-	int i;
-
 	if (line == NULL)
 		return (0);
 	if (ft_strchr("C#ALspc", line[0]))
@@ -68,32 +66,20 @@ int read_2bytes(char *line)
 	return (0);
 }
 
-int check_line_type(char **splited_lint, t_prog *prog)
+int check_line_type(char **spl, t_prog *prog)
 {
-	if (ft_strncmp(splited_lint[0], "C", ft_strlen(splited_lint[0])) == 0)
-	{
-		collect_camera(splited_lint, prog);
-	}
-	if (ft_strncmp(splited_lint[0], "A", ft_strlen(splited_lint[0])) == 0)
-	{
-		collect_ambient(splited_lint, prog);
-	}
-	if (ft_strncmp(splited_lint[0], "L", ft_strlen(splited_lint[0])) == 0)
-	{
-		collect_light(splited_lint, prog);
-	}
-	if (ft_strncmp(splited_lint[0], "sp", ft_strlen(splited_lint[0])) == 0)
-	{
-		collect_sphere(splited_lint, prog);
-	}
-	if (ft_strncmp(splited_lint[0], "pl", ft_strlen(splited_lint[0])) == 0)
-	{
-		collect_plane(splited_lint, prog);
-	}
-	if (ft_strncmp(splited_lint[0], "cy", ft_strlen(splited_lint[0])) == 0)
-	{
-		collect_cylinder(splited_lint, prog);
-	}
+	if (ft_strncmp(spl[0], "C", ft_strlen(spl[0])) == 0)
+		collect_camera(spl, prog);
+	if (ft_strncmp(spl[0], "A", ft_strlen(spl[0])) == 0)
+		collect_ambient(spl, prog);
+	if (ft_strncmp(spl[0], "L", ft_strlen(spl[0])) == 0)
+		collect_light(spl, prog);
+	if (ft_strncmp(spl[0], "sp", ft_strlen(spl[0])) == 0)
+		collect_sphere(spl, prog);
+	if (ft_strncmp(spl[0], "pl", ft_strlen(spl[0])) == 0)
+		collect_plane(spl, prog);
+	if (ft_strncmp(spl[0], "cy", ft_strlen(spl[0])) == 0)
+		collect_cylinder(spl, prog);
 	return (0);
 }
 
