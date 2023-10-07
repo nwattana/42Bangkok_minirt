@@ -1,6 +1,5 @@
 #include "../inc/minirt.h"
 
-// from main.c
 int render_image(t_prog *prog)
 {
     t_ray   ray;
@@ -45,7 +44,6 @@ int     ray_color(t_ray *ray, t_prog *prog)
     hit = trace_ray_to_obj(prog, &param);
     if (hit)
     {
-        // ถ้าเจอยิงจากจุด intersect ไปที่แสง
         trace_light(prog, &param);
     }
     ft_memcpy(&color, &param.final_color, sizeof(t_color));
@@ -66,7 +64,6 @@ int     cale_angle_scale(t_obslight *l_param, t_interparam *p)
     }
 }
 
-// เลือก สีที่จะ Plot ใส่ Param->local_color
 void    trace_light(t_prog *prog, t_interparam *param)
 {
     t_obslight  l_param;
@@ -78,26 +75,16 @@ void    trace_light(t_prog *prog, t_interparam *param)
         printf("trace_light: param is NULL\n");
         exit(0);
     }
-    // can reach light source
     trace_inters_to_light(prog, param, &l_param);
-
-    // l_param->angle_scale
     if (l_param.stuck == 0)
     {
         cale_angle_scale(&l_param, param);
     }
     color_scale(&l_param.light.light_color, l_param.angle_scale, &param->inters_color);
     color_scale(&l_param.light.ambient_color, prog->ambient_intensity, &param->inters_color);
-    // light color
-    
-    
-    
     color_plus(&param->final_color, &l_param.light.ambient_color, &l_param.light.light_color);
 }
 
-
-// check intes_normal can reach light
-// ถ้าแสงอยู่หลัง
 void    init_inters_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param)
 {
     color_set_defval(&light_param->light.light_color);

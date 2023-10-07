@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <lsomrat@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 23:09:24 by lsomrat           #+#    #+#             */
-/*   Updated: 2022/04/04 23:23:04 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/07 18:01:39 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+
+# include "get_next_line.h"
 
 char	*get_next_line(int fd)
 {
     static t_gnl   *buff;
     char            *line;
 
-	if ((fd < 0 && fd > 999) || read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
+	if (read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
     line = NULL;
     read_file(fd, &buff);

@@ -65,7 +65,7 @@ valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) scene/test.rt
 
 raw: all
-	./$(NAME) scene/test.rt  
+	./$(NAME) scene/shadow.rt
 
 # infinite loop
 # hd: all
