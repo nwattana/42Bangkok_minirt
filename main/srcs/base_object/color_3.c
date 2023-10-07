@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:28:54 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/07 23:29:18 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/08 00:14:21 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ int	color_dot(t_color *res, t_color *c1, t_color *intensity)
 	res->r = (double)c1->r * (double)intensity->r;
 	res->g = (double)c1->g * (double)intensity->g;
 	res->b = (double)c1->b * (double)intensity->b;
+	return (SUCCESS);
 }

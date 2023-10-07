@@ -18,6 +18,7 @@ int render_image(t_prog *prog)
         }
         prog->x++;
     }
+	return (SUCCESS);
 }
 
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y)
@@ -62,12 +63,12 @@ int     cale_angle_scale(t_obslight *l_param, t_interparam *p)
     {
         l_param->angle_scale = 0;
     }
+	return (SUCCESS);
 }
 
 void    trace_light(t_prog *prog, t_interparam *param)
 {
     t_obslight  l_param;
-    t_color     cale_color;
 
     init_inters_light_param(prog, param, &l_param);
     if (param == NULL)
@@ -180,10 +181,13 @@ int gather_inters_info(t_interparam *param, t_object *focus_obj)
     ft_memcpy(&param->inters_color, &param->f_color, sizeof(t_color));
     param->inters_obj_id = focus_obj->id;
     param->d_inters_obj_type = focus_obj->type;
+	return (SUCCESS);
 }
 
 int init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param)
 {
+	(void)prog;
+	(void)ray;
     reset_inters_focus(param);
     vec3d_init(&param->inters_normal, 0,0,0);
     vec3d_init(&param->inters_point, 0,0,0);
@@ -193,6 +197,7 @@ int init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param)
     param->inters_color = (t_color){0,0,0};
     param->start_ray_obj_id = CAMERA_ID;
     param->hit = 1;
+	return (SUCCESS);
 }
 
 int reset_inters_focus(t_interparam *param)

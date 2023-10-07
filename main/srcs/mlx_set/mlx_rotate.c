@@ -1,27 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_rotate.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/07 23:44:03 by nwattana          #+#    #+#             */
+/*   Updated: 2023/10/07 23:57:29 by nwattana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minirt.h"
 
-int rotx_normal(t_vec3d *normal, double deg)
+int	rotx_normal(t_vec3d *normal, double deg)
 {
-	t_vec3d tem;
-	t_vec3d ret;
-	double rad;
+	t_vec3d		tem;
+	t_vec3d		ret;
+	double		rad;
 
-	printf("Coll Rot x\n");
 	rad = deg * PI / 180;
 	ft_memcpy(&tem, normal, sizeof(t_vec3d));
 	ret.x = normal->x;
-	ret.y = tem.y * cosf(rad)  + tem.z * sinf(rad);
+	ret.y = tem.y * cosf(rad) + tem.z * sinf(rad);
 	ret.z = (-tem.y) * sinf(rad) + tem.z * cosf(rad);
 	ft_memcpy(normal, &ret, sizeof(t_vec3d));
 	return (SUCCESS);
 }
 
-int roty_normal(t_vec3d *normal, double deg)
+int	roty_normal(t_vec3d *normal, double deg)
 {
-	t_vec3d tem;
-	t_vec3d ret;
-	double rad;
-printf("Coll Rot y\n");
+	t_vec3d	tem;
+	t_vec3d	ret;
+	double	rad;
+
 	rad = deg * PI / 180;
 	ft_memcpy(&tem, normal, sizeof(t_vec3d));
 	ret.x = tem.x * cosf(rad) - tem.z * sinf(rad);
@@ -30,13 +41,13 @@ printf("Coll Rot y\n");
 	ft_memcpy(normal, &ret, sizeof(t_vec3d));
 	return (SUCCESS);
 }
-int rotz_normal(t_vec3d *normal, double deg)
-{
-	t_vec3d tem;
-	t_vec3d ret;
-	double rad;
 
-printf("Coll Rot z\n");
+int	rotz_normal(t_vec3d *normal, double deg)
+{
+	t_vec3d	tem;
+	t_vec3d	ret;
+	double	rad;
+
 	rad = deg * PI / 180;
 	ft_memcpy(&tem, normal, sizeof(t_vec3d));
 	ret.x = tem.x * cosf(rad) + tem.y * sinf(rad);
@@ -46,37 +57,29 @@ printf("Coll Rot z\n");
 	return (SUCCESS);
 }
 
-
-int rotate_cam(t_prog *prog, double deg)
+int	rotate_cam(t_prog *prog, double deg)
 {
-	t_vec3d *vec;
-	t_camera *cam;
+	t_vec3d		*vec;
+	t_camera	*cam;
 
 	cam = (t_camera *)&prog->camera;
 	vec = &cam->normal;
 	if (prog->sel_axis == ACTIVE_X)
-	{
 		rotx_normal(vec, deg);
-	}
 	if (prog->sel_axis == ACTIVE_Y)
-	{
 		roty_normal(vec, deg);
-	}
 	if (prog->sel_axis == ACTIVE_Z)
-	{
 		rotz_normal(vec, deg);
-	}
-	printf("%f %f %f\n", cam->normal.x, cam->normal.y, cam->normal.z);
 	init_camera(cam);
 	re_render(prog);
 	return (SUCCESS);
 }
 
-int rotate_plane(t_prog *prog, double deg)
+int	rotate_plane(t_prog *prog, double deg)
 {
-	t_plane     *pl;
-	t_object    *obj;
-	t_vec3d     *norm;
+	t_plane		*pl;
+	t_object	*obj;
+	t_vec3d		*norm;
 
 	obj = prog->cur_obj->content;
 	pl = (t_plane *)obj->object;
@@ -89,24 +92,4 @@ int rotate_plane(t_prog *prog, double deg)
 		rotz_normal(norm, deg);
 	re_render(prog);
 	return (SUCCESS);
-}
-
-int rotate_cylinder(t_prog *prog, double  deg)
-{
-	t_cylinder *cy;
-	t_object    *obj;
-	t_vec3d     *norm;
-
-	obj = prog->cur_obj->content;
-	cy = (t_cylinder *)obj->object;
-	norm = &cy->normal;
-	if (prog->sel_axis == ACTIVE_X)
-		rotx_normal(norm, deg);
-	if (prog->sel_axis == ACTIVE_Y)
-		roty_normal(norm, deg);
-	if (prog->sel_axis == ACTIVE_Z)
-		rotz_normal(norm, deg);
-	re_render(prog);
-	return (SUCCESS);
-
 }

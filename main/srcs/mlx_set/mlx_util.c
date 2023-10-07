@@ -1,25 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_util.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/07 23:51:16 by nwattana          #+#    #+#             */
+/*   Updated: 2023/10/07 23:53:03 by nwattana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/minirt.h"
 
-void    mlx_my_init(t_mlx_confix *vars)
+void	mlx_my_init(t_mlx_confix *vars)
 {
 	vars->mlx = mlx_init();
 	vars->is_initmlx = 1;
-	vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, PROGRAM_NAME);
+	vars->win = mlx_new_window(vars->mlx, \
+		WINDOW_WIDTH, WINDOW_HEIGHT, PROGRAM_NAME);
 	vars->is_initwin = 1;
-	vars->img.img = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bpp, &vars->img.width, &vars->img.endian);
+	vars->img.img = mlx_new_image(vars->mlx, \
+		WINDOW_WIDTH, WINDOW_HEIGHT);
+	vars->img.addr = mlx_get_data_addr(vars->img.img, \
+		&vars->img.bpp, &vars->img.width, &vars->img.endian);
 	fill_image_with_color(vars);
 	vars->is_init_img = 1;
 }
 
-int close_window(void)
+int	close_window(void)
 {
 	exit(0);
 }
 
-void prog_mlx_loop(t_prog *prog)
+void	prog_mlx_loop(t_prog *prog)
 {
-	t_mlx_confix *vars;
+	t_mlx_confix	*vars;
 
 	prog->selected_obj = &prog->camera;
 	prog->sel_type = CAMERA;
@@ -30,7 +45,7 @@ void prog_mlx_loop(t_prog *prog)
 	mlx_loop(vars->mlx);
 }
 
-void debug_mlx_status(t_mlx_confix *vars)
+void	debug_mlx_status(t_mlx_confix *vars)
 {
 	printf("is_initmlx: %d\n", vars->is_initmlx);
 	printf("is_initwin: %d\n", vars->is_initwin);
