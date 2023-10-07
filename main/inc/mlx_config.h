@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_config.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/08 02:06:36 by nwattana          #+#    #+#             */
+/*   Updated: 2023/10/08 02:08:06 by nwattana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MLX_CONFIG_H
 # define MLX_CONFIG_H
 # include "minirt.h"
@@ -35,9 +47,9 @@
 # define ACTIVE_X 7
 # define ACTIVE_Y 8
 
-typedef struct s_prog t_prog;
+typedef struct s_prog	t_prog;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;
@@ -46,21 +58,18 @@ typedef struct	s_img
 	int		endian;
 }				t_img;
 
-typedef struct    s_mlx_confix
+typedef struct s_mlx_confix
 {
-    void	*mlx;
-    void	*win;
-    t_img	img;
-    int     is_initmlx;
-    int     is_init_img;
-    int     is_initwin;
+	void	*mlx;
+	void	*win;
+	t_img	img;
+	int		is_initmlx;
+	int		is_init_img;
+	int		is_initwin;
 }				t_mlx_confix;
 
-
-void    mlx_my_putpixel(t_img *data, int x, int y, int color);
-void    mlx_my_init(t_mlx_confix *vars);
-void    fill_image_with_color(t_mlx_confix *vars);
-int	    keyhandler(int keycode, t_prog *prog);
-
-
+void	mlx_my_putpixel(t_img *data, int x, int y, int color);
+void	mlx_my_init(t_mlx_confix *vars);
+void	fill_image_with_color(t_mlx_confix *vars);
+int		keyhandler(int keycode, t_prog *prog);
 #endif
