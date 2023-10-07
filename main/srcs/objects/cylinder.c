@@ -1,4 +1,5 @@
 #include "../../inc/minirt.h"
+
 int     cy_test_intersection(void *object, t_interparam *p);
 double  cy_cale_dist(t_ray *ray, t_cylinder *cy);
 int cy_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
@@ -7,6 +8,9 @@ int cy_create_plane(t_plane *pl, t_cylinder *cy);
 void create_mox_inters(t_ray *ray, t_interparam *mox, t_interparam *p);
 void print_inters_param(t_interparam *p);
 int set_inters_from_mox(t_interparam *p, t_interparam *mox);
+int cy_rear(t_cylinder *cy, t_interparam *p);
+int cy_cap(t_cylinder *cy, t_interparam *p);
+
 void    print_cylinder(void *object)
 {
     t_cylinder *cylinder;
