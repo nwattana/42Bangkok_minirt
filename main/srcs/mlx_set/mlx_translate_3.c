@@ -1,77 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_translate.c                                    :+:      :+:    :+:   */
+/*   mlx_translate_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 23:36:31 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/07 23:49:12 by nwattana         ###   ########.fr       */
+/*   Created: 2023/10/07 23:48:03 by nwattana          #+#    #+#             */
+/*   Updated: 2023/10/07 23:48:44 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minirt.h"
 
-int	camera_translate_minus(t_prog *prog)
+int	cy_minus_trans(t_prog *prog)
 {
-	t_camera	*cam;
-
-	cam = (t_camera *)prog->selected_obj;
-	if (prog->sel_axis == ACTIVE_X)
-		cam->position.x -= 1;
-	if (prog->sel_axis == ACTIVE_Y)
-		cam->position.y -= 1;
-	if (prog->sel_axis == ACTIVE_Z)
-		cam->position.z -= 1;
-	re_render(prog);
-	return (SUCCESS);
-}
-
-int	camera_translate_add(t_prog *prog)
-{
-	t_camera	*cam;
-
-	cam = (t_camera *)prog->selected_obj;
-	if (prog->sel_axis == ACTIVE_X)
-		cam->position.x += 1;
-	if (prog->sel_axis == ACTIVE_Y)
-		cam->position.y += 1;
-	if (prog->sel_axis == ACTIVE_Z)
-		cam->position.z += 1;
-	re_render(prog);
-	return (SUCCESS);
-}
-
-int	sp_plus_trans(t_prog *prog)
-{
-	t_sphere	*sp;
+	t_cylinder	*cy;
 	t_object	*obj;
 
 	obj = prog->cur_obj->content;
-	sp = (t_sphere *)obj->object;
+	cy = (t_cylinder *)obj->object;
 	if (prog->sel_axis == ACTIVE_X)
-		sp->center.x += 1;
+		cy->point.x -= 1;
 	if (prog->sel_axis == ACTIVE_Y)
-		sp->center.y += 1;
+		cy->point.y -= 1;
 	if (prog->sel_axis == ACTIVE_Z)
-		sp->center.z += 1;
+		cy->point.z -= 1;
 	re_render(prog);
 	return (SUCCESS);
 }
 
-int	sp_minus_trans(t_prog *prog)
+int	pl_minus_trans(t_prog *prog)
 {
-	t_sphere	*sp;
+	t_plane		*pl;
 	t_object	*obj;
 
+	printf("Call Handle plane -\n");
 	obj = prog->cur_obj->content;
-	sp = (t_sphere *)obj->object;
+	pl = (t_plane *)obj->object;
 	if (prog->sel_axis == ACTIVE_X)
-		sp->center.x -= 1;
+		pl->point.x -= 1;
 	if (prog->sel_axis == ACTIVE_Y)
-		sp->center.y -= 1;
+		pl->point.y -= 1;
 	if (prog->sel_axis == ACTIVE_Z)
-		sp->center.z -= 1;
+		pl->point.z -= 1;
+	re_render(prog);
+	return (SUCCESS);
+}
+
+int	pl_plus_trans(t_prog *prog)
+{
+	t_plane		*pl;
+	t_object	*obj;
+
+	printf("Call Handle plane + \n");
+	obj = prog->cur_obj->content;
+	pl = (t_plane *)obj->object;
+	if (prog->sel_axis == ACTIVE_X)
+		pl->point.x += 1;
+	if (prog->sel_axis == ACTIVE_Y)
+		pl->point.y += 1;
+	if (prog->sel_axis == ACTIVE_Z)
+		pl->point.z += 1;
 	re_render(prog);
 	return (SUCCESS);
 }

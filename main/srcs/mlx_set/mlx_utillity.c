@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:33:28 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/07 23:36:06 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/07 23:54:02 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	mlx_my_putpixel(t_img *data, int x, int y, int color)
 	char	*dst;
 
 	dst = data->addr + (y * data->width + x * (data->bpp >> 3));
-	*(unsigned int*)dst = color;
+	*(unsigned int *) dst = color;
 }
 
-void fill_image_with_color(t_mlx_confix *vars)
+void	fill_image_with_color(t_mlx_confix *vars)
 {
-	int win_x;
-	int win_y;
-	int color;
+	int	win_x;
+	int	win_y;
+	int	color;
 
 	win_y = 0;
 	while (win_y < WINDOW_HEIGHT)
