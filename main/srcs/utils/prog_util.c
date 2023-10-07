@@ -68,7 +68,7 @@ int read_2bytes(char *line)
 
 	if (line == NULL)
 		return (0);
-	if (ft_strchr("C#ALsp", line[0]))
+	if (ft_strchr("C#ALspc", line[0]))
 		return (1);
 	return (0);
 }
@@ -95,6 +95,10 @@ int check_line_type(char **splited_lint, t_prog *prog)
 	{
 		collect_plane(splited_lint, prog);
 	}
+	if (ft_strncmp(splited_lint[0], "cy", ft_strlen(splited_lint[0])) == 0)
+	{
+		collect_cylinder(splited_lint, prog);
+	}
 	return (0);
 }
 
@@ -106,7 +110,6 @@ int check_line(char *lint, t_prog *prog)
 	line = ft_strtrim(lint, " \t\n");
 	if (!read_2bytes(line))
 	{
-		// FIXME: error message grouping
 		prog->p_error = 1;
 	}
 	else

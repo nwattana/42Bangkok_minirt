@@ -1,5 +1,5 @@
 #include "../../inc/minirt.h"
-int     almost_equal(double a, double b);
+
 double pl_cale_dist(t_ray *ray, t_plane *pl, int *hit, t_interparam *param);
 void    print_plane(void    *pl)
 {
@@ -25,13 +25,21 @@ void    clean_plane(void *pl)
 
 int     pl_test_intersection(void *object, t_interparam *param)
 {
-    t_vec3d     *ray;
     t_plane     *plane;
     t_object    *obj;
-    double      dist;
+
 
     obj = (t_object *)object;
     plane = (t_plane *)obj->object;
+
+    return (pl_sub_intersect(plane, param));
+
+}
+
+int pl_sub_intersect(t_plane *plane, t_interparam *param)
+{
+    double      dist;
+    t_vec3d     *ray;
     ray = &param->ray->direction;
 
     dist = pl_cale_dist(param->ray, plane, &param->f_ishit, param);
@@ -46,6 +54,7 @@ int     pl_test_intersection(void *object, t_interparam *param)
         param->f_ishit = 1;
     }
     return (param->f_ishit);
+
 }
 
 // PROB

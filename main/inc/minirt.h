@@ -23,7 +23,7 @@
 #define DEBUG 1
 #define WORLD_SCALE 1.0f
 
-typedef struct s_interparam t_interparam;
+typedef struct s_interparam t_interparam ;
 
 typedef struct s_color
 {
@@ -156,6 +156,15 @@ typedef struct s_slight
 
 }       t_slight;
 
+typedef struct s_Cylinder
+{
+    t_point3d  point;
+    double    radi;
+    double    len;
+    t_vec3d   normal;
+    t_color   color;
+}       t_cylinder;
+
 typedef struct s_obslight
 {
     t_ray       ray;
@@ -171,8 +180,16 @@ typedef struct s_obslight
     t_slight    light;
 }       t_obslight;
 
+typedef struct s_minter
+{
+    t_point3d sp_inters;
+    t_vec3d sinter_normal;
+    t_color sp_ints2inside;
+    t_color sp_dist;
 
 
+
+}   t_minter;
 
 
 // prog util
@@ -190,7 +207,8 @@ int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
 int     collect_sphere(char **splited_line, t_prog *prog);
 int		collect_plane(char **str, t_prog *prog);
-
+int sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
+int sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
 // set up camera
 double cale_camera_len(t_camera *camera);
 
@@ -198,7 +216,13 @@ double cale_camera_len(t_camera *camera);
 void    clean_plane(void *pl);
 void    print_plane(void *pl);
 int     pl_test_intersection(void *obj, t_interparam *param);
-
+int pl_sub_intersect(t_plane *plane, t_interparam *param);
+// Cylinder
+void    clean_cylinder(void *object);
+void    print_cylinder(void *object);
+t_object *create_object_cylinder(t_cylinder *cylinder);
+int collect_cylinder(char **str, t_prog *prog);
+int     cy_test_intersection(void *object, t_interparam *p);
 // LIght
 void    print_light(void *light);
 void    clean_light(void *light);
@@ -239,6 +263,7 @@ t_object	*create_object_plane(t_plane *plane);
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
 int     init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param);
 int     trace_ray_to_obj(t_prog *prog, t_interparam *param);
+
 // simple math
 double solve_quadratic(double a, double b, double c);
 
@@ -256,8 +281,7 @@ int gather_inters_info(t_interparam *param, t_object *focus_obj);
 void    init_inters_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param);
 int     cale_angle_scale(t_obslight *l_param, t_interparam *p);
 
-
-
+int     almost_equal(double a, double b);
 void    print_ray(t_ray *ray, char *mess);
 int     render_image(t_prog *prog);
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
