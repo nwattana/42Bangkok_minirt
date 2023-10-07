@@ -23,7 +23,7 @@
 #define DEBUG 1
 #define WORLD_SCALE 1.0f
 
-typedef struct s_interparam t_interparam;
+typedef struct s_interparam t_interparam ;
 
 typedef struct s_color
 {
@@ -180,6 +180,18 @@ typedef struct s_obslight
     t_slight    light;
 }       t_obslight;
 
+typedef struct s_minter
+{
+    t_point3d sp_inters;
+    t_vec3d sinter_normal;
+    t_color sp_ints2inside;
+    t_color sp_dist;
+
+
+
+}   t_minter;
+
+
 // prog util
 int		validate_args(int argc, char **argv, t_prog *prog);
 int		prog_constructor(t_prog *prog);
@@ -195,7 +207,7 @@ int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
 int     collect_sphere(char **splited_line, t_prog *prog);
 int		collect_plane(char **str, t_prog *prog);
-int intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
+int sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
 int sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
 // set up camera
 double cale_camera_len(t_camera *camera);
@@ -204,7 +216,7 @@ double cale_camera_len(t_camera *camera);
 void    clean_plane(void *pl);
 void    print_plane(void *pl);
 int     pl_test_intersection(void *obj, t_interparam *param);
-
+int pl_sub_intersect(t_plane *plane, t_interparam *param);
 // Cylinder
 void    clean_cylinder(void *object);
 void    print_cylinder(void *object);

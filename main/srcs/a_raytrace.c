@@ -86,7 +86,6 @@ void    trace_light(t_prog *prog, t_interparam *param)
     {
         cale_angle_scale(&l_param, param);
     }
-
     color_scale(&l_param.light.light_color, l_param.angle_scale, &param->inters_color);
     color_scale(&l_param.light.ambient_color, prog->ambient_intensity, &param->inters_color);
     // light color
@@ -170,10 +169,10 @@ int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
         {
             f_hit = pl_test_intersection(focus_obj, param);
         }
-        // else if (focus_obj->type == CYLINDER)
-        // {
-        //     f_hit = cy_test_intersection(focus_obj, param);
-        // }
+        else if (focus_obj->type == CYLINDER)
+        {
+            f_hit = cy_test_intersection(focus_obj, param);
+        }
         if (param->f_ishit == 1)
         {
             if (param->f_dist < param->inters_dist)

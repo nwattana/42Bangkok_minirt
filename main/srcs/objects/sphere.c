@@ -1,7 +1,7 @@
 #include "../../inc/minirt.h"
 double  sp_cale_dist(t_ray *ray, t_sphere *sp);
 int sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
-int intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
+int sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
 
 void   print_sphere(void *sph)
 {
