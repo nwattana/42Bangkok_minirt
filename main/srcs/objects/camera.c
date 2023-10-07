@@ -1,8 +1,4 @@
 #include "../../inc/minirt.h"
-void    camera_look_at(t_camera *camera);
-void    camera_right_vector(t_camera *camera);
-void    camera_up_vector(t_camera *camera);
-void    camera_top_left_vector(t_camera *camera);
 
 int is_parallel(t_vec3d *v1, t_vec3d *v2)
 {

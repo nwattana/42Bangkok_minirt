@@ -1,13 +1,11 @@
 #include "../../inc/minirt.h"
 
-/// @brief program with printing error message
 void error_exit(char *msg, t_prog *prog)
 {
 	printf("%s", msg);
 	exit(prog->p_state);
 }
 
-/// @brief basic validate args
 int validate_args(int argc, char **argv, t_prog *prog)
 {
 	int i;
@@ -23,7 +21,6 @@ int validate_args(int argc, char **argv, t_prog *prog)
 		error_exit("Error\nWrong file extension\n", prog);
 	if (ft_strncmp(argv[1] + len - 3, ".rt", 3) != 0)
 		error_exit("Error\nWrong file extension\n", prog);
-	// prog->p_state = PASS_VALIDATE_ARGS;
 	return (0);
 }
 
@@ -60,8 +57,6 @@ int	read_rt_file(char *filepath, t_prog *prog)
 	return (0);
 }
 
-/// @brief Check starting charactor
-/// @return 1 if valid, 0 if invalid
 int read_2bytes(char *line)
 {
 	int i;

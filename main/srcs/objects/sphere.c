@@ -1,7 +1,4 @@
 #include "../../inc/minirt.h"
-double  sp_cale_dist(t_ray *ray, t_sphere *sp);
-int sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
-int sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
 
 void   print_sphere(void *sph)
 {
@@ -24,8 +21,6 @@ void   clean_sphere(void *sph)
     free(sphere);
 }
 
-// inside outside problem
-// function to test intersction between ray and sphere
 int     sp_test_intersection(void *object, t_interparam *p)
 {
     double dist;
@@ -56,33 +51,4 @@ int sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center
         return (ERROR);
     }
     return (SUCCESS);
-}
-
-int sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist)
-{
-    t_vec3d *v3;
-
-    vec3d_scale(inters, dist, &ray->direction);
-    vec3d_plus(inters, &ray->origin, inters);
-    if (vec3d_length(inters) == 0.0)
-    {
-        debug_message("sphere intersection_point: inters is zero vector\n");
-        return (ERROR);
-    }
-    return (SUCCESS);
-}
-
-double  sp_cale_dist(t_ray *ray, t_sphere *sp)
-{
-    double  a;
-    double  b;
-    double  c;
-    t_vec3d cam2obj;
-    double  dist;
-
-    vec3d_minus(&cam2obj, &ray->origin, &sp->center);
-    a = vec3d_dot(&ray->direction, &ray->direction);
-    b = 2.0 * vec3d_dot(&cam2obj, &ray->direction);
-    c = vec3d_dot(&cam2obj, &cam2obj) - (sp->radius * sp->radius);
-    return(solve_quadratic(a, b, c));
 }

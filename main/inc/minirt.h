@@ -293,4 +293,14 @@ int     color_plus(t_color *res, t_color *a, t_color *b);
 int     color_struct2int(t_color *color);
 int     color_rgb2int(int r, int g, int b);
 int     color_scale(t_color *res, double scale, t_color *a);
+
+void    camera_look_at(t_camera *camera);
+void    camera_right_vector(t_camera *camera);
+void    camera_up_vector(t_camera *camera);
+void    camera_top_left_vector(t_camera *camera);
+double  pl_cale_dist(t_ray *ray, t_plane *pl, int *hit, t_interparam *param);
+double  sp_cale_dist(t_ray *ray, t_sphere *sp);
+int     sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
+int     sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
+
 #endif
