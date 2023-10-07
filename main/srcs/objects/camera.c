@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:04:29 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 00:04:30 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/08 02:11:50 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_parallel(t_vec3d *v1, t_vec3d *v2)
 
 void	init_camera(t_camera *camera)
 {
-	t_point3d	w;
+	t_vec3d	w;
 	double		aux_cale;
 	t_vec3d		look_at;
 

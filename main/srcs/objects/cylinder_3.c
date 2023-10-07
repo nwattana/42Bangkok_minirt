@@ -19,17 +19,17 @@ double  cy_cale_dist(t_ray *ray, t_cylinder *cy)
 int cy_create_plane(t_plane *pl, t_cylinder *cy)
 {
     t_vec3d     cale_temp;
-    t_point3d   temp;
+    t_vec3d   temp;
 
     vec3d_scale(&cale_temp, cy->len / 2.0, &cy->normal);
     vec3d_plus(&temp, &cy->point, &cale_temp);
     ft_memcpy(&pl[0].color, &cy->color, sizeof(t_color));
-    ft_memcpy(&pl[0].point, &temp, sizeof(t_point3d));
+    ft_memcpy(&pl[0].point, &temp, sizeof(t_vec3d));
     ft_memcpy(&pl[0].normal, &cy->normal, sizeof(t_vec3d));
     vec3d_scale(&cale_temp, -cy->len / 2.0, &cy->normal);
     vec3d_plus(&temp, &cy->point, &cale_temp);
     ft_memcpy(&pl[1].color, &cy->color, sizeof(t_color));
-    ft_memcpy(&pl[1].point, &temp, sizeof(t_point3d));
+    ft_memcpy(&pl[1].point, &temp, sizeof(t_vec3d));
     vec3d_scale(&cale_temp, -1, &cy->normal);
     ft_memcpy(&pl[1].normal, &cale_temp, sizeof(t_vec3d));
     return (SUCCESS);

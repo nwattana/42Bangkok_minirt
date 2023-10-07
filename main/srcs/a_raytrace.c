@@ -176,7 +176,7 @@ int     trace_ray_to_obj(t_prog *prog, t_interparam *param)
 int gather_inters_info(t_interparam *param, t_object *focus_obj)
 {
     param->inters_dist = param->f_dist;
-    ft_memcpy(&param->inters_point, &param->f_point, sizeof(t_point3d));
+    ft_memcpy(&param->inters_point, &param->f_point, sizeof(t_vec3d));
     ft_memcpy(&param->inters_normal, &param->f_normal, sizeof(t_vec3d));
     ft_memcpy(&param->inters_color, &param->f_color, sizeof(t_color));
     param->inters_obj_id = focus_obj->id;

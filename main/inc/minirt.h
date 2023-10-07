@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 01:57:02 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 02:08:33 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/08 02:11:50 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_object
 
 typedef struct s_camera
 {
-	t_point3d	position;
+	t_vec3d	position;
 	t_vec3d		normal;
 	double		fov;
 	double		fov_rad;
@@ -70,14 +70,14 @@ typedef struct s_camera
 
 typedef struct s_light
 {
-	t_point3d	position;
+	t_vec3d	position;
 	t_color		color;
 	double		intensity;
 }				t_light;
 
 typedef struct s_ray
 {
-	t_point3d	origin;
+	t_vec3d	origin;
 	t_vec3d		direction;
 }			t_ray;
 
@@ -101,7 +101,7 @@ typedef struct s_interparam
 	t_color		f_color;
 	double		inters_dist;
 	int			inters_obj_id;
-	t_point3d	inters_point;
+	t_vec3d	inters_point;
 	t_vec3d		inters_normal;
 	t_color		inters_color;
 	int			d_inters_obj_type;
@@ -110,7 +110,7 @@ typedef struct s_interparam
 
 typedef struct s_sphere
 {
-	t_point3d	center;
+	t_vec3d	center;
 	double		radius;
 	t_color		color;
 }				t_sphere;
@@ -145,7 +145,7 @@ typedef struct s_slight
 
 typedef struct s_Cylinder
 {
-	t_point3d	point;
+	t_vec3d	point;
 	double		radi;
 	double		len;
 	t_vec3d		normal;
@@ -167,7 +167,7 @@ typedef struct s_obslight
 
 typedef struct s_minter
 {
-	t_point3d	sp_inters;
+	t_vec3d	sp_inters;
 	t_vec3d		sinter_normal;
 	t_color		sp_ints2inside;
 	t_color		sp_dist;
@@ -188,7 +188,7 @@ int			collect_light(char **splited_line, t_prog *prog);
 int			collect_sphere(char **splited_line, t_prog *prog);
 int			collect_plane(char **str, t_prog *prog);
 int			sp_intersection_normal(t_vec3d *normal, \
-	t_point3d *inters, t_point3d *center);
+	t_vec3d *inters, t_vec3d *center);
 int			sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
 double		cale_camera_len(t_camera *camera);
 void		clean_plane(void *pl);
@@ -254,7 +254,7 @@ void		print_obj_type(int type);
 int			cy_test_intersection(void *object, t_interparam *p);
 double		cy_cale_dist(t_ray *ray, t_cylinder *cy);
 int			cy_intersection_normal(t_vec3d *normal, \
-	t_point3d *inters, t_point3d *center);
+	t_vec3d *inters, t_vec3d *center);
 int			cy_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
 int			cy_create_plane(t_plane *pl, t_cylinder *cy);
 void		create_mox_inters(t_ray *ray, \
@@ -279,7 +279,7 @@ double		sp_cale_dist(t_ray *ray, t_sphere *sp);
 int			sp_intersection_point(t_vec3d *inters, \
 	t_ray *ray, double dist);
 int			sp_intersection_normal(t_vec3d *normal, \
-	t_point3d *inters, t_point3d *center);
+	t_vec3d *inters, t_vec3d *center);
 int			kb_talk(char *mess, int nl);
 int			re_render(t_prog *prog);
 int			select_camera(t_prog *prog);

@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:18:09 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 01:44:53 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/08 02:11:50 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	set_inters_from_mox(t_interparam *p, t_interparam *mox)
 	p->f_dist = mox->f_dist;
 	p->f_ishit = mox->f_ishit;
 	ft_memcpy(&p->f_color, &mox->f_color, sizeof(t_color));
-	ft_memcpy(&p->f_point, &mox->f_point, sizeof(t_point3d));
+	ft_memcpy(&p->f_point, &mox->f_point, sizeof(t_vec3d));
 	ft_memcpy(&p->f_normal, &mox->f_normal, sizeof(t_vec3d));
 	return (SUCCESS);
 }
@@ -75,7 +75,7 @@ int	cy_cap(t_cylinder *cy, t_interparam *p)
 	return (0);
 }
 
-int	cy_intersection_normal(t_vec3d *norm, t_point3d *inters, t_point3d *cent)
+int	cy_intersection_normal(t_vec3d *norm, t_vec3d *inters, t_vec3d *cent)
 {
 	vec3d_minus(norm, inters, cent);
 	if (vec3d_normalize(norm))

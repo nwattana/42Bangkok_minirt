@@ -42,7 +42,7 @@ int     sp_test_intersection(void *object, t_interparam *p)
     return (p->f_ishit);
 }
 
-int sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center)
+int sp_intersection_normal(t_vec3d *normal, t_vec3d *inters, t_vec3d *center)
 {
     vec3d_minus(normal, inters, center);
     if(vec3d_normalize(normal))
