@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:16:35 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 00:16:38 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/08 00:45:44 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	collect_camera(char **splited_line, t_prog *prog)
 	return (0);
 }
 
-/// @brief pases string 10,10.0,-1 into 3d vector or 3d point
-/// @return 
 void	*collect_3d(char *str_vector, void *memory_in)
 {
 	char	**splited_vector;
@@ -70,7 +68,7 @@ void	*collect_3d(char *str_vector, void *memory_in)
 		return (NULL);
 	ft_strtod(splited_vector[0], &vector->x);
 	ft_strtod(splited_vector[1], &vector->y);
-	t_strtod(splited_vector[2], &vector->z);
+	ft_strtod(splited_vector[2], &vector->z);
 	ft_free_split(splited_vector);
 	return (memory_in);
 }

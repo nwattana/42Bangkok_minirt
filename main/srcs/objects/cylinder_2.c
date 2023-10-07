@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:18:09 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 00:18:10 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/08 01:16:21 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,24 @@ int	cy_cap(t_cylinder *cy, t_interparam *p)
 {
 	t_vec3d	inters2center;
 	t_plane	pl[2];
+	int		i;
 
+	i = 0;
 	cy_create_plane(pl, cy);
-	if (pl_sub_intersect(&pl[0], p))
+	while (i < 2)
 	{
-		vec3d_minus(&inters2center, &p->f_point, &pl[0].point);
-		if (vec3d_length(&inters2center) < cy->radi)
+		if (pl_sub_intersect(&pl[i], p))
 		{
-			p->f_dist = p->f_dist;
-			p->f_ishit = 1;
-			ft_memcpy(&p->f_color, &cy->color, sizeof(t_color));
-			return (1);
+			vec3d_minus(&inters2center, &p->f_point, &pl[i].point);
+			if (vec3d_length(&inters2center) < cy->radi)
+			{
+				p->f_dist = p->f_dist;
+				p->f_ishit = 1;
+				ft_memcpy(&p->f_color, &cy->color, sizeof(t_color));
+				return (1);
+			}
 		}
-	}
-	if (pl_sub_intersect(&pl[1], p))
-	{
-		vec3d_minus(&inters2center, &p->f_point, &pl[1].point);
-		if (vec3d_length(&inters2center) < cy->radi)
-		{
-			p->f_dist = p->f_dist;
-			p->f_ishit = 1;
-			ft_memcpy(&p->f_color, &cy->color, sizeof(t_color));
-			return (1);
-		}
+		i++;
 	}
 	return (0);
 }
@@ -78,7 +73,7 @@ int	cy_cap(t_cylinder *cy, t_interparam *p)
 int	cy_intersection_normal(t_vec3d *norm, t_point3d *inters, t_point3d *cent)
 {
 	vec3d_minus(norm, inters, cent);
-	if (vec3d_normalize(normal))
+	if (vec3d_normalize(norm))
 	{
 		debug_message("cyhere intersection_normal: normal is zero vector\n");
 		return (ERROR);
