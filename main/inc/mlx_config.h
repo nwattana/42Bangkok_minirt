@@ -15,6 +15,7 @@
 # define KEY_S		1
 # define KEY_D		2
 # define KEY_W		13
+# define KEY_E      14
 # define KEY_R      15
 # define KEY_Q      12
 # define KEY_1      18
@@ -29,6 +30,12 @@
 # define KEY_0      29
 # define KEY_PLUS	24
 # define KEY_MINUS	27
+# define KEY_TAB    48
+# define ACTIVE_Z 6
+# define ACTIVE_X 7
+# define ACTIVE_Y 8
+
+typedef struct s_prog t_prog;
 
 typedef struct	s_img
 {
@@ -53,5 +60,7 @@ typedef struct    s_mlx_confix
 void    mlx_my_putpixel(t_img *data, int x, int y, int color);
 void    mlx_my_init(t_mlx_confix *vars);
 void    fill_image_with_color(t_mlx_confix *vars);
+int	    keyhandler(int keycode, t_prog *prog);
+
 
 #endif
