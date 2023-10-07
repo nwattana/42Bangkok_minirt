@@ -299,4 +299,5 @@ int rotate_cylinder(t_prog *prog, double  deg);
 
 int	pl_minus_trans(t_prog *prog);
 int	pl_plus_trans(t_prog *prog);
+int	perp_exit(int x, t_prog *prog);
 #endif
