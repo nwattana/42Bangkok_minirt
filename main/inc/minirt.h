@@ -296,4 +296,7 @@ int     cy_plus_trans(t_prog *prog);
 
 int rotate_plane(t_prog *prog, double deg);
 int rotate_cylinder(t_prog *prog, double  deg);
+
+int	pl_minus_trans(t_prog *prog);
+int	pl_plus_trans(t_prog *prog);
 #endif
