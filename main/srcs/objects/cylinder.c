@@ -1,16 +1,5 @@
 #include "../../inc/minirt.h"
 
-int     cy_test_intersection(void *object, t_interparam *p);
-double  cy_cale_dist(t_ray *ray, t_cylinder *cy);
-int cy_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
-int cy_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
-int cy_create_plane(t_plane *pl, t_cylinder *cy);
-void create_mox_inters(t_ray *ray, t_interparam *mox, t_interparam *p);
-void print_inters_param(t_interparam *p);
-int set_inters_from_mox(t_interparam *p, t_interparam *mox);
-int cy_rear(t_cylinder *cy, t_interparam *p);
-int cy_cap(t_cylinder *cy, t_interparam *p);
-
 void    print_cylinder(void *object)
 {
     t_cylinder *cylinder;
@@ -54,8 +43,6 @@ int     cy_test_intersection(void *object, t_interparam *p)
         set_inters_from_mox(p, &mox[1]);
         return (1);
     }
-
-
     return (0);
 }
 
@@ -76,16 +63,14 @@ void create_mox_inters(t_ray *ray, t_interparam *mox, t_interparam *p)
 int cy_rear(t_cylinder *cy, t_interparam *p)
 {
     double dist;
+    t_vec3d ints2point;
 
     dist = cy_cale_dist(p->ray, cy);
     if (dist > 0.0)
     {
-        t_vec3d ints2point;
-        // ระวังตัวแปร เดิมเปลี่ยนค่าไปแล้ว
         cy_intersection_point(&p->f_point, p->ray, dist);
         cy_intersection_normal(&p->f_normal, &p->f_point, &cy->point);
         vec3d_minus(&ints2point, &p->f_point, &cy->point);
-        // if (vec3d_dot(&ints2point, &cy->normal) > cy->len / 2.0 || vec3d_dot(&ints2point, &cy->normal) < -cy->len / 2.0
         if (fabs(vec3d_dot(&ints2point, &cy->normal)) < cy->len / 2.0)
         {
             p->f_dist = dist;
@@ -113,7 +98,6 @@ int cy_cap(t_cylinder *cy, t_interparam *p)
     t_plane    pl[2];
 
     cy_create_plane(pl, cy);
-    // front face  เชคจาก intersect->middle ดอท กับfocus ray
     if (pl_sub_intersect(&pl[0], p))
     {
         vec3d_minus(&inters2center, &p->f_point, &pl[0].point);
@@ -125,7 +109,6 @@ int cy_cap(t_cylinder *cy, t_interparam *p)
             return (1);
         }
     }
-    // back face
     if (pl_sub_intersect(&pl[1], p))
     {
         vec3d_minus(&inters2center, &p->f_point, &pl[1].point);
@@ -138,11 +121,7 @@ int cy_cap(t_cylinder *cy, t_interparam *p)
         }
     }
     return (0);
-
 }
-
-
-
 
 int cy_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center)
 {
@@ -195,16 +174,12 @@ int cy_create_plane(t_plane *pl, t_cylinder *cy)
     ft_memcpy(&pl[0].color, &cy->color, sizeof(t_color));
     ft_memcpy(&pl[0].point, &temp, sizeof(t_point3d));
     ft_memcpy(&pl[0].normal, &cy->normal, sizeof(t_vec3d));
-
-
     vec3d_scale(&cale_temp, -cy->len / 2.0, &cy->normal);
     vec3d_plus(&temp, &cy->point, &cale_temp);
     ft_memcpy(&pl[1].color, &cy->color, sizeof(t_color));
     ft_memcpy(&pl[1].point, &temp, sizeof(t_point3d));
     vec3d_scale(&cale_temp, -1, &cy->normal);
     ft_memcpy(&pl[1].normal, &cale_temp, sizeof(t_vec3d));
-    
-
     return (SUCCESS);
 }
 

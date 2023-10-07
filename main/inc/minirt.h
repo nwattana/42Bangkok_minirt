@@ -207,33 +207,25 @@ int     collect_ambient(char **split_line, t_prog *prog);
 int		collect_light(char **splited_line, t_prog *prog);
 int     collect_sphere(char **splited_line, t_prog *prog);
 int		collect_plane(char **str, t_prog *prog);
-int sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
-int sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
-// set up camera
-double cale_camera_len(t_camera *camera);
-
-// Plane
+int     sp_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
+int     sp_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
+double  cale_camera_len(t_camera *camera);
 void    clean_plane(void *pl);
 void    print_plane(void *pl);
 int     pl_test_intersection(void *obj, t_interparam *param);
-int pl_sub_intersect(t_plane *plane, t_interparam *param);
-// Cylinder
+int     pl_sub_intersect(t_plane *plane, t_interparam *param);
 void    clean_cylinder(void *object);
 void    print_cylinder(void *object);
 t_object *create_object_cylinder(t_cylinder *cylinder);
-int collect_cylinder(char **str, t_prog *prog);
+int     collect_cylinder(char **str, t_prog *prog);
 int     cy_test_intersection(void *object, t_interparam *p);
-// LIght
 void    print_light(void *light);
 void    clean_light(void *light);
-int point_light(t_light *light, t_list *current_obj, t_interparam *param, t_color *color, double *intensity);
 
-// sphere
 void   print_sphere(void *sphere);
 void   clean_sphere(void *sphere);
 int    sp_test_intersection(void *object, t_interparam *p);
 
-// Color
 int     color_init(t_color *color, int r, int g, int b);
 int     color_plus(t_color *res, t_color *a, t_color *b);
 int     color_struct2int(t_color *color);
@@ -247,10 +239,8 @@ t_color int2color(int color);
 void    color_set_defval(t_color *color);
 
 int     color_dot(t_color *res, t_color *c1, t_color *c2);
-// cam
 void    init_camera(t_camera *cam);
 
-// object
 void    print_object_from_list(void *lst);
 void    clean_object_from_list(void *obj);
 void    print_object_iter(void *content);
@@ -259,12 +249,10 @@ int     none_test_intersection(void *object, t_interparam *param);
 t_object    *create_object_sphere(t_sphere *sp);
 t_object	*create_object_plane(t_plane *plane);
 
-// ray
 void    generate_ray(t_ray *ray, t_prog *prog, int x, int y);
 int     init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param);
 int     trace_ray_to_obj(t_prog *prog, t_interparam *param);
 
-// simple math
 double solve_quadratic(double a, double b, double c);
 
 void	prog_init_mlx(t_prog *prog);
@@ -272,12 +260,10 @@ int		render_image(t_prog *prog);
 void    prog_mlx_loop(t_prog *prog);
 void  debug_message(char *msg);
 
-// intersection param manipulate
 int reset_inters_focus(t_interparam *param);
 int init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param);
 int gather_inters_info(t_interparam *param, t_object *focus_obj);
 
-// light 
 void    init_inters_light_param(t_prog *prog, t_interparam *param, t_obslight *light_param);
 int     cale_angle_scale(t_obslight *l_param, t_interparam *p);
 
@@ -290,5 +276,21 @@ int     trace_inters_to_light(t_prog *prog, t_interparam *param, t_obslight *lig
 void    trace_light(t_prog *prog, t_interparam *param);
 
 void    print_obj_type(int type);
+int     cy_test_intersection(void *object, t_interparam *p);
+double  cy_cale_dist(t_ray *ray, t_cylinder *cy);
+int     cy_intersection_normal(t_vec3d *normal, t_point3d *inters, t_point3d *center);
+int     cy_intersection_point(t_vec3d *inters, t_ray *ray, double dist);
+int     cy_create_plane(t_plane *pl, t_cylinder *cy);
+void    create_mox_inters(t_ray *ray, t_interparam *mox, t_interparam *p);
+void    print_inters_param(t_interparam *p);
+int     set_inters_from_mox(t_interparam *p, t_interparam *mox);
+int     cy_rear(t_cylinder *cy, t_interparam *p);
+int     cy_cap(t_cylinder *cy, t_interparam *p);
 
+int     color_collect_string(char *color_string, t_color *color);
+int     color_init(t_color *color, int r, int g, int b);
+int     color_plus(t_color *res, t_color *a, t_color *b);
+int     color_struct2int(t_color *color);
+int     color_rgb2int(int r, int g, int b);
+int     color_scale(t_color *res, double scale, t_color *a);
 #endif
