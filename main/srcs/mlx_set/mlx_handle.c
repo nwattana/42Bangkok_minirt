@@ -1,60 +1,5 @@
 #include "../../inc/minirt.h"
 
-void	mlx_my_putpixel(t_img *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->width + x * (data->bpp >> 3));
-	*(unsigned int*)dst = color;
-}
-
-void    mlx_my_init(t_mlx_confix *vars)
-{
-    vars->mlx = mlx_init();
-    vars->is_initmlx = 1;
-    vars->win = mlx_new_window(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, PROGRAM_NAME);
-    vars->is_initwin = 1;
-    vars->img.img = mlx_new_image(vars->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-    vars->img.addr = mlx_get_data_addr(vars->img.img, &vars->img.bpp, &vars->img.width, &vars->img.endian);
-    fill_image_with_color(vars);
-    vars->is_init_img = 1;
-}
-
-void fill_image_with_color(t_mlx_confix *vars)
-{
-    int win_x;
-    int win_y;
-    int color;
-
-    win_y = 0;
-    while (win_y < WINDOW_HEIGHT)
-    {
-        win_x = 0;
-        while (win_x < WINDOW_WIDTH)
-        {
-            color = color_rgb2int(0, 0, 0);
-            mlx_my_putpixel(&(vars->img), win_x, win_y, color);
-            win_x++;
-        }
-        win_y++;
-    }
-}
-
-int close_window(void)
-{
-    exit(0);
-}
-
-void prog_mlx_loop(t_prog *prog)
-{
-    t_mlx_confix *vars;
-
-    vars = &(prog->mlx_config);
-    mlx_hook(vars->win, 17, 0, close_window, vars);
-    mlx_hook(vars->win, 2, 1L << 0, &keyhandler, vars);
-    mlx_loop(vars->mlx);
-}
-
 int	keyhandler(int keycode)
 {
 	if (keycode == KEY_LEFT || keycode == KEY_A)
@@ -104,11 +49,4 @@ int	keyhandler(int keycode)
 	if (keycode == KEY_ESC)
 		printf("KEY_ESC: %s\n", "EXIT");
 	return (0);
-}
-
-void debug_mlx_status(t_mlx_confix *vars)
-{
-	printf("is_initmlx: %d\n", vars->is_initmlx);
-	printf("is_initwin: %d\n", vars->is_initwin);
-	printf("is_init_img: %d\n", vars->is_init_img);
 }
