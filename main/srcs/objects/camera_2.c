@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:16:35 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 00:16:38 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/08 01:44:36 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*collect_3d(char *str_vector, void *memory_in)
 		return (NULL);
 	ft_strtod(splited_vector[0], &vector->x);
 	ft_strtod(splited_vector[1], &vector->y);
-	t_strtod(splited_vector[2], &vector->z);
+	ft_strtod(splited_vector[2], &vector->z);
 	ft_free_split(splited_vector);
 	return (memory_in);
 }

@@ -31,13 +31,12 @@ LIBFT_DIR=zlib
 LIBFT_ARC=./$(LIBFT_DIR)/libft.a
 
 %.o: %.c
-	gcc -c $< -o $@ $(MLX_FLAGS) -g
+	gcc -c $< -o $@ $(MLX_FLAGS)
 
 all: $(NAME)
 
-$(NAME): $(MLX_APATH) libft $(OBJS)
-	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC) -g
-	#FIXME re-link need fix
+$(NAME): $(OBJS)
+	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
 
 $(MLX_APATH): mlxx
@@ -56,29 +55,14 @@ libft:
 
 clean:
 	-@rm -f $(OBJS)
-	# FIXME re-link need fix
 	-@rm -rf $(ORBJ_DIR)/*
-	-@[ -d "mlx" ] && cd mlx && make clean > /dev/null && echo "Clean MLX OBJ" || echo "mlx not found"
-	make --no-print-directory -C $(LIBFT_DIR) clean  > /dev/null 2> /dev/null
 
 valgrind: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) scene/test.rt
 
-raw: all
-	./$(NAME) scene/shadow.rt
-
-# infinite loop
-# hd: all
-# 	./$(NAME) scene/light_behind_plane.rt 
-
-shadow: all
-	./$(NAME) scene/shadow.rt
-
 
 fclean: clean
-	-@rm -rf $(MLX_DIR)
 	-@rm -rf $(NAME)
-	make --no-print-directory -C $(LIBFT_DIR) fclean  > /dev/null 2> /dev/null
 
 re: fclean all
 

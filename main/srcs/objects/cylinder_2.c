@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:18:09 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 00:18:10 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/08 01:44:53 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	cy_cap(t_cylinder *cy, t_interparam *p)
 int	cy_intersection_normal(t_vec3d *norm, t_point3d *inters, t_point3d *cent)
 {
 	vec3d_minus(norm, inters, cent);
-	if (vec3d_normalize(normal))
+	if (vec3d_normalize(norm))
 	{
 		debug_message("cyhere intersection_normal: normal is zero vector\n");
 		return (ERROR);
