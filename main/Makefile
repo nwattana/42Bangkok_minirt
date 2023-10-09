@@ -29,15 +29,18 @@ MLX_APATH=$(MLX_DIR)/libmlx.a
 # ----------- Libft ----------
 LIBFT_DIR=zlib
 LIBFT_ARC=./$(LIBFT_DIR)/libft.a
+LIBFT=./$(LIBFT_DIR)/libft.a
 
 %.o: %.c
 	gcc -c $< -o $@ $(MLX_FLAGS)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	gcc -Wall -Wextra -Werror $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
+$(LIBFT):
+	make -C zlib bonus
 
 $(MLX_APATH): mlxx
 	@echo $(MLX_APATH)
@@ -62,6 +65,7 @@ valgrind: all
 
 
 fclean: clean
+	make -C zlib fclean
 	-@rm -rf $(NAME)
 
 re: fclean all

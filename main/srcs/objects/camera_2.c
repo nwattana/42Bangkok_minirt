@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:16:35 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 01:44:36 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/08 02:16:05 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	collect_camera(char **splited_line, t_prog *prog)
 	return (0);
 }
 
-/// @brief pases string 10,10.0,-1 into 3d vector or 3d point
-/// @return 
 void	*collect_3d(char *str_vector, void *memory_in)
 {
 	char	**splited_vector;

@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strslen.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/08 03:38:40 by nwattana          #+#    #+#             */
+/*   Updated: 2023/10/08 03:39:02 by nwattana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-size_t  ft_strslen(char **strs)
+size_t	ft_strslen(char **strs)
 {
-    size_t  i;
+	size_t	i;
 
-    i = 0;
-    if (strs == NULL)
-        return (0);
-    while (strs[i])
-        i++;
-    return (i);
+	i = 0;
+	if (strs == NULL)
+		return (0);
+	while (strs[i])
+		i++;
+	return (i);
 }

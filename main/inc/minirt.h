@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 01:57:02 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 02:11:50 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/08 03:33:12 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
+# include <unistd.h>
+# include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 # include "../zlib/libft.h"
-# include "../zlib/get_next_line.h"
 # include "../mlx/mlx.h"
 # include "const_utils.h"
 # include "vector.h"
@@ -303,4 +307,5 @@ int			rotate_cylinder(t_prog *prog, double deg);
 int			pl_minus_trans(t_prog *prog);
 int			pl_plus_trans(t_prog *prog);
 int			perp_exit(int x, t_prog *prog);
+int 		if_intersec(t_object *obj, t_interparam *param);
 #endif

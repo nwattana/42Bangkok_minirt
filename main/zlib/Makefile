@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: nwattana <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 22:36:19 by lsomrat           #+#    #+#              #
-#    Updated: 2022/03/13 11:50:30 by lsomrat          ###   ########.fr        #
+#    Updated: 2023/10/08 02:37:59 by nwattana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ SRCS	= ft_isalpha.c \
 	  ft_striteri.c \
 	  ft_strmapi.c \
 	  get_next_line.c \
-	  get_next_line_utils_bonus.c \
+	  get_next_line_utils.c \
 	  ft_strtod.c \
 	  ft_freesplit.c \
 	  ft_strslen.c

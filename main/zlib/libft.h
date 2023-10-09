@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:34:42 by lsomrat           #+#    #+#             */
-/*   Updated: 2022/03/25 22:00:33 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/08 03:14:32 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+char	*get_next_line(int fd);
+void	*ft_calloc(size_t a, size_t b);
+char	*ft_strjoinn(char *head, char *tail, int byte_read);
+size_t	ft_strlen(const char *str);
+char	*ft_strchrr(const char *str, int tofind);
+char	*ft_substrr(const char *s, int start, int len);
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -66,7 +73,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-int 	ft_strtod(char *str, double *destination);
+int		ft_strtod(char *str, double *destination);
 int		ft_free_split(char **split_obj);
-size_t  ft_strslen(char **strs);
+size_t	ft_strslen(char **strs);
 #endif
