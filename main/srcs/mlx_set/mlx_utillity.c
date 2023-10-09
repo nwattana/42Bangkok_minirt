@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utillity.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:33:28 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/07 23:54:02 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/10 05:21:12 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,12 @@ void	fill_image_with_color(t_mlx_confix *vars)
 		}
 		win_y++;
 	}
+}
+
+void	prog_init_mlx(t_prog *prog)
+{
+	t_mlx_confix	*mlx_config;
+
+	mlx_config = &(prog->mlx_config);
+	mlx_my_init(mlx_config);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prog_util_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:00:25 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 00:00:27 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/10 06:05:24 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	check_line(char *lint, t_prog *prog)
 {
 	char	**split_out;
 	char	*line;
+	int		skiped;
 
 	line = ft_strtrim(lint, " \t\n");
+	skiped = is_skip_line(line);
 	if (!read_2bytes(line))
-	{
 		prog->p_error = 1;
-	}
-	else
+	if (!skiped)
 	{
 		split_out = ft_split(line, ' ');
 		check_line_type(split_out, prog);

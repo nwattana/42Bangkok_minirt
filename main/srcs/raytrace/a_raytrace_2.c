@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   a_raytrace_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:25:22 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 03:34:27 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/10 06:00:42 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 void	trace_light(t_prog *prog, t_interparam *param)
 {
@@ -112,5 +112,6 @@ int	trace_ray_to_obj(t_prog *prog, t_interparam *param)
 				gather_inters_info(param, focus_obj);
 		lst = lst->next;
 	}
+	(void)f_hit;
 	return (param->hit);
 }

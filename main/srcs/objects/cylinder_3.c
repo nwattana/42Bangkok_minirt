@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:46:19 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 02:46:36 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/10 03:13:32 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ double	cy_cale_dist(t_ray *ray, t_cylinder *cy)
 	double	b;
 	double	c;
 	t_vec3d	cam2obj;
-	double	dist;
 
 	vec3d_minus(&cam2obj, &ray->origin, &cy->point);
 	a = vec3d_dot(&ray->direction, &ray->direction) - \
@@ -63,8 +62,6 @@ void	print_inters_param(t_interparam *p)
 
 int	cy_intersection_point(t_vec3d *inters, t_ray *ray, double dist)
 {
-	t_vec3d	*v3;
-
 	vec3d_scale(inters, dist, &ray->direction);
 	vec3d_plus(inters, &ray->origin, inters);
 	if (vec3d_length(inters) == 0.0)

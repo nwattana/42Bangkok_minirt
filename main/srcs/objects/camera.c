@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:04:29 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 02:46:55 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/10 03:14:04 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int	is_parallel(t_vec3d *v1, t_vec3d *v2)
 
 void	init_camera(t_camera *camera)
 {
-	t_vec3d		w;
-	double		aux_cale;
-	t_vec3d		look_at;
-
-	aux_cale = 0;
 	camera->len = cale_camera_len(camera);
 	camera->aspect_ratio = WINDOW_WIDTH / WINDOW_HEIGHT;
 	camera_look_at(camera);
@@ -77,7 +72,7 @@ void	camera_up_vector(t_camera *camera)
 {
 	t_vec3d	world_up;
 
-	world_up = (t_vec3d){0, 1, };
+	world_up = (t_vec3d){0, 1, 0};
 	if (is_parallel(&camera->look_at, &world_up))
 	{
 		world_up = (t_vec3d){0, 0, 1};

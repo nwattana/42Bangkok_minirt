@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   a_raytrace_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:34:36 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 03:35:44 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/10 06:06:09 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 int	gather_inters_info(t_interparam *param, t_object *focus_obj)
 {

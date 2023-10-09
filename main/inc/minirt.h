@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 01:57:02 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 03:33:12 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/10 03:33:43 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "vector.h"
 # include "mlx_config.h"
 # include "prog_state.h"
+# include "rt_vlidator.h"
 
 # define PROGRAM_NAME "miniRT"
 # define WINDOW_WIDTH 640.0f
@@ -139,6 +140,7 @@ typedef struct s_prog
 	int				y;
 	int				item_count;
 	t_list			*cur_obj;
+	t_inst_counter	inst_counter;
 }	t_prog;
 
 typedef struct s_slight

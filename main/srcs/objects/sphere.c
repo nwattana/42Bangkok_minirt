@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:53:45 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 02:18:10 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/10 03:13:25 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	sp_test_intersection(void *object, t_interparam *p)
 	double		dist;
 	t_sphere	*sp;
 	t_object	*obj;
-	t_vec3d		out_vec;
 
 	obj = (t_object *)object;
 	sp = (t_sphere *)obj->object;
