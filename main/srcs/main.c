@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 02:45:58 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/11 02:35:10 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 03:02:51 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(int argc, char **argv)
 	read_rt_file(argv[1], &prog);
 	prog_init_mlx(&prog);
 	render_image(&prog);
-	ft_lstiter(prog.obj, print_object_iter);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img.img, 0, 0);
 	prog_mlx_loop(&prog);
 	return (0);
