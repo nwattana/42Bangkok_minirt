@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:54:48 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/10 06:36:17 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 01:32:28 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	read_rt_file(char *filepath, t_prog *prog)
 	while (1)
 	{
 		line = get_next_line(fd);
+		strreplace_space(line);
 		if (!line)
 			break ;
 		check_line(line, prog);

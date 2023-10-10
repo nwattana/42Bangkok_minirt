@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:48:23 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 00:43:53 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 01:28:30 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	ecerr(char *message, t_prog *prog);
 void	clean_gnl_buffer(int fd);
 void	clean_validator_util(t_prog *prog);
 int		is_rgb3d(t_vec3d *vec);
+int		strreplace_space(char *str);
 #endif

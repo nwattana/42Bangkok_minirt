@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:48:23 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 00:44:06 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 01:29:40 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int check_line_no_implement(char *line, t_prog *prog)
 		return (0);
 	if (ft_strlen(line) == 0 || is_skip_line(line))
 		return (0);
+	strreplace_space(line);
 	util->trimed = ft_strtrim(line, " \t\n");
 	if (util->trimed == NULL)
 		ecerr("- ft_strtrim return NULL", prog);
@@ -157,4 +158,21 @@ void init_inst_counter(t_inst_counter *ins)
 	ins->light_count = 0;
 	ins->object_count = 0;
 	ins->amb_light_count = 0;
+}
+
+int		strreplace_space(char *str)
+{
+	int i;
+
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\t' || str[i] == '\v' \
+			|| str[i] == '\f' || str[i] == '\r')
+			str[i] = ' ';
+		i++;
+	}
+	return (0);
 }
