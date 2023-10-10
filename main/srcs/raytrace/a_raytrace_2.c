@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:25:22 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/11 02:30:13 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:53:18 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,8 @@ int	trace_inters_to_light(t_prog *prog, \
 		temp = if_intersec(obj, param);
 		lst = lst->next;
 	}
-	if (param->f_dist < light_param->max_dist)
+	if (param->f_dist <= light_param->max_dist)
 		light_param->stuck = 1;
-	// if (param->f_dist < light_param->max_dist - 0.001)
-	// 	light_param->stuck = 1;
 	return (temp);
 }
 

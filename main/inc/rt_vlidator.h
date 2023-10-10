@@ -6,21 +6,20 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:48:23 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 01:28:30 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:55:18 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef RT_VALIDATOR_H
-# define RT_VALIDATOR_H
+#ifndef RT_VLIDATOR_H
+# define RT_VLIDATOR_H
 
 # include "minirt.h"
 
 typedef struct s_inst_counter{
-	int camera_count;
-	int light_count;
-	int object_count;
-	int amb_light_count;
+	int		camera_count;
+	int		light_count;
+	int		object_count;
+	int		amb_light_count;
 }	t_inst_counter;
 
 typedef struct s_validator_util
@@ -30,8 +29,7 @@ typedef struct s_validator_util
 	char	*trimed;
 	char	*err_message;
 	int		is_error;
-
-	int 	is_open_fd;
+	int		is_open_fd;
 	int		opened_fd;
 
 }	t_validator_util;

@@ -6,11 +6,11 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 06:35:48 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 00:34:22 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:47:25 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minirt.h"
+#include "../../inc/minirt.h"
 
 void	init_validator_util(t_validator_util *util)
 {
@@ -23,8 +23,8 @@ void	init_validator_util(t_validator_util *util)
 
 /// @brief use until finish validate process
 void	is_validate_error(t_prog *prog)
-{	
-	t_validator_util *util;
+{
+	t_validator_util	*util;
 
 	util = &(prog->validator_util);
 	if (util->is_error)
@@ -44,7 +44,7 @@ void	is_validate_error(t_prog *prog)
 /// @brief exit cause error
 void	ecerr(char *message, t_prog *prog)
 {
-	t_validator_util *util;
+	t_validator_util	*util;
 
 	util = &(prog->validator_util);
 	util->is_error = 1;
@@ -67,7 +67,7 @@ void	clean_gnl_buffer(int fd)
 
 void	clean_validator_util(t_prog *prog)
 {
-	t_validator_util *util;
+	t_validator_util	*util;
 
 	util = &(prog->validator_util);
 	free_set_null(&(util->err_message));

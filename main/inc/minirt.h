@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 01:57:02 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/11 02:29:43 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:58:40 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <math.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 # include "../zlib/libft.h"
 # include "../mlx/mlx.h"
@@ -60,7 +60,7 @@ typedef struct s_object
 
 typedef struct s_camera
 {
-	t_vec3d	position;
+	t_vec3d		position;
 	t_vec3d		normal;
 	double		fov;
 	double		fov_rad;
@@ -71,20 +71,20 @@ typedef struct s_camera
 	t_vec3d		u;
 	t_vec3d		v;
 	t_vec3d		top_left;
-}	t_camera;
+}				t_camera;
 
 typedef struct s_light
 {
-	t_vec3d	position;
+	t_vec3d		position;
 	t_color		color;
 	double		intensity;
 }				t_light;
 
 typedef struct s_ray
 {
-	t_vec3d	origin;
+	t_vec3d		origin;
 	t_vec3d		direction;
-}			t_ray;
+}				t_ray;
 
 typedef struct s_plane
 {
@@ -106,16 +106,16 @@ typedef struct s_interparam
 	t_color		f_color;
 	double		inters_dist;
 	int			inters_obj_id;
-	t_vec3d	inters_point;
+	t_vec3d		inters_point;
 	t_vec3d		inters_normal;
 	t_color		inters_color;
 	int			d_inters_obj_type;
 	t_color		final_color;
-}	t_interparam;
+}				t_interparam;
 
 typedef struct s_sphere
 {
-	t_vec3d	center;
+	t_vec3d		center;
 	double		radius;
 	t_color		color;
 }				t_sphere;
@@ -142,7 +142,7 @@ typedef struct s_prog
 	t_list				*cur_obj;
 	t_inst_counter		inst_counter;
 	t_validator_util	validator_util;
-}	t_prog;
+}						t_prog;
 
 typedef struct s_slight
 {
@@ -152,7 +152,7 @@ typedef struct s_slight
 
 typedef struct s_Cylinder
 {
-	t_vec3d	point;
+	t_vec3d		point;
 	double		radi;
 	double		len;
 	t_vec3d		normal;
@@ -173,11 +173,11 @@ typedef struct s_obslight
 
 typedef struct s_minter
 {
-	t_vec3d	sp_inters;
-	t_vec3d		sinter_normal;
-	t_color		sp_ints2inside;
-	t_color		sp_dist;
-}				t_minter;
+	t_vec3d			sp_inters;
+	t_vec3d			sinter_normal;
+	t_color			sp_ints2inside;
+	t_color			sp_dist;
+}					t_minter;
 
 int			validate_args(int argc, \
 	char **argv, t_prog *prog);
@@ -309,5 +309,5 @@ int			rotate_cylinder(t_prog *prog, double deg);
 int			pl_minus_trans(t_prog *prog);
 int			pl_plus_trans(t_prog *prog);
 int			perp_exit(int x, t_prog *prog);
-int 		if_intersec(t_object *obj, t_interparam *param);
+int			if_intersec(t_object *obj, t_interparam *param);
 #endif

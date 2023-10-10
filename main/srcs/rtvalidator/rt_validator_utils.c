@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 05:09:38 by narin             #+#    #+#             */
-/*   Updated: 2023/10/10 23:57:03 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:48:57 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ int	is_3d_realnum(char *str)
 	}
 	if (!is_real(splited[0]) || !is_real(splited[1]) || !is_real(splited[2]))
 	{
-		if (!is_real(splited[0]))
-			debug_message("is_3d_realnum: !is_real(splited[0])");
-		if (!is_real(splited[1]))
-			debug_message("is_3d_realnum: !is_real(splited[1])");
-		if (!is_real(splited[2]))
-			debug_message("is_3d_realnum: !is_real(splited[2])");
-		printf("is_3d_realnum: %s\n", splited[2]);
 		return (0);
 	}
 	ft_free_split(splited);
@@ -82,36 +75,4 @@ size_t	count_splited(char **splited)
 	while (splited[i])
 		i++;
 	return (i);
-}
-
-/// @brief compare till end of string
-int	ft_strcmp(char *str1, char *str2)
-{
-	int	i;
-
-	i = 0;
-	if (!str1 || !str2)
-	{
-		return (0);
-	}
-	while (str1[i] && str2[i] && str1[i] == str2[i])
-		i++;
-	return (str1[i] - str2[i]);
-}
-
-void	free_set_null(char **ptr)
-{
-	if (*ptr)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
-}
-
-int	is_rgb3d(t_vec3d *vec)
-{
-	if (vec->x < 0 || vec->y < 0 || vec->z < 0 \
-		|| vec->x > 255 || vec->y > 255 || vec->z > 255)
-		return (0);
-	return (1);
 }
