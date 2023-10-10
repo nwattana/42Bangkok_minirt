@@ -75,7 +75,7 @@ test: $(TEST_RT) all
 	@for item in $^ ; do \
 	if [ -f $$item ] ; then \
 		# echo "TEST file $$item  && ./$(NAME) $$item || echo $(GREEN)PASS$(RESET) && echo $(RED)FAIL$(RESET)"; \
-		echo -n "TEST file $$item \nresult:$(SEP2)" && ./$(NAME) $$item || echo "$(SEP2)$(GREEN)PASS$(RESET)\n" || echo "$(SEP2)$(RED)FAIL$(RESET)"; \
+		echo -n "TEST file $$item \nresult:$(SEP2)" && ./$(NAME) $$item && echo "$(SEP2)$(RED)FAIL$(RESET)" || echo "$(SEP2)$(GREEN)PASS$(RESET)" ; \
 		echo "$(SEPERATOR)" ;\
 	fi ;\
 	done ;\

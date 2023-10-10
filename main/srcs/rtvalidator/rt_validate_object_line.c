@@ -6,29 +6,36 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 05:40:02 by narin             #+#    #+#             */
-/*   Updated: 2023/10/10 05:57:44 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 00:17:33 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../inc/minirt.h"
 
+/// A real 3d_255
 int	check_ambient_light_line(char **splited, t_prog *prog)
 {
 	size_t	splited_count;
 	double	amb_light_ratio;
+	t_vec3d co;
 
 	splited_count = count_splited(splited);
 	if (splited_count != 3 \
 		|| !is_real(splited[1]) \
 		|| !is_3d_realnum(splited[2])
 	)
-		error_exit("- Invalid ambient light line", prog);
+		ecerr("- Invalid ambient light line", prog);
 	ft_strtod(splited[1], &amb_light_ratio);
 	if (amb_light_ratio < 0 || amb_light_ratio > 1)
-		error_exit("- Invalid ambient light ratio", prog);
+		ecerr("- Invalid ambient light ratio", prog);
+	collect_3d(splited[2], &co);
+	if (co.x < 0 || co.y < 0 || co.z < 0 \
+		|| co.x > 255 || co.y > 255 || co.z > 255)
+		ecerr("- Invalid ambient light color", prog);
 	return (0);
 }
 
+// C 3d unit_3d realnum
 int	check_camera_line(char **splited, t_prog *prog)
 {
 	size_t		splited_count;
@@ -36,29 +43,82 @@ int	check_camera_line(char **splited, t_prog *prog)
 	t_vec3d		vec;
 
 	splited_count = count_splited(splited);
-	if (splited_count != 4\
+	if (splited_count != 4 \
 		|| !is_3d_realnum(splited[1]) \
 		|| !is_3d_realnum(splited[2]) \
 		|| !is_real(splited[3])
 	)
-		error_exit("- Invalid camera line", prog);
+		ecerr("- Invalid camera line", prog);
 	collect_3d(splited[2], &vec);
-	if (vec.x < -1 || vec.x > 1 || vec.y < -1 || vec.y > 1 || vec.z < -1 || vec.z > 1)
-		error_exit("- Invalid camera orientation", prog);
-	if (vec3d_length(&vec) != 1)
-		error_exit("- Invalid camera orientation", prog);
+	if (fabs(vec.x) > 1 || fabs(vec.y) > 1 || fabs(vec.z) > 1)
+		ecerr("- Invalid camera orientation", prog);
 	ft_strtod(splited[3], &fov);
 	if (fov < 0 || fov > 180)
-		error_exit("- Invalid camera fov must be in range 1-179 degree", prog);
+		ecerr("- Invalid camera fov", prog);
 	prog->inst_counter.camera_count++;
 	return (0);
 }
 
+// R 3d realnum realnum
 int check_light_line(char **splited, t_prog *prog)
 {
 	size_t 	splited_count;
-	// double	temp;
-	// t_vec3d	vec;
+	t_vec3d	vec;
+	double	co;
+
+	splited_count = count_splited(splited);
+	if (splited_count < 3 \
+		|| splited_count > 4 \
+		|| !is_3d_realnum(splited[1]) \
+		|| !is_real(splited[2])
+	)
+	{
+		printf("splited_count: %zu\n", splited_count);
+		error_exit("- Invalid light line", prog);
+	}
+	if (splited_count == 4)
+	{
+		if (!is_3d_realnum(splited[3]))
+			error_exit("- Invalid light line", prog);
+		collect_3d(splited[3], &vec);
+		if (is_rgb3d(&vec) == 0)
+			ecerr("- Invalid ambient light color", prog);
+	}
+	ft_strtod(splited[2], &co);
+	if (co < 0 || co > 1)
+		ecerr("- Invalid light ratio", prog);
+	prog->inst_counter.light_count++;
+	return (0);
+}
+
+
+int check_plane_line(char **splited, t_prog *prog)
+{
+	size_t	splited_count;
+	t_vec3d	vec;
+
+	splited_count = count_splited(splited);
+	if (splited_count != 4 \
+		|| !is_3d_realnum(splited[1]) \
+		|| !is_3d_realnum(splited[2]) \
+		|| !is_3d_realnum(splited[3])
+	)
+		ecerr("- Invalid plane line", prog);
+	collect_3d(splited[2], &vec);
+	if (fabs(vec.x) > 1 || fabs(vec.y) > 1 || fabs(vec.z) > 1)
+		ecerr("- Invalid plane orientation", prog);
+	collect_3d(splited[3], &vec);
+	if (is_rgb3d(&vec) == 0)
+		ecerr("- Invalid plane color", prog);
+	prog->inst_counter.object_count++;
+	return (0);
+}
+
+int	check_sphere_line(char **splited, t_prog *prog)
+{
+	size_t	splited_count;
+	t_vec3d	vec;
+	double	dim;
 
 	splited_count = count_splited(splited);
 	if (splited_count != 4 \
@@ -66,8 +126,44 @@ int check_light_line(char **splited, t_prog *prog)
 		|| !is_real(splited[2]) \
 		|| !is_3d_realnum(splited[3])
 	)
-		error_exit("- Invalid light line", prog);
+		ecerr("- Invalid sphere line", prog);
+	collect_3d(splited[3], &vec);
+	if (is_rgb3d(&vec) == 0)
+		ecerr("- Invalid sphere color", prog);
+	ft_strtod(splited[2], &dim);
+	if (dim < 0)
+		ecerr("- Invalid sphere diameter", prog);
+	prog->inst_counter.object_count++;
+	return (0);
+}
 
-	prog->inst_counter.light_count++;
+int	check_cylinder_line(char **splited, t_prog *prog)
+{
+	size_t	splited_count;
+	t_vec3d	vec;
+	double	dim;
+
+	splited_count = count_splited(splited);
+	if (splited_count != 6 \
+		|| !is_3d_realnum(splited[1]) \
+		|| !is_3d_realnum(splited[2]) \
+		|| !is_real(splited[3]) \
+		|| !is_real(splited[4]) \
+		|| !is_3d_realnum(splited[5])
+	)
+		ecerr("- Invalid cylinder line", prog);
+	collect_3d(splited[2], &vec);
+	if (fabs(vec.x) > 1 || fabs(vec.y) > 1 || fabs(vec.z) > 1)
+		ecerr("- Invalid cylinder orientation", prog);
+	collect_3d(splited[5], &vec);
+	if (is_rgb3d(&vec) == 0)
+		ecerr("- Invalid cylinder color", prog);
+	ft_strtod(splited[3], &dim);
+	if (dim < 0)
+		ecerr("- Invalid cylinder diameter", prog);
+	ft_strtod(splited[4], &dim);
+	if (dim < 0)
+		ecerr("- Invalid cylinder height", prog);
+	prog->inst_counter.object_count++;
 	return (0);
 }

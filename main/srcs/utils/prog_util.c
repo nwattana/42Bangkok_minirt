@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:54:48 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/10 06:05:13 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/10 06:36:17 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	prog_constructor(t_prog *prog)
 	prog->has_light = 0;
 	prog->item_count = 0;
 	init_inst_counter(&(prog->inst_counter));
+	init_validator_util(&(prog->validator_util));
 	return (0);
 }
 

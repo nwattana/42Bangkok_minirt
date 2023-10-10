@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:54:36 by narin             #+#    #+#             */
-/*   Updated: 2023/10/10 05:06:44 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/10 06:41:01 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void	error_exit(char *msg, t_prog *prog)
 {
 	(void)prog;
-	printf(H_LINE5);
-	printf("EXIT with ERROR\n");
 	printf(RED"Error\n"CLOSE);
 	printf("%s\n", msg);
 	exit(1);

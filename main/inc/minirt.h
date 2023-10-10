@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 01:57:02 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/10 03:33:43 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/10 06:31:29 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,25 +122,26 @@ typedef struct s_sphere
 
 typedef struct s_prog
 {
-	int				p_state;
-	int				p_error;
-	t_list			*obj;
-	t_mlx_confix	mlx_config;
-	int				has_camera;
-	int				has_ambient;
-	int				has_light;
-	t_camera		camera;
-	t_light			light;
-	t_color			ambient_color;
-	double			ambient_intensity;
-	void			*selected_obj;
-	int				sel_type;
-	int				sel_axis;
-	int				x;
-	int				y;
-	int				item_count;
-	t_list			*cur_obj;
-	t_inst_counter	inst_counter;
+	int					p_state;
+	int					p_error;
+	t_list				*obj;
+	t_mlx_confix		mlx_config;
+	int					has_camera;
+	int					has_ambient;
+	int					has_light;
+	t_camera			camera;
+	t_light				light;
+	t_color				ambient_color;
+	double				ambient_intensity;
+	void				*selected_obj;
+	int					sel_type;
+	int					sel_axis;
+	int					x;
+	int					y;
+	int					item_count;
+	t_list				*cur_obj;
+	t_inst_counter		inst_counter;
+	t_validator_util	validator_util;
 }	t_prog;
 
 typedef struct s_slight
