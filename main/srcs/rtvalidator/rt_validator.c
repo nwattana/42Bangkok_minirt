@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:48:23 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 01:29:40 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:41:20 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int feed_check_config(char **splited, t_prog *prog)
 		ecerr("- Invalid instruction", prog);
 	return (error);
 }
+
 // are component in C A L # pl cy sp and empty line
 int valid_line_prefix(char *prefix, t_prog *prog)
 {

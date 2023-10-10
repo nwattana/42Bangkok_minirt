@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 05:40:02 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 00:17:33 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:42:21 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	check_ambient_light_line(char **splited, t_prog *prog)
 	if (co.x < 0 || co.y < 0 || co.z < 0 \
 		|| co.x > 255 || co.y > 255 || co.z > 255)
 		ecerr("- Invalid ambient light color", prog);
+	prog->inst_counter.amb_light_count++;
 	return (0);
 }
 

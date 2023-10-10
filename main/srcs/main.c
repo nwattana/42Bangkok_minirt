@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 02:45:58 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/11 00:20:57 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:35:10 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv)
 	}
 	pre_read_config(argv, &prog);
 	read_rt_file(argv[1], &prog);
-
 	prog_init_mlx(&prog);
 	render_image(&prog);
 	ft_lstiter(prog.obj, print_object_iter);
