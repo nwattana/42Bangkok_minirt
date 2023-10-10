@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 01:57:02 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/10 06:31:29 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/11 02:29:43 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ typedef struct s_obslight
 	double		max_dist;
 	double		angle_scale;
 	int			inters_obj;
-	double		scale_angle;
 	int			stuck;
 	t_slight	light;
 }				t_obslight;
