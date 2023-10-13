@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:04:29 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/10 03:14:04 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 05:07:15 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	camera_up_vector(t_camera *camera)
 	world_up = (t_vec3d){0, 1, 0};
 	if (is_parallel(&camera->look_at, &world_up))
 	{
-		world_up = (t_vec3d){0, 0, 1};
+		world_up = (t_vec3d){0, 0, -1};
 		debug_message("camera look_at is parallel to world_up\n");
 	}
 	vec3d_cross(&camera->u, &camera->look_at, &world_up);

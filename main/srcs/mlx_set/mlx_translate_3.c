@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:48:03 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/07 23:48:44 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/14 05:17:54 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	pl_minus_trans(t_prog *prog)
 	t_plane		*pl;
 	t_object	*obj;
 
-	printf("Call Handle plane -\n");
 	obj = prog->cur_obj->content;
 	pl = (t_plane *)obj->object;
 	if (prog->sel_axis == ACTIVE_X)
@@ -52,7 +51,6 @@ int	pl_plus_trans(t_prog *prog)
 	t_plane		*pl;
 	t_object	*obj;
 
-	printf("Call Handle plane + \n");
 	obj = prog->cur_obj->content;
 	pl = (t_plane *)obj->object;
 	if (prog->sel_axis == ACTIVE_X)
