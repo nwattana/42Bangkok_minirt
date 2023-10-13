@@ -39,12 +39,12 @@ RT_DIR=scene
 TEST_RT=$(shell find ./$(RT_DIR) -name "error*" -type f 2> /dev/null)
 
 %.o: %.c
-	$(CC) $(CFLAG) -c $< -o $@ $(MLX_FLAGS) -g
+	$(CC) $(CFLAG) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAG) $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC) -g
+	$(CC) $(CFLAG) $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
 $(LIBFT):
 	make -C zlib bonus
@@ -74,28 +74,27 @@ valgrind: all
 test: $(TEST_RT) all
 	@for item in $^ ; do \
 	if [ -f $$item ] ; then \
-		# echo "TEST file $$item  && ./$(NAME) $$item || echo $(GREEN)PASS$(RESET) && echo $(RED)FAIL$(RESET)"; \
-		echo -n "TEST file $$item \nresult:$(SEP2)" && ./$(NAME) $$item && echo "$(SEP2)$(RED)FAIL$(RESET)" || echo "$(SEP2)$(GREEN)PASS$(RESET)" ; \
+		echo "TEST file $$item \nresult:$(SEP2)" && ./$(NAME) $$item && echo "$(SEP2)$(RED)FAIL$(RESET)" || echo "$(SEP2)$(GREEN)PASS$(RESET)" ; \
 		echo "$(SEPERATOR)" ;\
 	fi ;\
 	done ;\
 
 filename: all
-	@echo -n "TEST file temp \nresult:$(SEP2)" && ./$(NAME) temp || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
-	@echo -n "$(SEPERATOR)"
-	@echo -n "TEST file .rt \nresult:$(SEP2)" && ./$(NAME) .rt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
-	@echo -n "$(SEPERATOR)"
-	@echo -n "TEST file rt \nresult:$(SEP2)" && ./$(NAME) rt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
-	@echo -n "$(SEPERATOR)"
-	@echo -n "TEST file r_t \nresult:$(SEP2)" && ./$(NAME) r_t || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
-	@echo -n "$(SEPERATOR)"
-	@echo -n "TEST file plain.txt \nresult:$(SEP2)" && ./$(NAME) plain.txt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
-	@echo -n "$(SEPERATOR)"
-	@echo -n "TEST file not_exist.rt\nresult:$(SEP2)" && ./$(NAME) not_exist.rt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "TEST file temp \nresult:$(SEP2)" && ./$(NAME) temp || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "$(SEPERATOR)"
+	@echo  "TEST file .rt \nresult:$(SEP2)" && ./$(NAME) .rt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "$(SEPERATOR)"
+	@echo  "TEST file rt \nresult:$(SEP2)" && ./$(NAME) rt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "$(SEPERATOR)"
+	@echo  "TEST file r_t \nresult:$(SEP2)" && ./$(NAME) r_t || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "$(SEPERATOR)"
+	@echo  "TEST file plain.txt \nresult:$(SEP2)" && ./$(NAME) plain.txt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "$(SEPERATOR)"
+	@echo  "TEST file not_exist.rt\nresult:$(SEP2)" && ./$(NAME) not_exist.rt || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
 	@echo "$(SEPERATOR)"
-	@echo -n "TEST file 'aa bb' \nresult:$(SEP2)" && ./$(NAME) aa bb || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "TEST file 'aa bb' \nresult:$(SEP2)" && ./$(NAME) aa bb || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
 	@echo "$(SEPERATOR)"
-	@echo -n "TEST file \nresult:$(SEP2)" && ./$(NAME)  || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
+	@echo  "TEST file \nresult:$(SEP2)" && ./$(NAME)  || echo "$(SEP2)->$(GREEN)PASS$(RESET)" || echo "$(SEP2)->$(RED)FAIL$(RESET)"; 
 	@echo "$(SEPERATOR)"
 
 
