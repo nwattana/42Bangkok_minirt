@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:19:39 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 00:15:13 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/13 02:25:51 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int	select_obj(t_prog *prog)
 		prog->cur_obj = prog->obj;
 	else if (prog->sel_type != CAMERA)
 		prog->cur_obj = prog->cur_obj->next;
+	if (prog->cur_obj == NULL)
+	{
+		printf("NO OBJECTS IN SCENE\n");
+		return (SUCCESS);
+	}
 	ob = (t_object *)prog->cur_obj->content;
 	prog->sel_type = ob->type;
 	printf("[ ");
