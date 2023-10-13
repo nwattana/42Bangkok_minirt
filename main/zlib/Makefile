@@ -6,11 +6,10 @@
 #    By: nwattana <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/22 22:36:19 by lsomrat           #+#    #+#              #
-#    Updated: 2023/10/08 02:37:59 by nwattana         ###   ########.fr        #
+#    Updated: 2023/10/14 02:30:46 by nwattana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# FIXME
 FLAGS	= -Wall -Wextra -Werror -g
 NAME	= libft.a
 SRCS	= ft_isalpha.c \

@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ambient_light_parse.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsomrat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:39:47 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/08 00:39:49 by lsomrat          ###   ########.fr       */
+/*   Updated: 2023/10/14 02:30:40 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minirt.h"
 
-// FIXME : handle unneeded params
 int	collect_ambient(char **split_line, t_prog *prog)
 {
 	double	intensity;
