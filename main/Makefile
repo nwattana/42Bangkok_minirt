@@ -28,6 +28,7 @@ ifeq ("$(shell uname)","Darwin")
 	MLX_TARGET=minilibx_opengl_20191021
 endif
 MLX_APATH=$(MLX_DIR)/libmlx.a
+MLX_LIB=./mlx/mlx.h
 
 # ----------- Libft ----------
 LIBFT_DIR=zlib
@@ -43,7 +44,7 @@ TEST_RT=$(shell find ./$(RT_DIR) -name "error*" -type f 2> /dev/null)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
 	$(CC) $(CFLAG) $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
 $(LIBFT):
@@ -51,6 +52,9 @@ $(LIBFT):
 
 $(MLX_APATH): mlxx
 	@echo $(MLX_APATH)
+
+$(MLX_LIB):
+	make mlxx
 
 # Build minilibx
 mlxx:
@@ -101,6 +105,7 @@ filename: all
 fclean: clean
 	make -C zlib fclean
 	-@rm -rf $(NAME)
+	-@rm -rf mlx
 
 re: fclean all
 
