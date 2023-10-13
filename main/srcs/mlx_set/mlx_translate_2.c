@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:44:46 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/07 23:49:49 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/14 04:57:13 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 int	select_active_axis(t_prog *prog, int kc)
 {
-	debug_message("SELECT ACTIVE AXIS\n");
+	if (kc == 6)
+		debug_message("SELECT ACTIVE AXIS Z\n");
+	if (kc == 7)
+		debug_message("SELECT ACTIVE AXIS X\n");
+	if (kc == 8)
+		debug_message("SELECT ACTIVE AXIS Y\n");
 	prog->sel_axis = kc;
 	return (SUCCESS);
 }

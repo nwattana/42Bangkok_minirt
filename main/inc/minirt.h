@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 01:57:02 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/11 02:58:40 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 04:37:17 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,4 +310,5 @@ int			pl_minus_trans(t_prog *prog);
 int			pl_plus_trans(t_prog *prog);
 int			perp_exit(int x, t_prog *prog);
 int			if_intersec(t_object *obj, t_interparam *param);
+void		init_light(t_light *l);
 #endif

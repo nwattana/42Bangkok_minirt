@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handle.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:19:39 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/13 02:25:51 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 05:04:34 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,17 @@ int	select_obj(t_prog *prog)
 	}
 	ob = (t_object *)prog->cur_obj->content;
 	prog->sel_type = ob->type;
-	printf("[ ");
+	ft_putstr_fd("[ ", 1);
 	print_obj_type(prog->sel_type);
-	printf(" ] SELECT\n");
+	ft_putstr_fd(" ] SELECT\n", 1);
 	return (SUCCESS);
 }
 
 int	rotate_axis(t_prog *prog, double deg)
 {
+	ft_putstr_fd("Rotate ", 1);
 	print_obj_type(prog->sel_type);
+	ft_putstr_fd("\n", 1);
 	if (prog->sel_type == CAMERA)
 		rotate_cam(prog, deg);
 	if (prog->sel_type == CYLINDER)

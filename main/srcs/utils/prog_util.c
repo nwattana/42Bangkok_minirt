@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prog_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:54:48 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/11 01:32:28 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 04:36:59 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,17 @@ int	prog_constructor(t_prog *prog)
 	prog->item_count = 0;
 	init_inst_counter(&(prog->inst_counter));
 	init_validator_util(&(prog->validator_util));
+	init_light(&prog->light);
 	return (0);
+}
+
+void	init_light(t_light *l)
+{
+	t_color	color;
+
+	color = (t_color){0, 0, 0};
+	ft_memcpy(&l->color, &color, sizeof(t_color));
+	l->intensity = 0;
 }
 
 int	read_rt_file(char *filepath, t_prog *prog)

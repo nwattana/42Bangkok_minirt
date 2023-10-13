@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_raytrace_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:25:22 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/11 02:53:18 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 04:35:04 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	trace_light(t_prog *prog, t_interparam *param)
 	trace_inters_to_light(prog, param, &l_param);
 	if (l_param.stuck == 0)
 		cale_angle_scale(&l_param, param);
-	color_scale(&l_param.light.light_color, \
+	if (prog->has_light)
+		color_scale(&l_param.light.light_color, \
 		l_param.angle_scale, &param->inters_color);
 	color_scale(&l_param.light.ambient_color, \
 		prog->ambient_intensity, &param->inters_color);

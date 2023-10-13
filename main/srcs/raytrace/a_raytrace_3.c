@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_raytrace_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:34:36 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/10 06:06:09 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 05:05:50 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ int	reset_inters_focus(t_interparam *param)
 void	print_obj_type(int type)
 {
 	if (type == SPHERE)
-		printf("SPHERE");
+		ft_putstr_fd("SPHERE", 1);
 	else if (type == PLANE)
-		printf("PLANE");
+		ft_putstr_fd("PLANE", 1);
 	else if (type == CYLINDER)
-		printf("CYLINDER");
+		ft_putstr_fd("CYLINDER", 1);
+	else if (type == CAMERA)
+		ft_putstr_fd(GREEN"CAMERA"CLOSE, 1);
+		
 }
