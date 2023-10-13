@@ -78,7 +78,7 @@ valgrind: all
 test: $(TEST_RT) all
 	@for item in $^ ; do \
 	if [ -f $$item ] ; then \
-		echo "TEST file $$item \nresult:$(SEP2)" && ./$(NAME) $$item && echo "$(SEP2)$(RED)FAIL$(RESET)" || echo "$(SEP2)$(GREEN)PASS$(RESET)" ; \
+		echo "TEST file $$item \nresult:" && ./$(NAME) $$item > /dev/null && echo "test result: $(RED)FAIL$(RESET)" || echo ": $(GREEN)PASS$(RESET)" ; \
 		echo "$(SEPERATOR)" ;\
 	fi ;\
 	done ;\
