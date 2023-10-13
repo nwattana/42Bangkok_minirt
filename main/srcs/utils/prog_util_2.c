@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prog_util_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:00:25 by lsomrat           #+#    #+#             */
-/*   Updated: 2023/10/10 06:05:24 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 02:06:20 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	count_char(char *str, int c)
 
 void	debug_message(char *msg)
 {
-	ft_putstr_fd(RED"DEBUG:"CLOSE, 2);
+	ft_putstr_fd(RED"WARNING:"CLOSE, 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 }

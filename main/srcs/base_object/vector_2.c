@@ -6,7 +6,7 @@
 /*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 23:29:29 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/07 23:30:32 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/14 02:08:17 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	vec3d_normalize(t_vec3d *a)
 	if (length == 0)
 	{
 		debug_message("vec3d_normalize: length is 0");
+		exit(0);
 	}
 	a->x /= length;
 	a->y /= length;
