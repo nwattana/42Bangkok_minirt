@@ -44,7 +44,7 @@ TEST_RT=$(shell find ./$(RT_DIR) -name "error*" -type f 2> /dev/null)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
+$(NAME): $(MLX_LIB) $(OBJS) $(LIBFT) 
 	$(CC) $(CFLAG) $(OBJS) -o $(NAME) $(MLX_APATH) $(MLX_FLAGS) $(LIBFT_ARC)
 
 $(LIBFT):
