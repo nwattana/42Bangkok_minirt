@@ -103,7 +103,7 @@ filename: all
 
 
 fclean: clean
-	make -C zlib fclean
+	-@make -C zlib fclean
 	-@rm -rf $(NAME)
 	-@rm -rf mlx
 

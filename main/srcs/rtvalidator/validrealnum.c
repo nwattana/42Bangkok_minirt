@@ -1,0 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validrealnum.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/14 01:42:36 by nwattana          #+#    #+#             */
+/*   Updated: 2023/10/14 02:04:25 by nwattana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/minirt.h"
+
+static void	relv_init(t_realv *rel)
+{
+	rel->is_minus = 0;
+	rel->is_dot = 0;
+	rel->prefix = 0;
+	rel->dot_count = 0;
+	rel->len = 0;
+	rel->i = 0;
+	rel->pass_dot = 0;
+	rel->pre_dot = 0;
+	rel->bypass = 1;
+}
+
+void	update_iter(t_realv *r)
+{
+	r->i++;
+	if (r->dot_count == 0)
+		r->pre_dot++;
+	else if (r->dot_count == 1)
+		r->pass_dot++;
+	else
+		r->bypass = 0;
+	if (r->dot_count == 1 && r->pre_dot < 1)
+		r->bypass = 0;
+}
+
+int	valid_realnul(t_realv *r)
+{
+	if (r->dot_count != 0)
+		if (r->pass_dot == 0 || r->pre_dot == 0)
+			return (0);
+	if (r->prefix > 1 && r->pre_dot == 0)
+		return (0);
+	return (1);
+}
+
+/// @brief is a number return 1, not a number return 0
+int	is_real(char *str)
+{
+	t_realv	r;
+
+	relv_init(&r);
+	if (!str)
+		return (0);
+	r.len = ft_strlen(str);
+	if (str[r.i] == '-')
+		r.i++;
+	while (str[r.i] != '\0' && r.bypass)
+	{
+		if (str[r.i] == '.')
+			r.dot_count++;
+		else if (ft_isdigit(str[r.i]) == 0)
+			return (0);
+		update_iter(&r);
+	}
+	return (valid_realnul(&r));
+}

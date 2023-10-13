@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rt_validator_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 05:09:38 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 02:48:57 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 02:03:14 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minirt.h"
-
-/// @brief is a number return 1, not a number return 0
-int	is_real(char *str)
-{
-	int		i;
-	int		dot_count;
-	int		len;
-
-	i = 0;
-	dot_count = 0;
-	len = ft_strlen(str);
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (str[i] == '.')
-			dot_count++;
-		if (!ft_isdigit(str[i]) && str[i] != '.')
-			return (0);
-		i++;
-	}
-	if (dot_count > 1 || (len == 1 && str[0] == '.') || str[len - 1] == '.')
-		return (0);
-	return (1);
-}
 
 /// @brief is 0,0,0, valid return 0, invalid return 1
 int	is_3d_realnum(char *str)

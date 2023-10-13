@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_vlidator.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 01:48:23 by narin             #+#    #+#             */
-/*   Updated: 2023/10/11 02:55:18 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 01:56:36 by nwattana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ typedef struct s_validator_util
 	int		opened_fd;
 
 }	t_validator_util;
+
+typedef struct s_realv
+{
+	int		is_minus;
+	int		is_dot;
+	int		prefix;
+	int		dot_count;
+	int		len;
+	int		i;
+	int		pass_dot;
+	int		pre_dot;
+	int		bypass;
+}	t_realv;
 
 int		pre_read_config(char **argv, t_prog *prog);
 int		check_line_no_implement(char *line, t_prog *prog);
