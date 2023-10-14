@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_raytrace_3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:34:36 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/14 05:05:50 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:58:33 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	init_intersection_param(t_prog *prog, t_ray *ray, t_interparam *param)
 	param->inters_color = (t_color){0, 0, 0};
 	param->start_ray_obj_id = CAMERA_ID;
 	param->hit = 1;
+	param->f_ishit = 0;
 	return (SUCCESS);
 }
 
@@ -57,5 +58,4 @@ void	print_obj_type(int type)
 		ft_putstr_fd("CYLINDER", 1);
 	else if (type == CAMERA)
 		ft_putstr_fd(GREEN"CAMERA"CLOSE, 1);
-		
 }

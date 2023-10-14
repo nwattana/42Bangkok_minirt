@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:55:15 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/08 00:56:50 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:45:20 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	pl_sub_intersect(t_plane *plane, t_interparam *param)
 		param->f_point.x = param->ray->origin.x + dist * ray->x;
 		param->f_point.y = param->ray->origin.y + dist * ray->y;
 		param->f_point.z = param->ray->origin.z + dist * ray->z;
-		param->f_normal = plane->normal;
+		ft_memcpy(&param->f_normal, &plane->normal, sizeof(t_vec3d));
 		param->f_ishit = 1;
 	}
 	return (param->f_ishit);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   a_raytrace_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwattana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 03:25:22 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/14 04:35:04 by nwattana         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:50:20 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	trace_inters_to_light(t_prog *prog, \
 
 	lst = prog->obj;
 	temp = 0;
-	while (lst && !temp)
+	light_param->stuck = 0;
+	while (lst && !light_param->stuck)
 	{
 		reset_inters_focus(param);
 		obj = (t_object *)lst->content;
@@ -71,9 +72,9 @@ int	trace_inters_to_light(t_prog *prog, \
 		}
 		temp = if_intersec(obj, param);
 		lst = lst->next;
+		if (param->f_dist <= light_param->max_dist)
+			light_param->stuck = 1;
 	}
-	if (param->f_dist <= light_param->max_dist)
-		light_param->stuck = 1;
 	return (temp);
 }
 
@@ -85,7 +86,9 @@ int	if_intersec(t_object *obj, t_interparam *param)
 	if (obj->type == SPHERE)
 		temp = sp_test_intersection(obj, param);
 	else if (obj->type == PLANE)
+	{
 		temp = pl_test_intersection(obj, param);
+	}
 	else if (obj->type == CYLINDER)
 		temp = cy_test_intersection(obj, param);
 	return (temp);

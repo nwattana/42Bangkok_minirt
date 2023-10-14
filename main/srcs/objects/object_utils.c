@@ -6,7 +6,7 @@
 /*   By: narin <narin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 00:57:18 by nwattana          #+#    #+#             */
-/*   Updated: 2023/10/10 03:13:20 by narin            ###   ########.fr       */
+/*   Updated: 2023/10/14 17:48:52 by narin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ double	pl_cale_dist(t_ray *ray, t_plane *pl, int *hit, t_interparam *param)
 		return (0);
 	vec3d_minus(&inters_point, &pl->point, &ray->origin);
 	dist = vec3d_dot(&inters_point, &pl->normal) / dot;
-	if (dist < 0)
+	if (dist <= 0)
 		return (0);
 	ft_memcpy(&param->f_normal, &pl->normal, sizeof(t_vec3d));
 	if (dot > 0)
